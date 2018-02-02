@@ -1,0 +1,8 @@
+- Generate a graph including: 
+  - data for 3 versions programs (original files, phase 1 optimized, minimized)
+  - 6 columns for each program (runtime and # of bangs)
+  - colorcoded columns
+  - might spread to two rows of graphs
+- Implement check if phase 1 optimized runtime = original runtime, then don't minimize
+- Eliminate GHC proven safe bangs from minimized results
+- Investigate and fix problem programs and programs with negative runtime

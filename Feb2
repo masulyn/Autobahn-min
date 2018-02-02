@@ -1,0 +1,21 @@
+Completed:
+  - Got raw data for nofib benchmarks 
+    - Issues: fannkuch-recux, fasta, n-body (longer than expected) anna, atom (not enough input), fulsom, symalg (illegal method definition), banner, ansi, awards, pretty, scc, gen_regexps (autobahn cannot optomize, basetime negligible), 
+    - Notable improvements: cacheprof, fluid, gg, hidden, prolog, reptile, scs, boyer2
+
+Plan for next week:
+  - Further eliminate bangs by using GHC to predict safe bangs
+  - Generate graphs
+  - Clean up modules
+  - figure out programs with issues
+  
+To do:
+  - Clean up modules
+  - Integrate with first phase of Autobahn
+  - gamteb has a folder called results
+  - tweak/optimize thresholds
+
+Data included in data.txt
+
+
+

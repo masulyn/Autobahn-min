@@ -1,0 +1,34 @@
+- Implemented insignificant improvement check (error or 0 bangs?)
+- "Problem" programs fixed
+  longer than expected:
+    - fannkuch-redux, fasta, n-body 
+  not enough input:
+    - anna, atom 
+  illegal method definition:
+    - fulsom, symalg 
+    - fixed, pattern bindings (except simple variables) not allowed in instance declarations
+  autobahn cannot optomize, basetime negligible:
+    - banner, ansi, awards, pretty, scc, gen_regexps 
+    - Remy's paper included them? maybe basetime check was implemented later?
+  -1 runtime fixed after rerunning phase 1:
+  fluid
+  expert
+  multiplier
+  power
+  simple - 
+  sorting - didn't work... not included in Remy's graph either
+  treejoin
+  anna
+  atom
+  fulsom
+  symalg
+  fannkuch-redux  
+  fasta
+  n-body
+
+- GHC demand analysis: parsed file...hear back from Remy
+
+To do:
+  - Finish GHC Demand Analysis part
+  - Combine Autobahn and min?
+  - Fix graph (messy)

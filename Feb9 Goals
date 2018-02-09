@@ -1,0 +1,6 @@
+- Integrate Autobahn, minimizer and demand analysis into one version
+- Test it on 2 other programs included in Remy's paper
+- Finetune graph:
+  - No gaps between bars
+  - 3 different shades representing different versions 
+  - For very long bars, cut off the graph and label number

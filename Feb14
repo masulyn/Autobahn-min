@@ -1,0 +1,8 @@
+Update on problem programs:
+  - not caused by minimizer
+  - timeout in Autobahn (non termination or bad run)
+  - coincide with problem programs in Remy's paper
+  - solution: fix Autobahn or ignore for now
+  - can occassionally be fixed using minimzer (fluid)
+  
+  

@@ -1,8 +1,10 @@
 Update on problem programs:
-  - not caused by minimizer
+  - not caused by minimizer (non termination/timeout -> negative runtime in nofib -> autobahn 2.0 error code)
   - timeout in Autobahn (non termination or bad run)
   - coincide with problem programs in Remy's paper
   - solution: fix Autobahn or ignore for now (increasing timeout)
   - can occassionally be fixed using minimzer (fluid, expert, power, simple, treejoin)
   
+ Tweaked graphs, need to label very long columns
+ 
   

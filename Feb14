@@ -7,4 +7,14 @@ Update on problem programs:
   
  Tweaked graphs, need to label very long columns
  
+ Demand analysis:
+  - infinite loop
+  
+ gcsimulator
+  - merging profiling, main, util src files
+  
+ To-do:
+  - run gcsimulator
+  - fix demand analysis
+ 
   

@@ -12,6 +12,7 @@ Update on problem programs:
   
  gcsimulator
   - merging profiling, main, util src files
+  - package versions
   
  To-do:
   - run gcsimulator

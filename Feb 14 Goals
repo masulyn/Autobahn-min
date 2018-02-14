@@ -1,0 +1,15 @@
+Graphs:
+  - normalize runtime (original runtime 1)
+  - change bangs y axis scale to < 20
+  - darken color of min instead of original
+  - gaps between programs
+  - label very long columns
+
+Problem Programs:
+  - Talk to Dio, figure out exactly how they handled them
+  - Report problem programs by marking and explaining with asterisk
+    - Report average and minimum of 10 runs
+    - Negative run time returns original unopt program for both optimizing and minimizing phases
+
+Merge/run gcsimulator
+Fix demand analysis

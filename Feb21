@@ -1,0 +1,7 @@
+1. Tweaked graphs - messy labels
+2. Ran gcSimulator
+  - gcSimulator requires >=4.8.0 < 4.9 base, but minimizer requires 4.9 base (upgraded gcSimulator for now)
+  - parsing errors (manually fixed for now)
+  - Could not minimize because improvement was minimal
+3. Ran demand analysis
+4. Talked to Dio - confirmed unreported nonworking programs in paper

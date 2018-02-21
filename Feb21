@@ -3,5 +3,7 @@
   - gcSimulator requires >=4.8.0 < 4.9 base, but minimizer requires 4.9 base (upgraded gcSimulator for now)
   - parsing errors (manually fixed for now)
   - Could not minimize because improvement was minimal
-3. Ran demand analysis
+3. Ran demand analysis 
+  - haven't finished running it on all nofib benchmarks yet
+  - usually around 1 or 2 safebangs marked so far
 4. Talked to Dio - confirmed unreported nonworking programs in paper, still in process of getting average runs

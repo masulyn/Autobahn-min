@@ -1,6 +1,7 @@
 1. Rerun experiments on server
   - identify interesting experiments by category, run them multiple times and find average
-  - Sort graph by decreasing runtime
+  - Sort graph by decreasing runtime, normalize runtime
+  - Check for random initial seed in every run, feed with haskell generated random seed if necessary
 2. Move gcSimulator experiments onto server
   - Run on larger trace files
   - Ask Dio about upper constraint of base for gcSimulator

@@ -1,0 +1,11 @@
+Good = Consistently successful benchmarks (as determined by at least 3 runs)
+Too Fast = Original run time too fast, phase 1 refuses to optimize (discard after 1 run)
+Not Optimized = phase 1 optimized too little, minimizer refuses to minimize (discard after 1 run)
+Inconsistent = Occasionally failed, occasionally successful benchmarks (run 10 times, find average)
+Bad = Consistently failed benchmarks (as determined by list from Dio and at least 3 runs. find out why and discard)
+Broken = Original benchmark failed to build (discard after 1 run)
+
+Date:       
+Categories:
+Results:
+

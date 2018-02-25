@@ -1,11 +1,22 @@
+Benchmark Categories:
+
 Good = Consistently successful benchmarks (as determined by at least 3 runs)
-Too Fast = Original run time too fast, phase 1 refuses to optimize (discard after 1 run)
+Too Fast = Original run time too fast, phase 1 refuses optimize (discard after 1 run)
 Not Optimized = phase 1 optimized too little, minimizer refuses to minimize (discard after 1 run)
 Inconsistent = Occasionally failed, occasionally successful benchmarks (run 10 times, find average)
 Bad = Consistently failed benchmarks (as determined by list from Dio and at least 3 runs. find out why and discard)
 Broken = Original benchmark failed to build (discard after 1 run)
 
-Date:       
-Categories:
+*Success = whether there was at least 1 non error-code runtime result (even if optimized runtime equals unoptimized runtime)
+*Too Fast = < 0.05 runtime
+
+Date:  2018-02-25     
+Categories: All
 Results:
+  Good = binary-trees cryptarithm2 cryptarithm1 fannkuch-redux wheel-sieve1 fasta fish clausify life integer x2n1 eliza maillist pidigits n-body puzzle tak integrate kahan queens rfib paraffin primes simple bernouilli treejoin exp3_8 cichelli lcss pic(fast) rsa(fast) wheel-sieve2 atom cacheprof gamteb(fast) scs fem(fast) gcd minimax infer hidden reptile
+  Too Fast = pretty scc gen_regexps ansi banner
+  Not Optimized = awards boyer2 calendar cse gg prolog
+  Inconsistent = fulsom symalg fluid anna expert multiplier sorting
+  Bad = 
+  Broken
 

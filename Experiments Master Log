@@ -10,7 +10,28 @@ Broken = Original benchmark failed to build (discard after 1 run)
 *Success = whether there was at least 1 non error-code runtime result (even if optimized runtime equals unoptimized runtime)
 *Too Fast = < 0.05 runtime
 
-Date:  2018-02-25     
+Date:  2018-02-25 Run #1
+Categories: All
+Results:
+  Good = binary-trees cryptarithm2 cryptarithm1 fannkuch-redux wheel-sieve1 fasta fish clausify life integer x2n1 eliza maillist pidigits n-body puzzle tak integrate kahan queens rfib paraffin primes simple bernouilli treejoin exp3_8 cichelli lcss pic(fast) rsa(fast) wheel-sieve2 atom cacheprof gamteb(fast) scs fem(fast) gcd minimax infer hidden reptile
+  Too Fast = pretty scc gen_regexps ansi banner
+  Not Optimized = awards boyer2 calendar cse gg prolog
+  Inconsistent = fulsom symalg fluid anna expert multiplier sorting
+  Bad = 
+  Broken
+  
+  
+Date:  2018-02-25 Run #2    
+Categories: All
+Results:
+  Good = binary-trees cryptarithm2 cryptarithm1 fannkuch-redux wheel-sieve1 fasta fish clausify life integer x2n1 eliza maillist pidigits n-body puzzle tak integrate kahan queens rfib paraffin primes simple bernouilli treejoin exp3_8 cichelli lcss pic(fast) rsa(fast) wheel-sieve2 atom cacheprof gamteb(fast) scs fem(fast) gcd minimax infer hidden reptile
+  Too Fast = pretty scc gen_regexps ansi banner
+  Not Optimized = awards boyer2 calendar cse gg prolog
+  Inconsistent = fulsom symalg fluid anna expert multiplier sorting
+  Bad = 
+  Broken
+  
+Date:  2018-02-25 Run #3
 Categories: All
 Results:
   Good = binary-trees cryptarithm2 cryptarithm1 fannkuch-redux wheel-sieve1 fasta fish clausify life integer x2n1 eliza maillist pidigits n-body puzzle tak integrate kahan queens rfib paraffin primes simple bernouilli treejoin exp3_8 cichelli lcss pic(fast) rsa(fast) wheel-sieve2 atom cacheprof gamteb(fast) scs fem(fast) gcd minimax infer hidden reptile

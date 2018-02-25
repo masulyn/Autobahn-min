@@ -19,7 +19,7 @@ Results:
          reptile
   Too Fast = pretty scc gen_regexps ansi banner
   Not Optimized = awards boyer2 calendar cse gg prolog
-  Inconsistent = fulsom symalg fluid anna expert multiplier sorting
+  Inconsistent = fulsom symalg fluid anna(takes forever) expert multiplier sorting
   Bad = 
   Broken
   

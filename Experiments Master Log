@@ -19,9 +19,11 @@ Results:
          reptile
   Too Fast = pretty scc gen_regexps ansi banner
   Not Optimized = awards boyer2 calendar cse gg prolog
-  Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) multiplier(f) sorting(f)
-  Bad = 
-  Broken
+  Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) sorting(f)
+  Bad = multiplier
+  Broken = everything in fibon, gc/hash
+          gc: 
+          spectral: multiplier power compreals lambda last-piece mate salishan secretary triangle
   
 *f = failed
 *s = succeeded

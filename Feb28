@@ -1,0 +1,16 @@
+- Ran into many many major issues with running experiments on server (very frustrating)
+  - GHC was being upgraded once more and got permission denied for two days
+  - Disk quota exceeded (twice in two days)
+  - aeson exception (stack upgrade)
+  - gcSimulator still not reproducing results (manually fixed errors and forced rebuilding)
+- Created experiments master log
+  - aim: categorize and record every single run on all benchmarks for ~ 8 runs
+  - reality: couldn't complete more than two runs because of server issues
+- Randomized generator to guarantee randomness
+- Deadline: I am worried I might not get results in time but I am very determined to make this work. 
+  Early track:
+    Submission deadline:	30 March 2018	Friday
+    Notification:	18 May 2018	Friday
+  Regular track and demos:
+    Submission deadline:	8 June 2018	Friday
+    Notification:	13 July 2018	Friday

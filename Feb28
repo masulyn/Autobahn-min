@@ -7,6 +7,7 @@
   - aim: categorize and record every single run on all benchmarks for ~ 8 runs
   - reality: couldn't complete more than two runs because of server issues
 - Randomized generator to guarantee randomness
+- Sorted graphs, normalized runtime - but they don't mean anything until I get more data
 - Deadline: I am worried I might not get results in time but I am very determined to make this work. 
   Early track:
     Submission deadline:	30 March 2018	Friday

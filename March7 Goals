@@ -1,0 +1,8 @@
+1. Finish Aeson benchmarks testing
+  - Investigate issue with convert driving
+  - Test on large json trace files
+2. Fix nofib on Marilyn's account
+  - Talk to Mike + Dio
+  - Continue gathering nofib results
+3. Break down gcSim into smaller parts and figure out why it returns 1.0
+

@@ -39,16 +39,25 @@ Results:
 *s = succeeded
 *parse error: builds on its own but can't be parsed
   
-Date:  2018-02-25 Run #2    
+Date:  2018-03-11 Run #2    
 Categories: Good, Inconsistent, Bad
 Results:
-  Good = infer
+  Good = atom, awards, bernouilli, binary-trees
   Not Optimized = 
-  Inconsistent = expert(f), fulsom(f), sorting(f)
+  Inconsistent = anna(f), 
   Bad = 
   Broken
   
-Date:  2018-02-25 Run #3
+Date:  2018-03-12 Run #3
+Categories: All
+Results:
+  Good = 
+  Not Optimized = 
+  Inconsistent = 
+  Bad = 
+  Broken
+  
+Date:  2018-03-13 Run #4
 Categories: All
 Results:
   Good = 

@@ -19,8 +19,9 @@ Date:  2018-02-25 Run #1
 Categories: All
 Results:
   Good = fish lcss pic(fast) atom infer callback001 callback002 threads001 gg
+         prolog
   Too Fast = pretty scc gen_regexps ansi banner
-  Not Optimized = awards boyer2 calendar cse prolog
+  Not Optimized = awards boyer2 calendar cse
                   binary-trees cryptarithm1 clausify integer puzzle rfib paraffins
                   rsa wheel-sieve2 gamteb fem gcd threads007 threads001 threads003
   Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) 

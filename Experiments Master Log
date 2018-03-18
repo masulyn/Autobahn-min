@@ -9,18 +9,22 @@ Broken = Original benchmark failed to build (discard after 1 run)
 
 *Success = whether there was at least 1 non error-code runtime result (even if optimized runtime equals unoptimized runtime)
 *Too Fast = < 0.05 runtime
+*f = failed
+*s = succeeded
+*parse error: builds on its own but can't be parsed
+*nobits = no bits generated?
 
+================================================================================
 Date:  2018-02-25 Run #1
 Categories: All
 Results:
-  Good = binary-trees cryptarithm2 cryptarithm1 fannkuch-redux wheel-sieve1 fasta fish clausify life integer x2n1 eliza 
-         maillist pidigits n-body puzzle tak integrate kahan queens rfib paraffin primes simple bernouilli treejoin exp3_8 
-         cichelli lcss pic(fast) rsa(fast) wheel-sieve2 atom cacheprof gamteb(fast) scs fem(fast) gcd minimax infer hidden 
-         reptile callback001 callback002 threads007 threads001 threads003 sumeuler sieve spellcheck queens partree parfib
-         mutstore1 mutstore2 constraints gc_bench
+  Good = fish lcss pic(fast) atom infer callback001 callback002 threads001 
   Too Fast = pretty scc gen_regexps ansi banner
   Not Optimized = awards boyer2 calendar cse gg prolog
-  Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) sorting(f)
+                  binary-trees cryptarithm1 clausify integer puzzle rfib paraffins
+                  rsa wheel-sieve2 gamteb fem gcd threads007 threads001 threads003
+  Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) 
+                 sorting(f)
   Bad = spectral: multiplier power
         smp: stm001 tchan threads002
         parallel: partak
@@ -31,14 +35,13 @@ Results:
           spectral: compreals lambda last-piece mate salishan secretary triangle
           smp: stm002 systolic tchan threads004 threads005
           parallel: cfd dcbm linsolv nbody partak quicksort threadfib warshall
-          parse errors: transclos spectral-norm reverse-complement prsa minimax matmult
+          parse errors: transclos spectral-norm reverse-complement prsa minimax 
+                        matmult
           no bits: ray mandel k-nucleotide happy blackscholes circsim fibheaps
    
 *yet to check fibon folder  
-*f = failed
-*s = succeeded
-*parse error: builds on its own but can't be parsed
-  
+
+================================================================================  
 Date:  2018-03-11 Run #2    
 Categories: Good, Inconsistent, Bad
 Results:
@@ -48,6 +51,7 @@ Results:
   Bad = 
   Broken
   
+================================================================================  
 Date:  2018-03-12 Run #3
 Categories: All
 Results:
@@ -57,6 +61,7 @@ Results:
   Bad = 
   Broken
   
+================================================================================  
 Date:  2018-03-13 Run #4
 Categories: All
 Results:

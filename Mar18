@@ -1,5 +1,5 @@
 - Figured out why nofib wouldn't build (timeout)
-- Ran nofib phase 1 and min 4 times with randomized number generator
+- Ran nofib phase 1 and min 4 times with randomized number generator (full records see master log)
   - Good benchmarks are easy to categorize: ~20-25 benchmarks consistently successfully go through phase 1 and minimizer
     - Noticed something new: about half of the programs minimize to 0 bangs (for example see output-2018-03-13 file)
     - This shrinks the dataset to only a handful of "good" ones
@@ -14,5 +14,6 @@
   - Couldn't find the object.json that Remy used to optimize with, so used zips.json
   - Minimizer still can't run directly using cabal on Aeson yet (options necessary for generatig profiles are not allowed 
                                                                 to use with cabal to build Aeson...need a work around)
+- abstract for undergrad symposium
 - Switching advisors?
   

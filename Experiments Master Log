@@ -39,14 +39,14 @@ Results:
           smp: stm002 systolic tchan threads004 threads005 sieve
           parallel: cfd dcbm linsolv nbody partak quicksort threadfib warshall
                     parfib partree sumeuler
-          shootout: fannkuch-redux
+          shootout: fannkuch-redux n-body
           parse errors: transclos spectral-norm reverse-complement prsa minimax 
                         matmult
           no bits: ray mandel k-nucleotide happy blackscholes circsim fibheaps
    Weird = fannkuch-redux (non terminating after phase 1) 
            anna (not enough input) 
            fulsom symalg (illegal method definition)
-           n-body 
+
    
 *yet to check fibon folder  
 
@@ -54,14 +54,17 @@ Results:
 Date:  2018-03-11 Run #2    
 Categories: Good, Inconsistent, Bad
 Results:
-  Good = atom, awards, bernouilli, binary-trees
+  Good = atom, awards, bernouilli queens puzzle callback001 cryptarithm2 treejoin
          lcss wheel-sieve2 rsa pic gg hidden expert scs x2n1 spellcheck sorting
   Not Optimized = simple prolog reptile minimax infer gcd gamteb fem cichelli
                   cse calendar cacheprof boyer2 awards wheel-sieve1 threads007
-                  threads003 threads001 tak
-  Inconsistent = anna(f), 
+                  threads003 threads001 tak pidigits mutstore2 binary-trees
+                  clausify cryptarithm1 exp3_8 integer integrate life maillist
+                  primes
+  Inconsistent = anna(f), rfib
   Bad = 
     Weird - symalg fulsom anna
+
   
 ================================================================================  
 Date:  2018-03-12 Run #3

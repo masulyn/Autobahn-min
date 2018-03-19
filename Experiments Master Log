@@ -36,7 +36,7 @@ Results:
   Broken = gray threads006
           gc: cacheprof hash constraints gc_bench
           spectral: compreals lambda last-piece mate salishan secretary triangle
-          smp: stm002 systolic tchan threads004 threads005
+          smp: stm002 systolic tchan threads004 threads005 sieve
           parallel: cfd dcbm linsolv nbody partak quicksort threadfib warshall
                     parfib partree sumeuler
           shootout: fannkuch-redux

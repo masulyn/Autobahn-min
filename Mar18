@@ -1,0 +1,18 @@
+- Figured out why nofib wouldn't build (timeout)
+- Ran nofib phase 1 and min 4 times with randomized number generator
+  - Good benchmarks are easy to categorize: ~20-25 benchmarks consistently successfully go through phase 1 and minimizer
+    - Noticed something new: about half of the programs minimize to 0 bangs (for example see output-2018-03-13 file)
+    - This shrinks the dataset to only a handful of "good" ones
+    - Can't really tell if it's an algorithm problem (currently benchmarking runtime only) or
+        a problem with nofib having programs that are hard to show improvement (benchmark results fluctuate a lot, lots
+                                                                                of small fast programs)
+    - Lower runtime improvement requirement from 6%?
+  - Over half (~30-35) of programs < 6% runtime improvement
+  - A handful (<10) inconsistent/bad benchmarks that sometimes succeed and sometimes don't. Most often they don't.
+  - The rest are programs too fast to optimize or broken
+- Finally got Aeson to build (reading and writing timing information in different places, most likely fix to gcSim problem too)
+  - Couldn't find the object.json that Remy used to optimize with, so used zips.json
+  - Minimizer still can't run directly using cabal on Aeson yet (options necessary for generatig profiles are not allowed 
+                                                                to use with cabal to build Aeson...need a work around)
+- Switching advisors?
+  

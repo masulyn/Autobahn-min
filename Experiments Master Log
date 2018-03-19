@@ -55,9 +55,13 @@ Date:  2018-03-11 Run #2
 Categories: Good, Inconsistent, Bad
 Results:
   Good = atom, awards, bernouilli, binary-trees
-  Not Optimized = 
+         lcss wheel-sieve2 rsa pic gg hidden expert scs x2n1 spellcheck sorting
+  Not Optimized = simple prolog reptile minimax infer gcd gamteb fem cichelli
+                  cse calendar cacheprof boyer2 awards wheel-sieve1 threads007
+                  threads003 threads001 tak
   Inconsistent = anna(f), 
   Bad = 
+    Weird - symalg fulsom anna
   
 ================================================================================  
 Date:  2018-03-12 Run #3

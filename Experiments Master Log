@@ -52,18 +52,18 @@ Results:
 
 ================================================================================  
 Date:  2018-03-11 Run #2    
-Categories: Good, Inconsistent, Bad
+Categories: Good, Inconsistent (forgot to run Bad)
 Results:
-  Good = atom, awards, bernouilli queens puzzle callback001 cryptarithm2 treejoin
+  Good = atom bernouilli queens puzzle callback001 cryptarithm2 treejoin
          lcss wheel-sieve2 rsa pic gg hidden expert scs x2n1 spellcheck sorting
+         fasta kahan fish gcpower gclcss
   Not Optimized = simple prolog reptile minimax infer gcd gamteb fem cichelli
                   cse calendar cacheprof boyer2 awards wheel-sieve1 threads007
                   threads003 threads001 tak pidigits mutstore2 binary-trees
                   clausify cryptarithm1 exp3_8 integer integrate life maillist
-                  primes
-  Inconsistent = anna(f), rfib
-  Bad = 
-    Weird - symalg fulsom anna
+                  primes parraffins callback002
+  Inconsistent = anna(f) rfib mutstore1 gcfulsom
+  Weird = symalg fulsom anna minimax optimized but no survivor folder
 
   
 ================================================================================  

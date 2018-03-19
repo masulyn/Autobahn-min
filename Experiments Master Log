@@ -19,26 +19,34 @@ Date:  2018-02-25 Run #1
 Categories: All
 Results:
   Good = fish lcss pic(fast) atom infer callback001 callback002 threads001 gg
-         prolog
+         prolog cichelli eliza fasta fluid gcpower hidden maillist primes simple
+         sorting x2n1 wheel-sieve1 treejoin tak gclcss
   Too Fast = pretty scc gen_regexps ansi banner
-  Not Optimized = awards boyer2 calendar cse
+  Not Optimized = awards boyer2 calendar cse cacheprof queens reptile scs spellcheck
                   binary-trees cryptarithm1 clausify integer puzzle rfib paraffins
                   rsa wheel-sieve2 gamteb fem gcd threads007 threads001 threads003
+                  exp3_8 integrate kahan life mutstore1 mutstore2 (timeout) pidigits
   Inconsistent = fulsom(f) symalg(f) fluid(f) anna(f, takes forever) expert(f) 
-                 sorting(f)
+                 sorting(f), minimax (f)
   Bad = spectral: multiplier power
         smp: stm001 tchan threads002
         parallel: partak
         imaginary: digits-of-e1 digits-of-e2
         gc: treejoin linear 
   Broken = gray threads006
-          gc: cacheprof hash
+          gc: cacheprof hash constraints gc_bench
           spectral: compreals lambda last-piece mate salishan secretary triangle
           smp: stm002 systolic tchan threads004 threads005
           parallel: cfd dcbm linsolv nbody partak quicksort threadfib warshall
+                    parfib partree sumeuler
+          shootout: fannkuch-redux
           parse errors: transclos spectral-norm reverse-complement prsa minimax 
                         matmult
           no bits: ray mandel k-nucleotide happy blackscholes circsim fibheaps
+   Weird = fannkuch-redux (non terminating after phase 1) 
+           anna (not enough input) 
+           fulsom symalg (illegal method definition)
+           n-body 
    
 *yet to check fibon folder  
 
@@ -50,7 +58,6 @@ Results:
   Not Optimized = 
   Inconsistent = anna(f), 
   Bad = 
-  Broken
   
 ================================================================================  
 Date:  2018-03-12 Run #3

@@ -67,22 +67,36 @@ Results:
 
   
 ================================================================================  
-Date:  2018-03-12 Run #3
-Categories: All
+Date:  2018-03-13 Run #3 (also lost log files for min 2018-03-13 sad)
+Categories: Good, Inconsistent (forgot to run Bad), got rid of improvement check
 Results:
-  Good = 
-  Not Optimized = 
-  Inconsistent = 
-  Bad = 
-  Broken
-  
+  Good = awards prolog fluid calendar atom fem hidden cacheprof gamteb gg bernouilli
+         binary-trees cichelli cse exp3_8 expert fasta gcd gg infer integrate kahan
+         paraffins pidigits reptile queens simple scs tak treejoin x2n1 wheel-sieve1
+         primes sorting anna rfib minimax callback001 callback002 clausify gclcss lcss
+         cryptarithm1 cryptarithm2 eliza fish gcpower integer life mutstore1 mutstore2
+         puzzle spellcheck threads001 threads003 threads007 wheel-sieve2
+  Inconsistent = minimax queens
+  Bad = symalg fulsom pic boyer2 gcfulsom
 ================================================================================  
-Date:  2018-03-13 Run #4
-Categories: All
+GOOD LIST:
+  fish lcss atom callback001 gg fasta gcpower hidden sorting x2n1 gclcss
+================================================================================  
+Date:  2018-03-12 Run #4
+Categories: Good, Inconsistent (forgot to run Bad)
 Results:
-  Good = 
-  Not Optimized = 
+  Good = fish wheel-sieve2 boyer2 cichelli expert fem fluid gcd pic rsa simple
+         x2n1 wheel-sieve1 threads007 spellcheck queens puzzle integrate gclcss
+         eliza binary-trees callback002
+  Not Optimized = awards bernouilli cacheprof calendar cse exp3_8 gamteb infer
+                  minimax prolog reptile scs threads003 threads001 tak mutstore2
+                  mutstore1 pidigits primes paraffins rfib life integer kahan
+                  cryptarithm1 cryptarithm2 clausify
   Inconsistent = 
-  Bad = 
-  Broken
+  Bad = treejoin maillist missing files
+        anna missing input
+        fulsom, symalg, gcfulsom illegal method
+        minimax
+        
+        
 

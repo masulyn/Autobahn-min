@@ -1,0 +1,11 @@
+Nofib:
+- find fluctuations between original programs
+- find programs with no cost centres for original programs
+- find average of good benchmarks and best/worse (improvement per bang)
+- send abstract to kathleen (look at remy’s paper) by friday
+- 3 thresholds (6% improvement, bang impact, cost center size), roughly run experiments to catch surprises, 
+  explain in paper what they do
+  
+Aeson and gcSim:
+- Find way to generate profiles
+- Run

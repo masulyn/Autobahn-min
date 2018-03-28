@@ -1,8 +1,26 @@
-Date: 3.28.2018
+Date: 3.27.2018
 
-Training data size: 1MiB, first 50,000 lines
+Training data size: 772KB, first 50,000 lines
 
-Training
+=======================================================================
+          Orig (53 bangs)      Phase 1 (722 bangs)       Min (29 bangs)
+Training  0.272                0.117                     0.192
+100MiB    38.139               13.085                    14.52
+500MiB    190.687              75.76                     65.788
+
+=======================================================================
+Normalized version
+
+          Orig (53 bangs)      Phase 1 (722 bangs)       Min (29 bangs)
+Training  1                    0.43                      0.71
+100MiB    1                    0.343                     0.38
+500MiB    190.687              0.397                     0.345
+
+
+
+
+=======================================================================
+Yet to test because resource exhausted. will need to clarify with remy how he ran these
 1/3 of trace
 1/2 of trace
 full trace

@@ -1,3 +1,4 @@
+- Submitted abstract yay!
 - Successfully generated new profiles for external modules in Aeson
 - But Autobahn and Parsec have a bug (placing bangs in instance declarations)
 - Will need to replace Autobahn's boilerplate code to manually traverse and fix bug

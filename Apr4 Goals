@@ -1,3 +1,4 @@
 1. Outline paper based on Remy's paper, and think in terms of claims and evidence
 2. Fix instance declaration bug in Autobahn
 3. Minimize Aeson!
+4. Run NoFib 3x, (automate result collection)

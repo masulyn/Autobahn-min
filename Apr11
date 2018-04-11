@@ -1,0 +1,60 @@
+Agenda:
+  - Claims and evidence (Listed below)
+    Question: 1. Minimizer identifies unexpanded Aeson as unoptimizable. 
+                 How did Autobahn optimize it?
+              2. Should post-Autobahn Nofib runs use pre-Autobahn minimized
+                 benchmarks? (If yes, doesn't directly compare to Autobahn.
+                              If no, isn't representative of minimizer's full
+                              capacity.)
+  - Aeson is very difficult to minimize
+    - Fixed instance declaration bug in Autobahn
+    - But, most of Aeson file is instance declarations, and almost all "hot spots"
+      fall within instance declarations -> no bangs left, negating the purpose of
+      expanding Aeson with external files
+    - Discovered that instance declaration bangs are actually allowed in certain 
+      places
+      - Can't hide, can't flatten... must hand traverse AST. Insane pattern matching
+      - Have intuition about illegal/legal bang patterns in InstDecl but not 100% sure.
+        Hard to verify.
+           
+
+Paper claims and evidence:
+  Pre-Autobahn
+    Claim #1: Profiling feedback reduces search space by identifying which 
+              internal files or external libraries do not need to be optimized. 
+    Evidence #1: Run Autobahn on nofib once with search space reduction
+                 and once without. 
+                                     Autobahn runtime     No. bangs
+                 -----------------------------------------------------------
+                 No reduction      |                    |
+                 Yes reduction     | predicted decrease | predicted decrease
+    Claim #2: Profiling feedback identifies programs that are "unsuitable"
+              for optimization by Autobahn, which occurs when all files in program
+              are labelled as unsuitable for optimization.
+    Evidence #2: Compile list of unsuitable nofib benchmarks. Compile list of 
+                 benchmarks that consistently show low runtime improvement when
+                 optimized by Autobahn over ten runs. Show intersection of these
+                 two lists. (Predicted decent overlap)
+    Claim #3: Profiling feedback expands search space by identifying external 
+              files that may significantly improve Autobahn performance.
+    Evidence #3: Aeson...
+              
+  Post-Autobahn
+    Claim #4: Minimizing programs from the NoFib benchmark suite shows mean
+              bang reductions of __% whil maintaining similar runtime performance.
+    Evidence #4: Run all categories of NoFib ten times, measure bang reduction and
+                 corresponding runtime performance. 
+                 Average fail/success rate
+                    Fail -> 
+                    Success -> average/max original/phase 1 runtime
+                               average/max bang reduction and runtime performance
+    Claim #5: Minimizing bangs from garbage collector simulator gcSimulator using
+              small training data set can maintain similar runtime performance
+              for larger data sets.
+    Evidence #5: Run gcSim 1 time? 10 times?
+                  For training data set, quarter trace, half trace, full trace:
+                    Orig/hand/Autobahn/min no.bangs and runtime 
+    Claim #6: Show that minimizing Aeson can preserve different annotations in
+              bang reduction to produce optimal behavior in convert and validate.
+    Evidence #6: Minimize Aeson...
+                               

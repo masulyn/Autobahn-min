@@ -13,7 +13,8 @@ Agenda:
       expanding Aeson with external files
     - Discovered that instance declaration bangs are actually allowed in certain 
       places
-      - Can't hide, can't flatten... must hand traverse AST. Insane pattern matching
+      - Can't hide, can't flatten, can't descend... must hand traverse AST. 
+        Insane pattern matching with nested mutual recursion @.@
       - Have intuition about illegal/legal bang patterns in InstDecl but not 100% sure.
         Hard to verify.
            

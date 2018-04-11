@@ -1,0 +1,21 @@
+Develop outline
+  - Look at Remy's paper, haskell symposium requirements
+  - Focus on idea, implementation, evaluation
+  - Abstract
+    Intro
+    Background
+    Idea: -profiling, minimization
+    Implementation
+    Evaluation
+    Related work
+    Conclusion
+    
+Nofib runs (measure Autobahn runtime as well):
+  Original
+  Only Remy
+  Pre + Remy
+  Remy + Post
+  Pre + Remy + Post
+
+Continue to pattern match Aeson
+Look at Aeson's profile on varying sizes of input

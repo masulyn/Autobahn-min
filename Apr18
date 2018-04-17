@@ -1,0 +1,29 @@
+Develop outline
+  - Look at Remy's paper, haskell symposium requirements
+  - Focus on idea, implementation, evaluation
+  - Abstract
+    Intro
+    Background
+    Idea: -profiling, minimization
+    Implementation
+    Evaluation
+    Related work
+    Conclusion
+    
+Nofib runs (measure Autobahn runtime as well):
+  Original
+  Only Remy
+  Pre + Remy
+  Remy + Post
+  Pre + Remy + Post
+  
+  - Pre + Remy vs. Remy: 
+    - no significant change in Autobahn runtime: previous claim is wrong
+      (runtime apparently not dependent on size of bit vector but on program runtime)
+    - Significant decrease in bangs generated while maintaing similar improvement
+    
+
+- Aeson pattern matching
+  - Definitely missing some patterns...
+
+- Aeson's profile varies on size of input

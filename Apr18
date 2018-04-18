@@ -1,3 +1,50 @@
+- Abstract was accepted at Tufts undergrad symposium
+- Outline:
+
+Idea
+  - Cost centers & Profiling
+    - Definitions
+    - CC bound by src locations
+    - "Hot spot" = CC that takes up more than 6% of program run time (configurable)
+    - Results of profiling is dependant on representative input (size or type)
+    - Why this is important: tells us where we spend a lot of time on. Identifies
+      locations worthy of optimizing (and locations that are not)
+  - Genes & Chromosomes
+    - Definitions
+    - Represented by bit vector
+    - Solution to problem: either eliminate useless bangs in bit vector 
+                           or reduce size of bit vector prior to optimization
+  - Coverage & Pre-Profiling
+    - Original Autobahn coverage: 
+      restricted by individual files
+      does not consider external libraries
+      allows users to configure coverage, only if they know which files to optimize
+    - Description of Pre-Profiling
+    - Changes that Pre-Profiling offers:
+      Automatically removes files that don't contain "hot spots"
+      Identifies files unsuitable for optimization
+      Suggests files to add for better performance
+    - Purpose: refine search space. Limit size of bit vector such that it includes
+               as many "hot spots" as possible.
+  - Short description of how Autobahn works
+  - Post-Profiling algorithm:
+    - Bit vector manipulation:
+      0's immediately eliminated
+      1's that are not "hot spots" immediately eliminated
+      1's that are hot spots, turn off and test
+        - If absence slows program by 5%, keep
+        - If absence slows program by < 5%, eliminate
+        - 5% is configurable
+    - Winner: combination of leftover bangs
+
+Implementation
+  - Pseudocode?
+  - Bit vector became (bit, srcLoc) vector
+  - Hand traversed AST?
+        
+                           
+- Data collection:
+
 Develop outline
   - Look at Remy's paper, haskell symposium requirements
   - Focus on idea, implementation, evaluation

@@ -1,6 +1,17 @@
-- Abstract was accepted at Tufts undergrad symposium
-- Outline:
+- Abstract was accepted at Tufts undergrad symposium                          
+- Data collection progress:
+  - Nofib slowly coming together. Integrated pre-Autobahn, Autobahn, post-Autobahn 
+    all in one (resolved package version issues). Made running experiments a lot smoother
+    - Realized that Autobahn runtime doesn't depend on bit vector size!
+    - Validate claim #1: 
+      Pre-Autobahn stage significantly decreases bangs generated 
+      while maintaning similar improvement
+   - Finally hand traversed AST for aeson and got a list of pats. 
+     Definitely missing some patterns...
+     But can't bind bangs to them. 
+  - Aeson's profile varies on size of input
 
+- Outline:
 Idea
   - Cost centers & Profiling
     - Definitions
@@ -14,7 +25,7 @@ Idea
     - Represented by bit vector
     - Solution to problem: either eliminate useless bangs in bit vector 
                            or reduce size of bit vector prior to optimization
-  - Coverage & Pre-Profiling
+  - Coverage & Pre-Autobahn
     - Original Autobahn coverage: 
       restricted by individual files
       does not consider external libraries
@@ -27,7 +38,7 @@ Idea
     - Purpose: refine search space. Limit size of bit vector such that it includes
                as many "hot spots" as possible.
   - Short description of how Autobahn works
-  - Post-Profiling algorithm:
+  - Post-Autobahn algorithm:
     - Bit vector manipulation:
       0's immediately eliminated
       1's that are not "hot spots" immediately eliminated
@@ -41,36 +52,43 @@ Implementation
   - Pseudocode?
   - Bit vector became (bit, srcLoc) vector
   - Hand traversed AST?
-        
-                           
-- Data collection:
-
-Develop outline
-  - Look at Remy's paper, haskell symposium requirements
-  - Focus on idea, implementation, evaluation
-  - Abstract
-    Intro
-    Background
-    Idea: -profiling, minimization
-    Implementation
-    Evaluation
-    Related work
-    Conclusion
-    
-Nofib runs (measure Autobahn runtime as well):
-  Original
-  Only Remy
-  Pre + Remy
-  Remy + Post
-  Pre + Remy + Post
   
-  - Pre + Remy vs. Remy: 
-    - no significant change in Autobahn runtime: previous claim is wrong
-      (runtime apparently not dependent on size of bit vector but on program runtime)
-    - Significant decrease in bangs generated while maintaing similar improvement
-    
+Evaluation
 
-- Aeson pattern matching
-  - Definitely missing some patterns...
-
-- Aeson's profile varies on size of input
+    Claim #1: Profiling feedback reduces search space by identifying which 
+              internal files or external libraries do not need to be optimized. 
+    Evidence #1: Run Autobahn on nofib once with search space reduction
+                 and once without. 
+                                     No. bangs
+                 ----------------------------------------
+                 No reduction      |
+                 Yes reduction     | predicted decrease
+    Claim #2: Profiling feedback identifies programs that are "unsuitable"
+              for optimization by Autobahn, which occurs when all files in program
+              are labelled as unsuitable for optimization.
+    Evidence #2: Compile list of unsuitable nofib benchmarks. Compile list of 
+                 benchmarks that consistently show low runtime improvement when
+                 optimized by Autobahn over ten runs. Show intersection of these
+                 two lists. (Predicted decent overlap)
+    Claim #3: Profiling feedback expands search space by identifying external 
+              files that may significantly improve Autobahn performance.
+    Evidence #3: Aeson...
+              
+  Post-Autobahn
+    Claim #4: Minimizing programs from the NoFib benchmark suite shows mean
+              bang reductions of __% while maintaining similar runtime performance.
+    Evidence #4: Run all categories of NoFib ten times, measure bang reduction and
+                 corresponding runtime performance. 
+                 Average fail/success rate
+                    Fail -> 
+                    Success -> average/max original/phase 1 runtime
+                               average/max bang reduction and runtime performance
+    Claim #5: Minimizing bangs from garbage collector simulator gcSimulator using
+              small training data set can maintain similar runtime performance
+              for larger data sets.
+    Evidence #5: Run gcSim 1 time? 10 times?
+                  For training data set, quarter trace, half trace, full trace:
+                    Orig/hand/Autobahn/min no.bangs and runtime 
+    Claim #6: Show that minimizing Aeson can preserve different annotations in
+              bang reduction to produce optimal behavior in convert and validate.
+    Evidence #6: Minimize Aeson...

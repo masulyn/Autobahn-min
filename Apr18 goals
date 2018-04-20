@@ -1,0 +1,5 @@
+- calculate how many bangs eliminated in pre profiling instead of just no. of files
+- test aeson size of input
+- Start with problem and goal. Use profiling to refine search space (top level) and 
+direct genetic algorithm. when explain pieces, do it in context of goal
+- Write ideas section in latex (ideas, implementation, evaluation)

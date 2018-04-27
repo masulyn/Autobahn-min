@@ -1,4 +1,6 @@
 - Found all missing patterns and finally got Aeson to optimize external libraries. 
+- Finished collecting pre-autobahn profiling nofib data, almost done with the original
+  and minimizer, need to run more pre + aut + post runs
 - Paper:
   - Variable names could be better worded (costly cost centres, bit vector groups)
   - Inserting examples and visuals?

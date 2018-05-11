@@ -1,0 +1,343 @@
+\documentclass[format=sigplan]{acmart}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{arrows.meta}
+
+\newcommand{\hotspot}[0]{\textit{hot spot}}
+\newcommand{\hotspots}[0]{\textit{hot spots}}
+\newcommand{\coldspot}[0]{\textit{cold spot}}
+\newcommand{\coldspots}[0]{\textit{cold spots}}
+\newcommand{\hotspotcost}[0]{\textit{hotSpotCost}}
+\newcommand{\unfit}[0]{\textit{unfit}}
+\newcommand{\dangerous}[0]{\textit{dangerous}}
+\newcommand{\useful}[0]{\textit{useful}}
+\newcommand{\useless}[0]{\textit{useless}}
+\newcommand{\Ao}[0]{\textit{Autobahn 1.0}}
+\newcommand{\At}[0]{\textit{Autobahn 2.0}}
+\newcommand{\fit}[0]{\textit{fit}}
+\newcommand{\preopt}[0]{pre-optimization}
+\newcommand{\postopt}[0]{post-optimization}
+\newcommand{\Preopt}[0]{Pre-optimization}
+\newcommand{\Postopt}[0]{Post-optimization}
+\newcommand{\absim}[0]{\textit{absenceImpact}}
+
+\begin{document}
+%\acmJournal{haskell}
+\title{Autobahn Minimizer}
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\section{Introduction}
+%Explain why having so many bangs is bad because it requires manual inspection
+%Autobahn generates 24 bangs per 100 LOC
+\section{Background}
+
+\subsection{GHC Profiling and Cost Centres}
+To allow users to better understand where their program spends 
+the most time on, GHC provides a time and memory profiling system. The
+system adds annotations to the user's program and generates a report
+detailing the amount of time, memory allocations or heap usage each 
+location used. 
+
+To generate these profiles, users simply run their program 
+after re-compiling it with the profiling option and choose either a time and allocation or heap profile to generate, as well as the method in which the profiling 
+system adds annotations. While users have the option to manually specify
+annotations, \At{} uses the \texttt{-prof -fprof-auto} option, which
+automatically adds an annotation around every binding that is not marked
+INLINE in the program.
+
+In the profile, these annotations are represented as cost centres with a 
+certain cost associated with each of them. These costs indicate how much
+time or memory resources each cost centre used as a percentage of the
+whole program's resources. 
+
+In order to minimize the number of bangs in 
+a program while maintaining similar program performance, we need to 
+preserve the bangs in the most costly cost centres and eliminate those 
+located in the less costly cost centres. The minimizer identifies a cost centre that consumes more than a \hotspotcost{} threshold percentage of the overall program runtime as a \hotspot{}. A cost centre that does not consume more than the \hotspotcost{} threshold is a \coldspot{}. Currently, we set the \hotspotcost{} threshold to 6\%, although that threshold can be
+adjusted. As the threshold increases, fewer bangs
+are preserved at the risk of a higher possibility of compromised program 
+performance. 
+
+%    - CC bound by src locations
+ %   - Results of profiling is dependant on representative input (size or type)
+
+\subsection{Genes and Chromosomes}
+
+Cost centre profiling provides guidance for the otherwise random search 
+that Autobahn performs using genetic algorithms. In the algorithm, any 
+program source location where a bang may be added becomes a \textit{gene} that can 
+be turned on or off. A chromosome is composed of all of the genes within a 
+program and represented as a fixed-length bit vector, in which the bit value 
+indicates the presence or absence of a bang. Since a program is a collection of source files, it is represented as a collection of bit vectors, or \textit{chromosomes}.
+
+\subsection{Autobahn's Genetic Algorithm}
+
+Autobahn's genetic algorithm evaluates and manipulates randomly generated chromosomes. It repeatedly generates new chromosomes before measuring their performance using a fitness function. We call a chromosome that either significantly slows down program performance or causes non termination an \unfit{} chromosome. If the fitness function determines that a chromosome is \unfit{}, the chromosome is immediately discarded. If the fitness function determines that a chromosome behaved well, the chromosome is deemed \fit{} and kept for future rounds of generation. 
+
+For each round of chromosome generation, Autobahn introduces randomness by performing either a mutation or a crossover. A mutation flips a gene in the chromosome whenever a randomly chosen floating point number exceeds the \textit{mutateProb} threshold. A crossover combines two chromosomes by randomly picking half of the genes from each parent chromosome. For either of these random operations, Autobahn uses a unique number generator each time to guarantee randomness. 
+
+\subsection{Representative Input}
+
+To run \Ao{}, users need to provide representative input to their program. The input should be short enough for Autobahn to finish execution in a reasonable amount of time while still be long enough for Autobahn to measure noticeable time improvements if there are any. Ideally, representative input should also be as similar to the typical use case of the program as possible to reduce chances of unexpected behavior after optimization when using different types of program input.
+
+Similarly, the quality of representative input impacts the quality of \At{}'s performance as well. Different types of input may generate wildly different results in GHC profiles, which are heavily relied on by the minimizer later on. Therefore, the user must carefully choose their program's representative input.
+
+\section{Idea}
+\subsection{Why Too Many Bangs Are Generated}
+
+The first step to eliminating bangs is to identify categories of bangs and hypothesize the reason why each category exists. A \dangerous{} bang is a bang that can significantly slow down program runtime or cause program non-termination. A \useful{} bang improves program performance, and a \useless{} bang neither improves nor worsens program performance. 
+
+While an \unfit{} chromosome may perform poorly as a whole, it can contain a mixture of \dangerous, \useful{} and \useless{} bangs. \Ao{} handles \unfit{} chromosomes by discarding them as a whole, but fails to provide a method of isolating the specific \dangerous{} bangs in an \unfit{} chromosome. It is necessary to isolate and remove \dangerous{} bangs because they might otherwise reappear in later generations as a result of random mutation. 
+
+Well performing, or \fit{} chromosomes, also face a similar issue. \Ao{} handles \fit{} chromosomes by preserving the entire chromosome, without separately identifying the \useful{} bangs from the \useless{} ones. This is problematic for two reasons. Firstly, we might lose \useful{} bangs in future rounds of generations because we cannot track them and guarantee that random methods of mutation and crossover will preserve them. Secondly, \useless{} bangs could survive by being grouped with \useful{} bangs even though they should be eliminated. The accumulation of such bangs can dramatically increase the amount of bangs in a program, leaving it up to the user to identify potentially unsafe bangs from the safe ones. 
+
+We hypothesize that \Ao{} generates copious amounts of bangs because it is incapable of identifying categories of bangs within the same chromosome. The further addition of randomness means that the entire chromosome is repeatedly searched as the search space is never definitively reduced. Because there is a fixed number of genes in a program, the search space for the genetic algorithm is also equivalently fixed. Therefore, as the program source code increases in size, the algorithm also generates significantly more bangs as chromosomes increase in size. 
+
+\subsection{The Solution}
+
+\At{} uses GHC profiling to do what Autobahn cannot: isolate portions of a chromosome by their individual contributions to program performance. Cost centres not only break down a chromosome into smaller portions by source code bindings, but their associated costs also imply how likely a bang placement will affect program performance. If executing code at a \hotspot{} occupied a significant portion of the overall program runtime, then a bang-induced change in performance at the \hotspot{} will likely significantly affect overall runtime. 
+
+There are two ways to apply GHC profiling information to reduce the number of bangs generated by Autobahn. The first way is by reducing the previously fixed size of the initial chromosome. Because Autobahn's search space is directly correlated to the size of the program source code, we can reduce the search space by eliminating all genes in \coldspots{} prior to Autobahn's optimization. Since \useless{} bangs are most likely later generated and located within \coldspots{}, early elimination of genes in \coldspots{} is beneficial. 
+
+However, \hotspots{} can also contain a mixture of \useful{} and \useless{} bangs as well. To definitively eliminate \useless{} bangs and preserve \useful{} bangs in \hotspots{}, we can individually isolate and measure the performance of each bang in each \hotspot{}. The effects of combining bangs is hard to predict, but the permutation size of all possible types of combinations of the remaining bangs can grow very large. To simplify the process, we adopt the method of individually turning off one bang at a time to test. We can exhaustively test each bang because the size of the set of \hotspots{} in a program is limited. It is then necessary to include \Ao{}'s results, because the genetic algorithm would've randomly found a winning combination of bangs as a starting point for testing. Both of these methods are later explained in full detail, and a diagram of the workflow is shown below.
+
+\tikzset{%
+  >={Latex[width=2mm,length=2mm]},
+            base/.style = {rectangle, rounded corners, draw=black,
+                           minimum width=4cm, minimum height=1cm,
+                           text centered, font=\sffamily},
+  activityStarts/.style = {base, fill=blue!30},
+       startstop/.style = {base, text width=4cm, fill=red!30},
+    activityRuns/.style = {base, fill=green!30},
+         process/.style = {base, text width=3cm, fill=orange!15,
+                           font=\ttfamily},
+}
+
+\begin{tikzpicture}[node distance=1.5cm,
+    every node/.style={fill=white, font=\sffamily}, align=center]
+  \node (preo)             [activityStarts]              {\Preopt{}};
+  \node (user)     [process, left of=preo, xshift=-3cm]          {Original Program, Representative Input, Autobahn Configuration};
+  \node (autobahn)      [activityStarts, below of=preo, yshift=-2.5cm]
+                                                      {\Ao{}};
+  \node (end)      [startstop, left of=autobahn, xshift=-3cm, yshift=1cm]
+                                                       {If program unsuitable for optimization: Alert user and end process};
+                                                  
+  \node (posto) [activityStarts, below of=autobahn, yshift=-2cm]
+                                                    {\Postopt{}};     
+  \node (endmin)      [startstop, below of=end, yshift=-1cm]
+                                                       {If negligible optimization improvement: Alert user and end process};                                                       
+   \node (result)     [process, left of=posto, xshift=-3cm, yshift=-1.5cm]          {Optimized and minimized program};                                                   
+
+  \draw[->]             (preo) -- node[text width=4cm]
+  					{Remove \coldspots{}, suggest external libraries, check if program unsuitable for optimization}(autobahn);
+  \draw[->]     (user) -- (preo);
+  \draw[->]      (autobahn) -- node[text width=4cm]
+  					{Find winning chromosome using genetic algorithms}(posto);
+   \draw[->]      (preo) -- (end);
+   \draw[->]      (posto) -- (endmin);
+  \draw[->]      (posto) -- node[text width=4cm, xshift=-2cm, yshift=0.8cm] {Individually test each bang in winning chromosome}
+                                   (result);
+   %\draw[->] (onPauseBlock.east) -- ++(2.6,0) -- ++(0,2) -- ++(0,2) --                
+    % node[xshift=1.2cm,yshift=-1.5cm, text width=2.5cm]
+    % {The activity comes to the foreground}(onResumeBlock.east);
+  \end{tikzpicture}
+
+
+\subsection{Autobahn Coverage}
+
+By default, Autobahn optimizes all files in the program directory. Users can specify optimization coverage by manually adding or removing file paths while configuring Autobahn. Although Autobahn does not consider external libraries imported in the source code, users can manually add local copies of external libraries in the program directory for optimization. 
+
+However, just as manually reasoning about the placement of bangs is difficult, users generally find it difficult to reason about which files should or should not be optimized. By examining GHC profiles, we can have a much better idea of which files to eliminate based on whether or not they contain \hotspots{}. Combining this knowledge with the configuration option of configuring Autobahn coverage, we can now manipulate the initial chromosome size by units of file sizes. 
+
+\subsection{\Preopt{} Profiling}
+
+\Preopt{} profiling does more than just reducing existing search space. Instead, it guides, redirects and expands the current search space to maximize efficiency and performance prior to \Ao{}'s optimization. Because chromosome sizes directly influence the number of generated bangs, search space manipulation can minimize the possibility of generating \useless or \dangerous bangs and maximize the chances of generating \useful ones.
+
+To reduce the initial search space, the minimizer begins by generating a GHC time and allocation profile for the unoptimized program with user provided representative input. Then, the files that contain at least one \hotspot{} are identified. Files that do not contain \hotspots{} are eliminated from the Autobahn coverage of files. Autobahn then optimizes the program as usual, except using a much smaller set of files and thus chromosomes to begin its genetic algorithmic search. 
+
+There are three important impacts that \preopt{} profiling creates. First of all, it greatly reduces the number of bangs Autobahn generates by reducing the initial search space. Secondly, it is capable of identifying programs that are potentially unsuitable for optimization using Autobahn. If a program contains a large set of cost centres that all contribute minimally to program runtime, there may not exist a single location in which placing a bang will make a significant difference in program runtime. If the minimizer identifies a program that only contains \coldspots{}, it will alert the user and save them the time and effort of running Autobahn when they will most likely see minimal performance improvements. Lastly, if a \hotspot{} is located in an external library file, the minimizer can suggest users which external libraries to add to the Autobahn coverage for better optimization results.
+
+\subsection{\Postopt{} Bang Elimination}
+
+After \Ao{} optimizes the search space and determines a winning chromosome, \At{} once again uses GHC profiling information to reduce the number of bangs in the winning chromosome. It begins by mapping each gene in the winning bit vector to their corresponding cost centres. 
+
+For each gene in the bit vector, the \postopt{} phase filters out all of those that are already turned off and keep them turned off. It then examines genes that are turned on but do not fall within a \hotspot{}, and turns them off before filtering them out as well. We can turn them off because those genes are most likely \useless{} bangs. 
+
+The remaining genes are the interesting ones that both contain a bang and fall within a \hotspot{}. These genes require further testing because even though \hotspots{} are likely to significantly affect overall performance when their own runtimes are reduced, we are unsure if the cost centre runtime was reduced in the first place. That is, placing a bang in a cost centre may not always improve the actual cost at the cost centre. Therefore, genes within \hotspots{} that cannot be improved through the use of bangs are also \useless{} and should be discarded.
+
+\subsection{Testing \hotspots{}}
+ 
+A convenient fact about testing these remaining genes that are both turned on and within a \hotspot is that they are usually so few in number that it is possible to exhaustively search them. The minimizer tests them by isolating and turning off each gene while keeping all other remaining genes on. It then measures program runtime and compares it to the program performance of the winning chromosome determined by Autobahn. 
+
+If the absence of this gene slows down the program by an \absim{} threshold, this gene is determined to be useful and is kept in the pool of remaining genes. If the gene's absence does not slow down the program by at least the \absim{} threshold, the gene is deemed \useless{} and discarded. The \absim{} threshold is adjustable and currently set to 5\%. The \postopt{} phase repeats this process for every gene to be tested, and the minimization result is the combination of bangs in the pool of remaining genes by the end of testing.
+
+\section{Implementation}
+
+\subsection{Program Architecture}
+
+The addition of search space reduction and \postopt{} bang reduction alters the original program architecture of \Ao{}. Prior to optimization, the original program is first profiled and evaluated for search space manipulation in the \preopt{} phase. \preopt{} builds the user's program with profiling enabled, and runs the unoptimized version with the user provided representative input to obtain a time and allocation profile. The profile is only generated once, and the rest of of \At{} refers to the same profile throughout the entire program. Depending on the location of \hotspots{} indicated by the profile, the program's source files will either be automatically reduced or manually expanded by the user. 
+
+Then \Ao{} is executed using the same genetic algorithm to find a winning chromosome. It uses the \textit{haskell-src-exts} parser to parse source files and identify genes, then applies a genetic algorithm with a fitness function to search for the best performing chromosome.
+
+The resulting chromosome is further tested and reduced using GHC profiling information in the \postopt{} bang reduction phase. After an initial pass of elimination to get rid of all turned off genes and genes located in \coldspots{}, we individually test the impact of the absence of a turned on gene in each \hotspot{}. If a gene meets the \absim{} threshold, it is kept in future rounds of testing and will remain in the final combination of bangs for the optimized program. If a gene does not meet the \absim{} threshold, it is removed for future rounds of testing and will not appear in the final combination. 
+
+Bangs in \hotspots{} are tested in order of decreasing costs. While we recognize that the order in which we test them may affect their performance, it is simply too time consuming to test every possible combination of bangs in every possible order. (insert permutation calculations of max possible no. of combinations based on 6\% \hotspotcost{} here) Therefore, we chose to only consistently test each individual bang once in order of decreasing costs for simplicity. 
+
+Finally, the \postopt{} phase returns the final combination of bangs that have survived each round of testing. If \Ao{} failed to find a chromosome that improved program runtime by 6\% to begin with, then the \postopt{} phase will refuse to minimize because the insignificant performance improvements indicates that users are better off keeping the original unoptimized program instead.
+
+
+\subsection{Running \At{}}
+
+A user runs \At{} the same way as they would run the \Ao{}. The user provides a copy of their program source code, representative input, and an optional Autobahn configuration file. Because both search space reduction and minimization after Autobahn typically do not require a significant amount of time, the user should barely notice an increase in the amount of time needed for optimization. 
+
+If \At{} successfully ran, the user can find the minimized source code in the same project directory along with the usual Autobahn survivor and results directories. If \preopt{} profiling detected that the program is unsuitable for optimization, or if \Ao{} failed to significantly optimize the program, then \At{} would warn the user and halt execution. If external libraries could be added to Autobahn's coverage to potentially boost optimization performance, the \preopt{} phase would alert the user and continue execution.
+
+\subsection{Source Locations}
+
+In order to map cost centres to genes in chromosomes, we needed a way to indicate which cost centre each bit in the bit vector corresponded to. Because cost centres are uniquely identified by source location in source files, we modified Autobahn's bit vectors into vectors of bits mapped to source lines. To turn the bangs in a \hotspot{} on or off, we can traverse the bit-location vector and manipulate the bits that are tagged with source lines that fall within the range of that \hotspot{}'s source location.
+
+\subsection{Removing Illegal Genes}
+
+Unfortunately, the \textit{haskell-src-exts} parser that \Ao{} uses incorrectly identifies the left hand side of bindings within instance declarations as potential locations to place bangs. For that reason, files that contain instance declarations have been previously avoided and left unoptimized when testing \Ao{}. We wanted to support the optimization of these files in \At{}, so we manually removed those misidentified genes.
+
+We chose to use a validity-indicating boolean vector to represent whether each gene in source code is legal. Prior to inserting bangs into a program, \At{} would check the validity of a gene against the boolean vector to make sure that the bang is located in a legal location.
+
+Generically traversing the parser generated AST using boilerplate code fails to identify illegal genes, so we needed to manually traverse it to construct the validity vector. As we traversed the tree, we kept track of whether a left hand side binding is within an instance declaration. If so, then that binding is an illegal bang location and is marked as a false boolean value. All other legal bang locations are marked as a true value.
+
+\At{} successfully uses this method to avoid inserting bangs into illegal locations after being misguided by the parser and expand the types of files we can optimize to those including instance declarations as well. 
+
+\section{Evaluation}
+
+\subsection{Experiment Setup}
+
+All versions of Autobahn were compiled with GHC version \texttt{8.0.2}. The NoFib benchmarks were also compiled with GHC version \texttt{8.0.2}, \texttt{-XBangPatterns} and enabled profiling along with NoFib's default flags. Our research did not test the certain benchmarks in the NoFib suite that failed to compile on their own.
+
+\subsection{\Preopt{} Search Space Reduction}
+To test how much search space can be reduced by the \preopt{} phase of \At{}, we ran \Ao{} with \preopt{} profiling on the NoFib benchmark suite. To account for fluctuation, we took the mean of running the program ten times on the benchmark suite. All runs were optimized on runtime only, and the \hotspotcost{} and \absim{} thresholds were both set to 6\%. 
+
+Figure 1 includes results from the 20 benchmarks that had at least one file that was eliminated during the \preopt{} phase. The number of eliminated genes show the number of potential bang locations that was eliminated before \Ao{} ran. Because most benchmarks do not have bangs in the original versions of their programs, the number of original bangs in Figure 1 is always 0. 
+
+The \texttt{anna, expert,} and \texttt{symalg} benchmarks are particularly interesting because \Ao{} consistently failed to find winning chromosomes for them, so 0 Autobahn bangs were generated. However, after refining the search space using \preopt{}, \Ao{} was able to better search the space and find meaningful bangs as indicated by the number of Pre-Autobahn bangs generated. 
+
+Figure 2 shows the corresponding runtime performance of results generated by \Ao{} and \Ao{} with the \preopt{} phase. The graph shows that even when a large number of genes are eliminated prior to optimization, the optimizer is still able to find \useful{} bangs that result in similar runtime improvement.  
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{preAut1}
+\caption{Number of bangs generated by \Ao{} vs. \preopt{} phase and \Ao{}}
+\end{figure*}
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{preAut2}
+\caption{Normalized runtime of \Ao{} results vs. \preopt{} phase and \Ao{} results}
+\end{figure*}
+
+\subsection{\Preopt{} File Elimination}
+
+We have found six benchmarks in the NoFib suite that the \preopt{} phase identifies as unsuitable for optimization when the \hotspotcost{} threshold is set to 6\%. These are \textit{awards, callback001, callback002, mutstore2, sorting,} and \textit{threads007}. As expected, when attempting to optimize \textit{awards} and \textit{threads007}, Autobahn consistently fails to optimize and returns 1.0, indicating that it cannot do better than the original program. However, Autobahn was able to successfully optimize the other programs. Through inspection, we concluded that \textit{callback002} would've benefited from a lower \hotspotcost{} threshold as its most costly \textit{hot spot} takes up 3.9\% of the program runtime. Both \textit{callback001} and \textit{threads007} would've benefited from inspecting heap profiles instead of time and allocation profiles as the costs associated with their \textit{hot spots} were noticeably larger in heap allocations while remaining insignificant in runtime costs. \textit{mutstore2} is a program that's performance fluctuated wildly even without bangs in it. For example, its measured runtime was as low as 60\% - 80\% of its original runtime in one third of the experiments we ran with no bangs in the program. Therefore, the optimization results were likely skewed by the fluctuating runtime.
+
+\subsection{\Preopt{} File Addition}
+
+We also ran experiments using the Aeson parser library that handles JSON files using either the \texttt{validate} or \texttt{convert} driver programs. \texttt{validate} simply checks if the file is written in valid JSON syntax, and \texttt{convert} actually converts file input into a Haskell data structure. 
+
+While running the \preopt{} phase on the Aeson library, we were suggested by the program to include files from the external \texttt{Data/Aeson} library in the Autobahn optimization coverage because the \texttt{Data/Aeson/InternalTypes.hs} file included multiple \hotspots{}. However, \texttt{InternalTypes.hs} already included manually inserted bangs by its author. Therefore we ran experiments using a version of \texttt{InternalTypes.hs} with no bangs in it to see if we could recreate the manually inserted bangs. If so, library authors could run Autobahn to place bangs in their files instead of manually doing so. 
+
+\begin{tabular}{llr}
+\hline
+Version   & Driver & Normalized Runtime (s) \\
+\hline
+Original      & value   & 1     \\
+          & json        & 1      \\
+Pre-optimization       & value     & 0.736188031878968     \\
+          & json        & 0.6695504183803715	\\
+\Ao{}       & value     & yet to run      \\
+          & json        & yet to run	\\
+
+\hline
+\end{tabular}
+
+\subsection{\Postopt{} Bang Reduction}
+
+To test the efficiency of reducing bangs using the \postopt{} phase, we compared the results of running only \Ao{} with \Ao{} and the \postopt{} phase. Similarly, we took the mean of running the program ten times on the benchmark suite while optimizing on runtime only, and set both \hotspotcost{} and \absim{} thresholds to 6\%. 
+
+If \Ao{} improves a benchmark's performance by at least 6\% after optimization, we define the benchmark a successfully optimized. Figure 3 and Figure 4 include results from the 22 benchmarks that were successfully optimized. 
+
+Figure 3 shows that the number of bangs eliminated by the \postopt{} is quite significant. Figure 4 shows the corresponding runtime performance of each program. In most benchmarks, the \postopt{} phase does a little worse than running only \Ao{}, because the \absim{} threshold limits the remaining bangs to those that affect program runtime by at least 6\%. If a user wants to maintain more similar runtime results, they can lower the \absim{} threshold so the minimizer becomes less aggressive in bang elimination. That way, more bangs will be preserved, but runtime performance will improve. 
+
+The interesting results for programs \textit{anna} and \textit{fluid} show that while \Ao{} found bangs that triggered a 2.0 error code of program non termination, \postopt{} bang elimination was able to get rid of the \dangerous{} bangs that caused non termination.
+
+\textit{Evidence: Currently Figure 3 and Figure 4 only include benchmarks that successfully optimized each time, i should also show average fail/success rate and absolute best performance for each benchmark that didn't successfully optimize each time?}
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{autPost1}
+\caption{Number of bangs generated by \Ao{} vs. \postopt{} phase and \Ao{}}
+\end{figure*}
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{autPost2}
+\caption{Normalized runtime of \Ao{} results vs. \postopt{} phase and \Ao{} results}
+\end{figure*}
+
+\subsection{Combining \preopt{} and \postopt{}}
+
+\textit{repeat above experiments using all 3 tools together. I don't have all 10 runs for this yet but I expect results to be similar to the \postopt{} section. Here are some preliminary results.}
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{pap}
+\caption{Number of bangs generated by \Ao{} vs. \At{}}
+\end{figure*}
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{pap2}
+\caption{Normalized runtime of \Ao{} results vs. \At{} results}
+\end{figure*}
+
+\subsection{\At{} On Larger Programs}
+
+We ran \At{} on the gcSimulator garbage collector to see how well it performs on larger programs. To keep optimization runtime within reasonable ranges, we used the first 1M of the batik trace file as the representative input. For gcSimulator, we lowered the \absim{} threshold to 1\% because it does not have many \hotspots{} to begin with. Once \At{} was done optimizing, we tested the resulting program on larger trace file sizes of 100M and 500M. 
+
+The original \Ao{} was able to produce results that not only ran faster on representative input, but also on larger trace files as well. \At{} was also able to generate similar results with much fewer bangs. 
+
+\begin{tabular}{lllr}
+\hline
+Version   & File Size (M) & Runtime (s) & No.Bangs \\
+\hline
+Original      & 1   &   0.403	 & 0   \\
+          & 100        & 43.132      & 0 \\
+       & 500     &  216.71 & 0 \\
+\Ao{}       & 1     & 0.183    &  690\\
+          & 100        & 14.192	 &  690\\
+                 & 100        & 68.986	& 690\\
+\At{}      & 1   &  0.23 & 125    \\
+          & 100        & 15.754 & 125      \\
+       & 500    & 81.669 & 125    \\
+
+\hline
+\end{tabular}
+
+\textit{gcSim (both optimized and original) runs for waaaay too long on full batik trace, not sure how Remy did it. Here I'm doing increments of 1, 100, 500M instead. The full batik trace is 6184M}
+ 
+\subsection{\At{} On Aeson}
+ 
+Claim: Minimizing Aeson can preserve different annotations in bang reduction in convert and validate.
+
+\textit{I have the same results from above pasted here. A single experiment on Aeson takes up to 3 days to run because cabal compiling is so slow. Need to run more experiments for Aeson.}
+
+\begin{tabular}{llr}
+\hline
+Version   & Driver & Normalized Runtime (s) \\
+\hline
+Original      & value   & 1     \\
+          & json        & 1      \\
+Pre-optimization       & value     & 0.736188031878968     \\
+          & json        & 0.6695504183803715	\\
+\Ao{}       & value     & yet to finish running      \\
+          & json        & yet to finish running	\\
+
+\hline
+\end{tabular}
+
+\end{document}

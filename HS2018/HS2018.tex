@@ -13,8 +13,8 @@
 \newcommand{\dangerous}[0]{\textit{dangerous}}
 \newcommand{\useful}[0]{\textit{useful}}
 \newcommand{\useless}[0]{\textit{useless}}
-\newcommand{\Ao}[0]{\textit{Autobahn 1.0}}
-\newcommand{\At}[0]{\textit{Autobahn 2.0}}
+\newcommand{\Ao}[0]{\textsc{Autobahn 1.0}}
+\newcommand{\At}[0]{\textsc{Autobahn 2.0}}
 \newcommand{\fit}[0]{\textit{fit}}
 \newcommand{\preopt}[0]{pre-optimization}
 \newcommand{\postopt}[0]{post-optimization}
@@ -31,8 +31,31 @@
 \end{abstract}
 
 \section{Introduction}
-%Explain why having so many bangs is bad because it requires manual inspection
-%Autobahn generates 24 bangs per 100 LOC
+
+\subsection{Lazy Evaluation}
+
+Lazy evaluation is a property of Haskell that improves program efficiency and provides programmers the ability to use infinite data structures. Under lazy evaluation, expressions are only evaluated when their values are needed. Every unevaluated expression is stored in a \textit{thunk}, and its evaluation is delayed until another expression demands the value of the current one. Most of the time, this greatly improves program performance as it avoids wasting time on evaluating unnecessary expressions. It also means that users can operate on infinite data structures by only evaluating finite portions of it.
+
+While lazy evaluation reaps many benefits, it can also create serious performance slow downs when too much memory is allocated to a large number of thunks. We can reduce thunks by avoiding creating them for expressions that we know will eventually be evaluated. To avoid the creation of a thunk, programmers can insert strictness annotations such as bang patterns at a certain program point to enforce eager evaluation. However, programmers need to distinguish program points that will benefit from eager evaluation from program points that do not need to be evaluated or will not terminate when evaluated. This task is difficult and often reserved for expert Haskel programmers. 
+
+\subsection{Autobahn}
+
+\textsc{Autobahn} is a Haskell optimizer that allows programmers to reduce thunks in their program by automatically inferring strictness annotations. Users provide \textsc{Autobahn} with an unoptimized program, representative input, and an optional configuration file to obtain an optimized version of the program over the course of a couple of hours. 
+
+\textsc{Autobahn} uses a genetic algorithm to randomly search for beneficial locations to place bangs in the program. The genetic algorithm iteratively measures the performances of a series of candidate bang placements. Candidates that improve upon the original program's performance are preserved, and candidates that trigger non-termination or worsen program performance are eliminated. \textsc{Autobahn} eventually returns the user with a list of well performing candidates, ranked by how much they improve program performance. Users can then inspect the candidate bang placements, and decide if they want to apply one of them to the program.
+
+\subsection{Too Many Bangs}
+
+Candidates should be inspected before being applied because they can potentially introduce program non-termination when new input is given. Because \textsc{Autobahn} measures performance using representative input, the resulting candidate is optimized for that specific input. If a new type of input is supplied to the program after it is being optimized, it could result in different behavior at program points that cause the program to run forever. Because only the user will know the range of potential types of input, only the user can inspect candidate bang placements and decide if they are safe to be applied.
+
+However, users face a time consuming task of inspecting a large number of bangs when \textsc{Autobahn} generates too many bangs in a candidate. This occurs when the random genetic algorithm places many bangs throughout the program, including those that do not contribute much to program performance improvement. On average, \textsc{Autobahn} generates 24 bangs per 100 lines of code in its best performing candidates, and the user must manually inspect every one of those.   
+
+\subsection{Autobahn 2.0}
+
+This paper presents an improved version of \textsc{Autobahn} that aims to reduce the number of generated bangs. We refer to the original Autobahn optimizer as \Ao{}, and the improved version for bang minimization as \At{}. A \textit{\preopt{}} phase and \textit{\postopt{}} phase are each added before and after \Ao{} to locate and eliminate unnecessary bangs using GHC profiling. GHC profiles show the amount of runtime and memory each location in the program used. The \preopt{} phase adjusts the number of files that \Ao{} optimizes for within a single program. \Ao{} is instructed to optimize files that contain locations that cost a large amount of resources according to the GHC profile, and to avoid optimizing files that do not contain costly locations. After Ao{} runs, the \postopt{} phase individually tests each produced bang that falls within a costly location. Bangs that produce an insignificant impact on improving program performance are eliminated. The addition of these two phases allows \At{} to produce far fewer bangs for a user to inspect than running \Ao{} alone would produce.
+
+\subsection{Results}
+
 \section{Background}
 
 \subsection{GHC Profiling and Cost Centres}

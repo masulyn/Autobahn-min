@@ -1,0 +1,31 @@
+Section 1.3. 
+Say something about GHC's strictness analyzer.  Do we have data on how many bangs GHC can determine are safe?  We should point out that GHC will already be applying optimizations to any program point where its strictness analyzer can prove inserting a bang would be safe.  This analysis is necessarily conservative and so misses some opportunities.  These bangs are one source of Autohbahn's performance improvements.  The other is bangs that are not always safe, but are safe on the inputs that programmers care about.  For example, factorial diverges if given a negative number, but the expectation is that it will only be called with positive numbers. 
+
+Section 1.4
+What about "pre-search" and "post-search" phases instead of "pre-optimization" and "post-optimization" phases?  The optimization term seems confusing because in some sense all the phases are doing optimizations of various kinds.
+
+"After Ao runs"  --> "After Autobahn 1.0 runs" ?
+
+"produce far fewer bangs" --> how many fewer?
+
+1.5
+Fill out.
+What summary results? 
+
+3 "Idea" --> "Autobahn 2.0"
+
+Section 4.2
+"If external libraries could be added to Autobahn’s coverage to potentially boost optimization performance, the pre-optimization phase would alert the user and continue execution."   What does it mean to continue execution in this case?
+
+Section 4.3
+What were Autobahn's bit vectors representing?  Nodes in the AST?  how did that work?
+
+Section 4.4
+"We wanted to support the optimization of these files in Autobahn 2.0, so we manually removed those misidentifid genes."  Say more about this.  You manually removed these genes from what?  How would that work if someone else were using Autobahn 2.0?  Would they have to manually remove genes?
+
+"Autobahn 2.0 successfully uses this method to avoid inserting bangs into illegal locations after being misguided by the parser and expand the types of files we can optimize to those including instance declarations as well."  This sentence is unclear because it puts two different ideas together without clearly explaining the relationship: 1) avoiding putting bangs into illegal positions 2) expanding the set of bangs through profiling. 
+
+Do you explain somewhere that the file is the unit of user-control for bang placement? 
+
+Make captions more self-contained, as we've discussed previously. 
+

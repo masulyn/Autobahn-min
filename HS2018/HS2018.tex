@@ -4,15 +4,15 @@
 \usetikzlibrary{shapes,arrows}
 \usetikzlibrary{arrows.meta}
 
-\newcommand{\hotspot}[0]{\textit{hot spot}}
-\newcommand{\hotspots}[0]{\textit{hot spots}}
-\newcommand{\coldspot}[0]{\textit{cold spot}}
-\newcommand{\coldspots}[0]{\textit{cold spots}}
+\newcommand{\hotspot}[0]{hot spot}
+\newcommand{\hotspots}[0]{hot spots}
+\newcommand{\coldspot}[0]{cold spot}
+\newcommand{\coldspots}[0]{cold spots}
 \newcommand{\hotspotcost}[0]{\textit{hotSpotCost}}
-\newcommand{\unfit}[0]{\textit{unfit}}
-\newcommand{\dangerous}[0]{\textit{dangerous}}
-\newcommand{\useful}[0]{\textit{useful}}
-\newcommand{\useless}[0]{\textit{useless}}
+\newcommand{\unfit}[0]{unfit}
+\newcommand{\dangerous}[0]{dangerous}
+\newcommand{\useful}[0]{useful}
+\newcommand{\useless}[0]{useless}
 \newcommand{\Ao}[0]{\textsc{Autobahn 1.0}}
 \newcommand{\At}[0]{\textsc{Autobahn 2.0}}
 \newcommand{\fit}[0]{\textit{fit}}
@@ -36,7 +36,7 @@
 
 Lazy evaluation is a property of Haskell that improves program efficiency and provides programmers the ability to use infinite data structures. Under lazy evaluation, expressions are only evaluated when their values are needed. Every unevaluated expression is stored in a \textit{thunk}, and its evaluation is delayed until another expression demands the value of the current one. Most of the time, this greatly improves program performance as it avoids wasting time on evaluating unnecessary expressions. It also means that users can operate on infinite data structures by only evaluating finite portions of it.
 
-While lazy evaluation reaps many benefits, it can also create serious performance slow downs when too much memory is allocated to a large number of thunks. We can reduce thunks by avoiding creating them for expressions that we know will eventually be evaluated. To avoid the creation of a thunk, programmers can insert strictness annotations such as bang patterns at a certain program point to enforce eager evaluation. However, programmers need to distinguish program points that will benefit from eager evaluation from program points that do not need to be evaluated or will not terminate when evaluated. This task is difficult and often reserved for expert Haskel programmers. 
+While lazy evaluation reaps many benefits, it can also create serious performance slow downs when too much memory is allocated to a large number of thunks. We can reduce thunks by avoiding creating them for expressions that we know will eventually be evaluated. To avoid the creation of a thunk, programmers can insert strictness annotations such as bang patterns at a certain program point to enforce eager evaluation. However, programmers need to distinguish program points that will benefit from eager evaluation from program points that do not need to be evaluated or will not terminate when evaluated. This task is difficult and often reserved for expert Haskell programmers. 
 
 \subsection{Autobahn}
 
@@ -80,13 +80,10 @@ whole program's resources.
 In order to minimize the number of bangs in 
 a program while maintaining similar program performance, we need to 
 preserve the bangs in the most costly cost centres and eliminate those 
-located in the less costly cost centres. The minimizer identifies a cost centre that consumes more than a \hotspotcost{} threshold percentage of the overall program runtime as a \hotspot{}. A cost centre that does not consume more than the \hotspotcost{} threshold is a \coldspot{}. Currently, we set the \hotspotcost{} threshold to 6\%, although that threshold can be
+located in the less costly cost centres. The minimizer identifies a cost centre that consumes more than a \hotspotcost{}threshold percentage of the overall program runtime as a \textit{\hotspot{}}. A cost centre that does not consume more than the \hotspotcost{} threshold is a \textit{\coldspot{}}. Currently, we set the \hotspotcost{} threshold to 6\%, although that threshold can be
 adjusted. As the threshold increases, fewer bangs
 are preserved at the risk of a higher possibility of compromised program 
 performance. 
-
-%    - CC bound by src locations
- %   - Results of profiling is dependant on representative input (size or type)
 
 \subsection{Genes and Chromosomes}
 
@@ -99,7 +96,7 @@ indicates the presence or absence of a bang. Since a program is a collection of 
 
 \subsection{Autobahn's Genetic Algorithm}
 
-Autobahn's genetic algorithm evaluates and manipulates randomly generated chromosomes. It repeatedly generates new chromosomes before measuring their performance using a fitness function. We call a chromosome that either significantly slows down program performance or causes non termination an \unfit{} chromosome. If the fitness function determines that a chromosome is \unfit{}, the chromosome is immediately discarded. If the fitness function determines that a chromosome behaved well, the chromosome is deemed \fit{} and kept for future rounds of generation. 
+Autobahn's genetic algorithm evaluates and manipulates randomly generated chromosomes. It repeatedly generates new chromosomes before measuring their performance using a fitness function. We call a chromosome that either significantly slows down program performance or causes non termination an \textit{\unfit{}} chromosome. If the fitness function determines that a chromosome is \unfit{}, the chromosome is immediately discarded. If the fitness function determines that a chromosome behaved well, the chromosome is deemed \textit{\fit{}} and kept for future rounds of generation. 
 
 For each round of chromosome generation, Autobahn introduces randomness by performing either a mutation or a crossover. A mutation flips a gene in the chromosome whenever a randomly chosen floating point number exceeds the \textit{mutateProb} threshold. A crossover combines two chromosomes by randomly picking half of the genes from each parent chromosome. For either of these random operations, Autobahn uses a unique number generator each time to guarantee randomness. 
 
@@ -112,7 +109,7 @@ Similarly, the quality of representative input impacts the quality of \At{}'s pe
 \section{Idea}
 \subsection{Why Too Many Bangs Are Generated}
 
-The first step to eliminating bangs is to identify categories of bangs and hypothesize the reason why each category exists. A \dangerous{} bang is a bang that can significantly slow down program runtime or cause program non-termination. A \useful{} bang improves program performance, and a \useless{} bang neither improves nor worsens program performance. 
+The first step to eliminating bangs is to identify categories of bangs and hypothesize the reason why each category exists. A \textit{\dangerous{}} bang is a bang that can significantly slow down program runtime or cause program non-termination. A \textit{\useful{}} bang improves program performance, and a \textit{\useless{}} bang neither improves nor worsens program performance. 
 
 While an \unfit{} chromosome may perform poorly as a whole, it can contain a mixture of \dangerous, \useful{} and \useless{} bangs. \Ao{} handles \unfit{} chromosomes by discarding them as a whole, but fails to provide a method of isolating the specific \dangerous{} bangs in an \unfit{} chromosome. It is necessary to isolate and remove \dangerous{} bangs because they might otherwise reappear in later generations as a result of random mutation. 
 
@@ -249,18 +246,18 @@ The \texttt{anna, expert,} and \texttt{symalg} benchmarks are particularly inter
 Figure 2 shows the corresponding runtime performance of results generated by \Ao{} and \Ao{} with the \preopt{} phase. The graph shows that even when a large number of genes are eliminated prior to optimization, the optimizer is still able to find \useful{} bangs that result in similar runtime improvement.  
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{preAut1}
-\caption{Number of bangs generated by \Ao{} vs. \preopt{} phase and \Ao{}}
+\includegraphics[width=\textwidth]{pre-aut-bangs}
+\caption{Number of bangs generated by \Ao{} vs. \preopt{} phase combined with \Ao{} compared across 20 benchmarks. Columns that exceed the maximum axis value are labelled with their actual values.}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{preAut2}
-\caption{Normalized runtime of \Ao{} results vs. \preopt{} phase and \Ao{} results}
+\includegraphics[width=\textwidth]{pre-aut}
+\caption{Normalized runtime of \Ao{} results vs. \preopt{} phase combined with \Ao{} results across 20 benchmarks. Columns that exceed the maximum axis value are labelled with their actual values.}
 \end{figure*}
 
 \subsection{\Preopt{} File Elimination}
 
-We have found six benchmarks in the NoFib suite that the \preopt{} phase identifies as unsuitable for optimization when the \hotspotcost{} threshold is set to 6\%. These are \textit{awards, callback001, callback002, mutstore2, sorting,} and \textit{threads007}. As expected, when attempting to optimize \textit{awards} and \textit{threads007}, Autobahn consistently fails to optimize and returns 1.0, indicating that it cannot do better than the original program. However, Autobahn was able to successfully optimize the other programs. Through inspection, we concluded that \textit{callback002} would've benefited from a lower \hotspotcost{} threshold as its most costly \textit{hot spot} takes up 3.9\% of the program runtime. Both \textit{callback001} and \textit{threads007} would've benefited from inspecting heap profiles instead of time and allocation profiles as the costs associated with their \textit{hot spots} were noticeably larger in heap allocations while remaining insignificant in runtime costs. \textit{mutstore2} is a program that's performance fluctuated wildly even without bangs in it. For example, its measured runtime was as low as 60\% - 80\% of its original runtime in one third of the experiments we ran with no bangs in the program. Therefore, the optimization results were likely skewed by the fluctuating runtime.
+We have found six benchmarks in the NoFib suite that the \preopt{} phase identifies as unsuitable for optimization when the \hotspotcost{} threshold is set to 6\%. These are \texttt{awards, callback001, callback002, mutstore2, sorting,} and \texttt{threads007}. As expected, when attempting to optimize \texttt{awards} and \texttt{threads007}, Autobahn consistently fails to optimize and returns 1.0, indicating that it cannot do better than the original program. However, Autobahn was able to successfully optimize the other programs. Through inspection, we concluded that \texttt{callback002} would've benefited from a lower \hotspotcost{} threshold as its most costly \texttt{hot spot} takes up 3.9\% of the program runtime. Both \texttt{callback001} and \texttt{threads007} would've benefited from inspecting heap profiles instead of time and allocation profiles as the costs associated with their hot spots were noticeably larger in heap allocations while remaining insignificant in runtime costs. \texttt{mutstore2} is a program that's performance fluctuated wildly even without bangs in it. For example, its measured runtime was as low as 60\% - 80\% of its original runtime in one third of the experiments we ran with no bangs in the program. Therefore, the optimization results were likely skewed by the fluctuating runtime.
 
 \subsection{\Preopt{} File Addition}
 
@@ -270,12 +267,12 @@ While running the \preopt{} phase on the Aeson library, we were suggested by the
 
 \begin{tabular}{llr}
 \hline
-Version   & Driver & Normalized Runtime (s) \\
+Version   & Driver & Normalized Runtime \\
 \hline
 Original      & value   & 1     \\
           & json        & 1      \\
-Pre-optimization       & value     & 0.736188031878968     \\
-          & json        & 0.6695504183803715	\\
+Pre-optimization       & value     & 0.73     \\
+          & json        & 0.66	\\
 \Ao{}       & value     & yet to run      \\
           & json        & yet to run	\\
 
@@ -294,14 +291,16 @@ The interesting results for programs \textit{anna} and \textit{fluid} show that 
 
 \textit{Evidence: Currently Figure 3 and Figure 4 only include benchmarks that successfully optimized each time, i should also show average fail/success rate and absolute best performance for each benchmark that didn't successfully optimize each time?}
 
+put no. of benchmarks in the caption, in graph: autobahn is autobahn 1.0, preautobahn is pre opt, say in caption that bars that go off graph are more than 500, delete extra axis, 
+
 \begin{figure*}
-\includegraphics[width=\textwidth]{autPost1}
-\caption{Number of bangs generated by \Ao{} vs. \postopt{} phase and \Ao{}}
+\includegraphics[width=\textwidth]{aut-post-bangs}
+\caption{Number of bangs generated by \Ao{} vs. \postopt{} phase combined with \Ao{} across 22 benchmarks. Columns that exceed the maximum axis value are labelled with their actual values.}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{autPost2}
-\caption{Normalized runtime of \Ao{} results vs. \postopt{} phase and \Ao{} results}
+\includegraphics[width=\textwidth]{aut-post}
+\caption{Normalized runtime of \Ao{} results vs. \postopt{} phase combined with \Ao{} results across 22 benchmarks. Columns that exceed the maximum axis value are labelled with their actual values. Benchmarks that did not terminate are indicated with a 2.0 error code runtime.}
 \end{figure*}
 
 \subsection{Combining \preopt{} and \postopt{}}
@@ -326,17 +325,17 @@ The original \Ao{} was able to produce results that not only ran faster on repre
 
 \begin{tabular}{lllr}
 \hline
-Version   & File Size (M) & Runtime (s) & No.Bangs \\
+Version   & File Size (M) & Runtime & No.Bangs \\
 \hline
-Original      & 1   &   0.403	 & 0   \\
-          & 100        & 43.132      & 0 \\
+Original      & 1   &   0.40	 & 0   \\
+          & 100        & 43.13      & 0 \\
        & 500     &  216.71 & 0 \\
-\Ao{}       & 1     & 0.183    &  690\\
-          & 100        & 14.192	 &  690\\
-                 & 100        & 68.986	& 690\\
+\Ao{}       & 1     & 0.18    &  690\\
+          & 100        & 14.19 &  690\\
+                 & 100        & 68.98	& 690\\
 \At{}      & 1   &  0.23 & 125    \\
-          & 100        & 15.754 & 125      \\
-       & 500    & 81.669 & 125    \\
+          & 100        & 15.75 & 125      \\
+       & 500    & 81.66 & 125    \\
 
 \hline
 \end{tabular}
@@ -351,12 +350,12 @@ Claim: Minimizing Aeson can preserve different annotations in bang reduction in 
 
 \begin{tabular}{llr}
 \hline
-Version   & Driver & Normalized Runtime (s) \\
+Version   & Driver & Normalized Runtime \\
 \hline
 Original      & value   & 1     \\
           & json        & 1      \\
-Pre-optimization       & value     & 0.736188031878968     \\
-          & json        & 0.6695504183803715	\\
+Pre-optimization       & value     & 0.73     \\
+          & json        & 0.66	\\
 \Ao{}       & value     & yet to finish running      \\
           & json        & yet to finish running	\\
 

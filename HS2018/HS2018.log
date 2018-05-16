@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  14 MAY 2018 20:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  15 MAY 2018 23:29
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **HS2018.tex
 (./HS2018.tex
@@ -1352,149 +1353,201 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 6808) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 119.
+(Font)              scaled to size 10.0pt on input line 116.
  [2.2]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 148.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 159.
+(Font)              scaled to size 10.0pt on input line 145.
 
-Overfull \hbox (17.76935pt too wide) in paragraph at lines 170--171
+Overfull \hbox (17.76935pt too wide) in paragraph at lines 167--168
 [][] 
  []
 
 [3.3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/it' will be
-(Font)              scaled to size 10.0pt on input line 195.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4.4]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/sc' will be
-(Font)              scaled to size 10.0pt on input line 216.
+(Font)              scaled to size 10.0pt on input line 213.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [5.5]
-<preAut1.png, id=175, 1216.545pt x 453.695pt>
-File: preAut1.png Graphic file (type png)
- <use preAut1.png>
-Package pdftex.def Info: preAut1.png used on input line 252.
-(pdftex.def)             Requested size: 505.89pt x 188.66066pt.
+Package epstopdf Info: Source file: <pre-aut-bangs.eps>
+(epstopdf)                    date: 2018-05-15 22:56:28
+(epstopdf)                    size: 32671 bytes
+(epstopdf)             Output file: <pre-aut-bangs-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 23:02:46
+(epstopdf)                    size: 9178 bytes
+(epstopdf)             Command: <repstopdf --outfile=pre-aut-bangs-eps-converte
+d-to.pdf pre-aut-bangs.eps>
+(epstopdf)             \includegraphics on input line 249.
+Package epstopdf Info: Output file is already uptodate.
 
-<preAut2.png, id=177, 1233.60875pt x 460.72125pt>
-File: preAut2.png Graphic file (type png)
- <use preAut2.png>
-Package pdftex.def Info: preAut2.png used on input line 257.
-(pdftex.def)             Requested size: 505.89pt x 188.93208pt.
+<pre-aut-bangs-eps-converted-to.pdf, id=173, 542.025pt x 201.75375pt>
+File: pre-aut-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
-Overfull \hbox (1.17264pt too wide) in paragraph at lines 269--270
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) file in-cluded mul-ti-ple \T1/LinuxLiberti
-neT-TLF/m/it/10 (-20) hot spots\T1/LinuxLibertineT-TLF/m/n/10 (-20) . How-ever,
- \T1/zi4/m/n/10 InternalTypes.hs
+<use pre-aut-bangs-eps-converted-to.pdf>
+Package pdftex.def Info: pre-aut-bangs-eps-converted-to.pdf used on input line 
+249.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+Package epstopdf Info: Source file: <pre-aut.eps>
+(epstopdf)                    date: 2018-05-15 23:27:53
+(epstopdf)                    size: 35858 bytes
+(epstopdf)             Output file: <pre-aut-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 22:05:18
+(epstopdf)                    size: 9750 bytes
+(epstopdf)             Command: <repstopdf --outfile=pre-aut-eps-converted-to.p
+df pre-aut.eps>
+(epstopdf)             \includegraphics on input line 254.
+runsystem(repstopdf --outfile=pre-aut-eps-converted-to.pdf pre-aut.eps)...execu
+ted safely (allowed).
+
+Package epstopdf Info: Result file: <pre-aut-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 23:29:08
+(epstopdf)                    size: 9706 bytes.
+
+<pre-aut-eps-converted-to.pdf, id=174, 542.025pt x 201.75375pt>
+File: pre-aut-eps-converted-to.pdf Graphic file (type pdf)
+
+<use pre-aut-eps-converted-to.pdf>
+Package pdftex.def Info: pre-aut-eps-converted-to.pdf used on input line 254.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+
+Overfull \hbox (23.98799pt too wide) in paragraph at lines 260--261
+\T1/zi4/m/n/10 hot spot \T1/LinuxLibertineT-TLF/m/n/10 (-20) takes up 3.9% of t
+he pro-gram run-time. Both \T1/zi4/m/n/10 callback001
  []
 
 
-Overfull \hbox (2.04193pt too wide) in paragraph at lines 269--270
+Overfull \hbox (3.43666pt too wide) in paragraph at lines 266--267
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) file in-cluded mul-ti-ple hot spots. How-e
+ver, \T1/zi4/m/n/10 InternalTypes.hs
+ []
+
+
+Overfull \hbox (2.04193pt too wide) in paragraph at lines 266--267
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) al-ready in-cluded man-u-ally in-serted ba
 ngs by its au-thor. There-
  []
 
 
-Overfull \hbox (7.41925pt too wide) in paragraph at lines 269--270
+Overfull \hbox (7.41925pt too wide) in paragraph at lines 266--267
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) fore we ran ex-per-i-ments us-ing a ver-si
 on of \T1/zi4/m/n/10 InternalTypes.hs
  []
 
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 271.
+(Font)              scaled to size 10.0pt on input line 268.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (21.69594pt too wide) in paragraph at lines 287--288
+Overfull \hbox (21.69594pt too wide) in paragraph at lines 284--285
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) To test the ef-fi-ciency of re-duc-ing ban
 gs us-ing the post-optimization
  []
 
-<autPost1.png, id=178, 1240.635pt x 459.7175pt>
-File: autPost1.png Graphic file (type png)
- <use autPost1.png>
-Package pdftex.def Info: autPost1.png used on input line 298.
-(pdftex.def)             Requested size: 505.89pt x 187.45422pt.
+Package epstopdf Info: Source file: <aut-post-bangs.eps>
+(epstopdf)                    date: 2018-05-15 23:10:54
+(epstopdf)                    size: 31297 bytes
+(epstopdf)             Output file: <aut-post-bangs-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 23:10:59
+(epstopdf)                    size: 8860 bytes
+(epstopdf)             Command: <repstopdf --outfile=aut-post-bangs-eps-convert
+ed-to.pdf aut-post-bangs.eps>
+(epstopdf)             \includegraphics on input line 297.
+Package epstopdf Info: Output file is already uptodate.
+<aut-post-bangs-eps-converted-to.pdf, id=175, 542.025pt x 201.75375pt>
+File: aut-post-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
-<autPost2.png, id=179, 1237.62375pt x 461.725pt>
-File: autPost2.png Graphic file (type png)
- <use autPost2.png>
-Package pdftex.def Info: autPost2.png used on input line 303.
-(pdftex.def)             Requested size: 505.89pt x 188.7378pt.
+<use aut-post-bangs-eps-converted-to.pdf>
+Package pdftex.def Info: aut-post-bangs-eps-converted-to.pdf used on input line
+ 297.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+Package epstopdf Info: Source file: <aut-post.eps>
+(epstopdf)                    date: 2018-05-15 23:29:00
+(epstopdf)                    size: 32641 bytes
+(epstopdf)             Output file: <aut-post-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 23:14:04
+(epstopdf)                    size: 8916 bytes
+(epstopdf)             Command: <repstopdf --outfile=aut-post-eps-converted-to.
+pdf aut-post.eps>
+(epstopdf)             \includegraphics on input line 302.
+runsystem(repstopdf --outfile=aut-post-eps-converted-to.pdf aut-post.eps)...exe
+cuted safely (allowed).
 
-<pap.png, id=180, 1218.5525pt x 455.7025pt>
+Package epstopdf Info: Result file: <aut-post-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-15 23:29:09
+(epstopdf)                    size: 8604 bytes.
+
+<aut-post-eps-converted-to.pdf, id=176, 542.025pt x 201.75375pt>
+File: aut-post-eps-converted-to.pdf Graphic file (type pdf)
+
+<use aut-post-eps-converted-to.pdf>
+Package pdftex.def Info: aut-post-eps-converted-to.pdf used on input line 302.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+
+<pap.png, id=177, 1218.5525pt x 455.7025pt>
 File: pap.png Graphic file (type png)
  <use pap.png>
-Package pdftex.def Info: pap.png used on input line 312.
+Package pdftex.def Info: pap.png used on input line 311.
 (pdftex.def)             Requested size: 505.89pt x 189.18948pt.
 
-<pap2.png, id=181, 1218.5525pt x 453.695pt>
+<pap2.png, id=179, 1218.5525pt x 453.695pt>
 File: pap2.png Graphic file (type png)
  <use pap2.png>
-Package pdftex.def Info: pap2.png used on input line 317.
+Package pdftex.def Info: pap2.png used on input line 316.
 (pdftex.def)             Requested size: 505.89pt x 188.35606pt.
  [6.6]
-Overfull \hbox (5.11478pt too wide) in paragraph at lines 327--343
-[][] 
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7.7 <./preAut1.png> <./preAut2.png>] [8.8
+ [7.7 <./pre-aut-bangs-eps-converted-to.pdf> <./pre-aut-eps-converted-to.pdf>] 
+[8.8
 
- <./autPost1.png> <./autPost2.png>] [9.9 <./pap.png> <./pap2.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 366.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 366.
+ <./aut-post-bangs-eps-converted-to.pdf> <./aut-post-eps-converted-to.pdf>] [9.
+9 <./pap.png> <./pap2.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 365.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 365.
  (./HS2018.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 366.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 366.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 365.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 365.
 Package rerunfilecheck Info: File `HS2018.out' has not changed.
 (rerunfilecheck)             Checksum: 9FDA552DBF33263149E7044258294048;5971.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 366.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 365.
  ) 
 Here is how much of TeX's memory you used:
- 29876 strings out of 492995
- 555146 string characters out of 6132704
- 652454 words of memory out of 5000000
- 32278 multiletter control sequences out of 15000+600000
- 169406 words of font info for 348 fonts, out of 8000000 for 9000
+ 29836 strings out of 492995
+ 554191 string characters out of 6132704
+ 652430 words of memory out of 5000000
+ 32274 multiletter control sequences out of 15000+600000
+ 153346 words of font info for 317 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1395b,692s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1386b,623s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_tlukpt.enc
-}{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{
-/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}{/
-usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr
-/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/
-local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/usr/l
-ocal/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/lo
-cal/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/loc
-al/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/loca
-l/texlive/2017/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pf
-b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinBiolinumT
-I.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinLiber
-tineT.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinL
-ibertineTB.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine
-/LinLibertineTBI.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lib
-ertine/LinLibertineTI.pfb>
-Output written on HS2018.pdf (9 pages, 2147372 bytes).
+}{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/u
+sr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/us
+r/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/usr
+/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/
+local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/l
+ocal/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/lo
+cal/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/loc
+al/texlive/2017/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.p
+fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinLibertin
+eT.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinLibe
+rtineTB.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/Li
+nLibertineTI.pfb>
+Output written on HS2018.pdf (9 pages, 1139253 bytes).
 PDF statistics:
- 273 PDF objects out of 1000 (max. 8388607)
- 226 compressed objects within 3 object streams
+ 278 PDF objects out of 1000 (max. 8388607)
+ 235 compressed objects within 3 object streams
  48 named destinations out of 1000 (max. 500000)
- 59703 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 55095 words of extra memory for PDF output out of 61914 (max. 10000000)
 

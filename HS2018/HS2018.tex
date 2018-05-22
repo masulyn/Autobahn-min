@@ -408,9 +408,6 @@ For future developments, it would be worth exploring the additional use of heap 
 
 \section{Conclusion}
 
-Laziness is a double edged sword: While it provides many benefits, excessive laziness often causes poor performance. Strictness annotations allow programmers to force eager evaluation, but its use is limited to programmers with extensive experience and high levels of expertise. Autobahn uses a genetic algorithm to automatically infer annotations for better program performance, but it often suggests too many bangs for users to inspect. We have built Autobahn 2.0, which uses GHC profiling feedback to perform search space manipulation to improve the efficiency of genetic algorithms, and eliminates bangs based on their associated performance costs. Experiments show that \At{} 
-- NoFib runtime improvement
-- NoFib Bang reduction
-- Results
+Laziness is a double edged sword: While it provides many benefits, excessive laziness often causes poor performance. Strictness annotations allow programmers to force eager evaluation, but its use is limited to programmers with extensive experience and high levels of expertise. Autobahn uses a genetic algorithm to automatically infer annotations for better program performance, but it often suggests too many bangs for users to inspect. We have built Autobahn 2.0, which uses GHC profiling feedback to perform search space manipulation to improve the efficiency of genetic algorithms, and eliminates bangs based on their associated performance costs. On average, experiments show that \At{} was able to reduce 90.9\% of generated bangs while only compromising 3\% runtime.
 
 \end{document}

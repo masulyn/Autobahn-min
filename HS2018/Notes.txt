@@ -1,3 +1,83 @@
+Section 5.2.  Explain precisely how you chose these 20 benchmark
+programs.
+
+Section 5.2.  Explain why sometimes Autobahn 1.0 + pre-search
+sometimes gets better performance. 
+
+
+Figure 1. Eliminate the beigh number next to the labels for boyer2 and
+cacheprof.  
+
+Do you explain the difference between genes and bangs somewhere?
+
+Figure 2. Point out in the caption that the vertical axes is on a log
+scale.
+
+Section 5.3 "that's" --> "whose"
+
+Section 5.4:
+"validate simply checks if the file is written in valid JSON syntax,
+and convert actually converts file input into a Haskell data
+structure." Don't start sentences with code fragments, math, or
+symbols.  In this case you can reword to something like
+"The validate driver program simply checks if the file is written in valid JSON syntax,
+and convert actually converts file input into a Haskell data
+structure."
+
+Section 5.4:
+ What conclusions do you draw from the experimental results?
+ How many bangs were in each of the programs under the different
+ optimizers?
+
+Section 5.5:
+ How many programs were not successfully optimized?  Ie, how many did
+ you try it on?
+
+ "quite significant"  --> be more quantitative.  How much is quite
+ significant?
+
+anna and fluid are type set in italics in this section; json and value
+are in normal font in the table in section 5.4, but in the text they
+are in a sans serif font.  You should pick a convention for program
+names and then use it consistently everywhere.
+
+Explain what 1.0 and 2.0 error codes are.  Better yet, introduce
+semantically meaningful names for these conditions and use those
+instead.
+
+Figure 4: Why doesn't treejoin have a post-search runtime?
+
+Section 5.5: Discuss the issue of not all runs finish successfully.
+
+Status of Section 5.6?
+
+Section 5.7.  In the third entry for Autobahn 1.0, should it be 500
+instead of 100?
+
+Discuss why reducing the search space is not reducing the running time
+somewhere.
+
+Figure 6.  The runtime of anna under 1.0 isn't really 2 times the
+original runtime; the 1.0 runtime is the same as the original because
+Autobahn 1.0 detects the issue.  We should find a different way to
+mark what happens in that case that doesn't imply the wrong resulting
+running time.
+
+Why the different number of benchmarks for each graph?  We're risking
+looking like we are only reporting favorable results.
+
+What's the difference between figures 7&8 and figures 9&10?  Ie, which
+benchmarks appear in which figures and why?
+
+
+
+Remove generated files from git repository:
+HS2018.log
+HS2018.aux
+HS2018.pdf
+HS2018.out
+
+********************
 Section 1.3. 
 Say something about GHC's strictness analyzer.  Do we have data on how many bangs GHC can determine are safe?  We should point out that GHC will already be applying optimizations to any program point where its strictness analyzer can prove inserting a bang would be safe.  This analysis is necessarily conservative and so misses some opportunities.  These bangs are one source of Autohbahn's performance improvements.  The other is bangs that are not always safe, but are safe on the inputs that programmers care about.  For example, factorial diverges if given a negative number, but the expectation is that it will only be called with positive numbers. 
 

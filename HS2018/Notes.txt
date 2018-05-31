@@ -1,61 +1,61 @@
 Section 5.2.  Explain precisely how you chose these 20 benchmark
-programs.
+programs. ===> FIXED
 
 Section 5.2.  Explain why sometimes Autobahn 1.0 + pre-search
-sometimes gets better performance. 
+sometimes gets better performance. ===> FIXED (Added to 5.2)
 
 
 Figure 1. Eliminate the beigh number next to the labels for boyer2 and
-cacheprof.  
+cacheprof.  ===> I think this no longer appears? not sure what the number text refers to.
 
-Do you explain the difference between genes and bangs somewhere?
+Do you explain the difference between genes and bangs somewhere? ===> "In the algorithm, any program source location where a bang may be added is represented as a gene that can be turned on or off." in 2.2, let me know if it's unclear.
 
 Figure 2. Point out in the caption that the vertical axes is on a log
-scale.
+scale. ===> FIXED
 
-Section 5.3 "that's" --> "whose"
+Section 5.3 "that's" --> "whose" ===> FIXED
 
-Section 5.4:
+Section 5.4: ===> FIXED
 "validate simply checks if the file is written in valid JSON syntax,
 and convert actually converts file input into a Haskell data
 structure." Don't start sentences with code fragments, math, or
 symbols.  In this case you can reword to something like
 "The validate driver program simply checks if the file is written in valid JSON syntax,
 and convert actually converts file input into a Haskell data
-structure."
+structure." 
 
-Section 5.4:
+Section 5.4: ===> FIXED
  What conclusions do you draw from the experimental results?
  How many bangs were in each of the programs under the different
  optimizers?
 
 Section 5.5:
  How many programs were not successfully optimized?  Ie, how many did
- you try it on?
+ you try it on? ===> TODO need to gather data for this.
 
  "quite significant"  --> be more quantitative.  How much is quite
- significant?
+ significant? ===> TODO need to gather data for this.
 
 anna and fluid are type set in italics in this section; json and value
 are in normal font in the table in section 5.4, but in the text they
 are in a sans serif font.  You should pick a convention for program
-names and then use it consistently everywhere.
+names and then use it consistently everywhere.  ====> FIXED
 
 Explain what 1.0 and 2.0 error codes are.  Better yet, introduce
 semantically meaningful names for these conditions and use those
-instead.
+instead. ====> FIXED. Not sure where to define these error codes but put them in 5.1 for now.
 
 Figure 4: Why doesn't treejoin have a post-search runtime?
 
-Section 5.5: Discuss the issue of not all runs finish successfully.
+Section 5.5: Discuss the issue of not all runs finish successfully.  ===> TODO
 
 Status of Section 5.6?
 
 Section 5.7.  In the third entry for Autobahn 1.0, should it be 500
-instead of 100?
+instead of 100?   =====> FIXED
 
 Discuss why reducing the search space is not reducing the running time
-somewhere.
+somewhere. ===> Added in 3.4.
 
 Figure 6.  The runtime of anna under 1.0 isn't really 2 times the
 original runtime; the 1.0 runtime is the same as the original because
@@ -78,34 +78,39 @@ HS2018.pdf
 HS2018.out
 
 ********************
-Section 1.3. 
+Section 1.3. ===> FIXED
 Say something about GHC's strictness analyzer.  Do we have data on how many bangs GHC can determine are safe?  We should point out that GHC will already be applying optimizations to any program point where its strictness analyzer can prove inserting a bang would be safe.  This analysis is necessarily conservative and so misses some opportunities.  These bangs are one source of Autohbahn's performance improvements.  The other is bangs that are not always safe, but are safe on the inputs that programmers care about.  For example, factorial diverges if given a negative number, but the expectation is that it will only be called with positive numbers. 
 
-Section 1.4
+Section 1.4 ===> FIXED
 What about "pre-search" and "post-search" phases instead of "pre-optimization" and "post-optimization" phases?  The optimization term seems confusing because in some sense all the phases are doing optimizations of various kinds.
 
-"After Ao runs"  --> "After Autobahn 1.0 runs" ?
+"After Ao runs"  --> "After Autobahn 1.0 runs" ? ==> FIXED
 
-"produce far fewer bangs" --> how many fewer?
+"produce far fewer bangs" --> how many fewer? ==> FIXED
 
-1.5
+1.5 ==> FIXED
 Fill out.
 What summary results? 
 
-3 "Idea" --> "Autobahn 2.0"
+3 "Idea" --> "Autobahn 2.0" ==> FIXED
 
-Section 4.2
+Section 4.2 ==> FIXED (I meant it would alert the user and continue to optimize as normal.)
 "If external libraries could be added to Autobahn’s coverage to potentially boost optimization performance, the pre-optimization phase would alert the user and continue execution."   What does it mean to continue execution in this case?
 
-Section 4.3
+Section 4.3 ==> They were representing genes in a chromosome, and the modified vector represents both genes and their location in a chromosome. Modified wording in an attempt to clarify that. 
 What were Autobahn's bit vectors representing?  Nodes in the AST?  how did that work?
 
-Section 4.4
+Section 4.4 ===> FIXED (clarified wording)
 "We wanted to support the optimization of these files in Autobahn 2.0, so we manually removed those misidentifid genes."  Say more about this.  You manually removed these genes from what?  How would that work if someone else were using Autobahn 2.0?  Would they have to manually remove genes?
 
-"Autobahn 2.0 successfully uses this method to avoid inserting bangs into illegal locations after being misguided by the parser and expand the types of files we can optimize to those including instance declarations as well."  This sentence is unclear because it puts two different ideas together without clearly explaining the relationship: 1) avoiding putting bangs into illegal positions 2) expanding the set of bangs through profiling. 
+"Autobahn 2.0 successfully uses this method to avoid inserting bangs into illegal locations after being misguided by the parser and expand the types of files we can optimize to those including instance declarations as well."  This sentence is unclear because it puts two different ideas together without clearly explaining the relationship: 1) avoiding putting bangs into illegal positions 2) expanding the set of bangs through profiling.  ==> FIXED (clarified wording)
 
-Do you explain somewhere that the file is the unit of user-control for bang placement? 
+Do you explain somewhere that the file is the unit of user-control for bang placement? ===> Yes, end of 3.3.
 
-Make captions more self-contained, as we've discussed previously. 
+Make captions more self-contained, as we've discussed previously. ===> FIXED
+
+
+STILL NEED TO:
+
+FIGURE OUT HOW TO STACK BARS IN GNUPLOT FOR FAILURE RATE
 

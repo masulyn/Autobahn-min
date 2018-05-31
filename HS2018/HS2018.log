@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  22 MAY 2018 02:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  31 MAY 2018 00:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1059,61 +1059,61 @@ File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
 ) (./HS2018.aux)
 \openout1 = `HS2018.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 25.
-LaTeX Font Info:    Try loading font information for OML+nxlmi on input line 25
+LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 27.
+LaTeX Font Info:    Try loading font information for OML+nxlmi on input line 27
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 25.
-LaTeX Font Info:    Try loading font information for U+ntxexa on input line 25.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 27.
+LaTeX Font Info:    Try loading font information for U+ntxexa on input line 27.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 25.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 27.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 25.
-LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 25
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 27.
+LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 27
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 27.
 LaTeX Font Info:    Try loading font information for LMX+ntxexx on input line 2
-5.
+7.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 25.
+(Font)              scaled to size 8.0pt on input line 27.
 LaTeX Font Info:    Try loading font information for OT1+LinuxLibertineT-TLF on
- input line 25.
+ input line 27.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-TLF.
 fd
@@ -1121,42 +1121,42 @@ File: OT1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for OT1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 25.
+(Font)              scaled to size 8.0pt on input line 27.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 25.
+(Font)              scaled to size 6.2pt on input line 27.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 25.
+(Font)              scaled to size 5.5pt on input line 27.
 <<oml.cmap>>
-LaTeX Font Info:    Try loading font information for U+msa on input line 25.
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 25.
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+ntxmia on input line 25.
+LaTeX Font Info:    Try loading font information for U+ntxmia on input line 27.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2016/01/31 Fontinst v1.933 font definitions for U/ntxmia.
 )
-LaTeX Font Info:    Try loading font information for U+ntxsym on input line 25.
+LaTeX Font Info:    Try loading font information for U+ntxsym on input line 27.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
-LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 25.
+LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 27.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
-LaTeX Info: Redefining \microtypecontext on input line 25.
+LaTeX Info: Redefining \microtypecontext on input line 27.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1173,7 +1173,7 @@ Package microtype Info: Loading generic settings for font family
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 27.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -1183,9 +1183,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count147
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
-LaTeX Info: Redefining \nameref on input line 25.
+LaTeX Info: Redefining \ref on input line 27.
+LaTeX Info: Redefining \pageref on input line 27.
+LaTeX Info: Redefining \nameref on input line 27.
 
 (./HS2018.out) (./HS2018.out)
 \@outlinefile=\write6
@@ -1265,34 +1265,34 @@ tim
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Class acmart Info: Using journal code pacmpl on input line 26.
+Class acmart Info: Using journal code pacmpl on input line 28.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 40.
+(Font)              scaled to size 20.74pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 20.74pt on input line 40.
+(Font)              scaled to size 20.74pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 40.
+(Font)              scaled to size 12.0pt on input line 42.
 LaTeX Font Info:    Try loading font information for T1+LinuxBiolinumT-TLF on i
-nput line 40.
+nput line 42.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 40.
+(Font)              scaled to size 10.0pt on input line 42.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 40.
+(Font)              scaled to size 10.0pt on input line 42.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 40.
+(Font)              scaled to size 7.3pt on input line 42.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
@@ -1300,9 +1300,9 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 8.0pt on input line 40.
+(Font)              scaled to size 8.0pt on input line 42.
 LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 40.
+ input line 42.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
 fd
@@ -1310,39 +1310,36 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 40.
+(Font)              scaled to size 8.0pt on input line 42.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 40.
+(Font)              scaled to size 8.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 40.
+(Font)              scaled to size 10.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 40.
+(Font)              scaled to size 12.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 40.
+(Font)              scaled to size 10.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 40.
+(Font)              scaled to size 9.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 40.
+(Font)              scaled to size 9.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 40.
+(Font)              scaled to size 9.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 40.
+(Font)              scaled to size 9.0pt on input line 42.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 40.
+(Font)              scaled to size 9.0pt on input line 42.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 46.
-
-Underfull \vbox (badness 1609) has occurred while \output is active []
-
+(Font)              scaled to size 10.0pt on input line 48.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 59.
+(Font)              scaled to size 7.0pt on input line 61.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 
@@ -1356,15 +1353,15 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [1.1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1092) has occurred while \output is active []
 
-LaTeX Font Info:    Try loading font information for T1+zi4 on input line 69.
+LaTeX Font Info:    Try loading font information for T1+zi4 on input line 73.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2016/12/29 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 69.
+(Font)              scaled to size 10.0pt on input line 73.
 Package microtype Info: Loading generic settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1376,7 +1373,7 @@ Package microtype Info: Character `textemdash ' is missing
 (microtype)             in font `T1/zi4/m/n/10'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5519) has occurred while \output is active []
 
 
 Underfull \hbox (badness 10000) has occurred while \output is active
@@ -1384,7 +1381,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 111.
+(Font)              scaled to size 7.0pt on input line 115.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 
@@ -1392,7 +1389,12 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 
 [2.2]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/sc' will be
-(Font)              scaled to size 12.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 116.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/sc' will be
+(Font)              scaled to size 12.0pt on input line 128.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 
@@ -1404,15 +1406,19 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 [3.3]
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 160.
+Underfull \hbox (badness 10000) in paragraph at lines 145--158
 
-Overfull \hbox (17.76935pt too wide) in paragraph at lines 179--180
+ []
+
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
+(Font)              scaled to size 10.0pt on input line 164.
+
+Overfull \hbox (17.76935pt too wide) in paragraph at lines 183--184
 [][] 
  []
 
 
-Underfull \vbox (badness 3536) has occurred while \output is active []
+Underfull \vbox (badness 1400) has occurred while \output is active []
 
 
 Underfull \hbox (badness 10000) has occurred while \output is active
@@ -1427,8 +1433,6 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [4.4]
 Underfull \vbox (badness 1189) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/sc' will be
-(Font)              scaled to size 10.0pt on input line 225.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 
@@ -1440,50 +1444,47 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 [5.5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package epstopdf Info: Source file: <pre-aut-bangs.eps>
-(epstopdf)                    date: 2018-05-22 00:21:15
-(epstopdf)                    size: 32665 bytes
+(epstopdf)                    date: 2018-05-28 20:12:32
+(epstopdf)                    size: 35686 bytes
 (epstopdf)             Output file: <pre-aut-bangs-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:21:36
-(epstopdf)                    size: 9126 bytes
+(epstopdf)                    date: 2018-05-28 23:57:48
+(epstopdf)                    size: 9558 bytes
 (epstopdf)             Command: <repstopdf --outfile=pre-aut-bangs-eps-converte
 d-to.pdf pre-aut-bangs.eps>
-(epstopdf)             \includegraphics on input line 262.
+(epstopdf)             \includegraphics on input line 273.
 Package epstopdf Info: Output file is already uptodate.
- <pre-aut-bangs-eps-converted-to.pdf, id=195, 542.025pt x 201.75375pt>
+
+<pre-aut-bangs-eps-converted-to.pdf, id=195, 542.025pt x 201.75375pt>
 File: pre-aut-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pre-aut-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: pre-aut-bangs-eps-converted-to.pdf used on input line 
-262.
+273.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 Package epstopdf Info: Source file: <pre-aut.eps>
-(epstopdf)                    date: 2018-05-22 00:21:27
-(epstopdf)                    size: 31419 bytes
+(epstopdf)                    date: 2018-05-28 20:00:56
+(epstopdf)                    size: 32014 bytes
 (epstopdf)             Output file: <pre-aut-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:21:37
-(epstopdf)                    size: 8190 bytes
+(epstopdf)                    date: 2018-05-28 20:09:21
+(epstopdf)                    size: 8240 bytes
 (epstopdf)             Command: <repstopdf --outfile=pre-aut-eps-converted-to.p
 df pre-aut.eps>
-(epstopdf)             \includegraphics on input line 267.
+(epstopdf)             \includegraphics on input line 278.
 Package epstopdf Info: Output file is already uptodate.
 
 <pre-aut-eps-converted-to.pdf, id=196, 542.025pt x 201.75375pt>
 File: pre-aut-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pre-aut-eps-converted-to.pdf>
-Package pdftex.def Info: pre-aut-eps-converted-to.pdf used on input line 267.
+Package pdftex.def Info: pre-aut-eps-converted-to.pdf used on input line 278.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 
-Overfull \hbox (9.85245pt too wide) in paragraph at lines 273--274
+Overfull \hbox (9.85245pt too wide) in paragraph at lines 284--285
 \T1/zi4/m/n/10 threads007\T1/LinuxLibertineT-TLF/m/n/10 (-20) . As ex-pected, w
 hen at-tempt-ing to op-ti-mize \T1/zi4/m/n/10 awards
- []
-
-
-Overfull \hbox (7.41925pt too wide) in paragraph at lines 279--280
-\T1/LinuxLibertineT-TLF/m/n/10 (-20) fore we ran ex-per-i-ments us-ing a ver-si
-on of \T1/zi4/m/n/10 InternalTypes.hs
  []
 
 
@@ -1516,6 +1517,34 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  []
 
 [7.7 <./pre-aut-bangs-eps-converted-to.pdf> <./pre-aut-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 295--298
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 304--304
+[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Normalized
+ []
+
+
+Overfull \hbox (9.66719pt too wide) in paragraph at lines 304--305
+[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) No.Bangs| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 308--308
+[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) [\T1/zi4/m/n/10 Main.hs\T1/LinuxLibertin
+eT-TLF/m/n/10 (+20) ,
+ []
+
+
+Overfull \hbox (8.22426pt too wide) in paragraph at lines 302--311
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package epstopdf Info: Source file: <aut-post-bangs.eps>
 (epstopdf)                    date: 2018-05-22 00:19:25
 (epstopdf)                    size: 31291 bytes
@@ -1524,7 +1553,7 @@ Package epstopdf Info: Source file: <aut-post-bangs.eps>
 (epstopdf)                    size: 8850 bytes
 (epstopdf)             Command: <repstopdf --outfile=aut-post-bangs-eps-convert
 ed-to.pdf aut-post-bangs.eps>
-(epstopdf)             \includegraphics on input line 306.
+(epstopdf)             \includegraphics on input line 337.
 Package epstopdf Info: Output file is already uptodate.
 
 <aut-post-bangs-eps-converted-to.pdf, id=218, 542.025pt x 201.75375pt>
@@ -1532,7 +1561,7 @@ File: aut-post-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use aut-post-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: aut-post-bangs-eps-converted-to.pdf used on input line
- 306.
+ 337.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 Package epstopdf Info: Source file: <aut-post.eps>
 (epstopdf)                    date: 2018-05-22 00:19:15
@@ -1542,14 +1571,14 @@ Package epstopdf Info: Source file: <aut-post.eps>
 (epstopdf)                    size: 8599 bytes
 (epstopdf)             Command: <repstopdf --outfile=aut-post-eps-converted-to.
 pdf aut-post.eps>
-(epstopdf)             \includegraphics on input line 311.
+(epstopdf)             \includegraphics on input line 342.
 Package epstopdf Info: Output file is already uptodate.
 
 <aut-post-eps-converted-to.pdf, id=219, 542.025pt x 201.75375pt>
 File: aut-post-eps-converted-to.pdf Graphic file (type pdf)
 
 <use aut-post-eps-converted-to.pdf>
-Package pdftex.def Info: aut-post-eps-converted-to.pdf used on input line 311.
+Package pdftex.def Info: aut-post-eps-converted-to.pdf used on input line 342.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 Package epstopdf Info: Source file: <ap-partial-bangs.eps>
 (epstopdf)                    date: 2018-05-22 02:16:34
@@ -1559,7 +1588,7 @@ Package epstopdf Info: Source file: <ap-partial-bangs.eps>
 (epstopdf)                    size: 9820 bytes
 (epstopdf)             Command: <repstopdf --outfile=ap-partial-bangs-eps-conve
 rted-to.pdf ap-partial-bangs.eps>
-(epstopdf)             \includegraphics on input line 316.
+(epstopdf)             \includegraphics on input line 347.
 Package epstopdf Info: Output file is already uptodate.
 
 <ap-partial-bangs-eps-converted-to.pdf, id=220, 542.025pt x 201.75375pt>
@@ -1567,7 +1596,7 @@ File: ap-partial-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ap-partial-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: ap-partial-bangs-eps-converted-to.pdf used on input li
-ne 316.
+ne 347.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 Package epstopdf Info: Source file: <ap-partial.eps>
 (epstopdf)                    date: 2018-05-22 00:17:05
@@ -1577,86 +1606,116 @@ Package epstopdf Info: Source file: <ap-partial.eps>
 (epstopdf)                    size: 10299 bytes
 (epstopdf)             Command: <repstopdf --outfile=ap-partial-eps-converted-t
 o.pdf ap-partial.eps>
-(epstopdf)             \includegraphics on input line 321.
+(epstopdf)             \includegraphics on input line 352.
 Package epstopdf Info: Output file is already uptodate.
 
 <ap-partial-eps-converted-to.pdf, id=221, 542.025pt x 201.75375pt>
 File: ap-partial-eps-converted-to.pdf Graphic file (type pdf)
 
 <use ap-partial-eps-converted-to.pdf>
-Package pdftex.def Info: ap-partial-eps-converted-to.pdf used on input line 321
+Package pdftex.def Info: ap-partial-eps-converted-to.pdf used on input line 352
 .
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
-Package epstopdf Info: Source file: <pap1-bangs.eps>
-(epstopdf)                    date: 2018-05-22 00:02:30
-(epstopdf)                    size: 36731 bytes
-(epstopdf)             Output file: <pap1-bangs-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:06:57
-(epstopdf)                    size: 9634 bytes
-(epstopdf)             Command: <repstopdf --outfile=pap1-bangs-eps-converted-t
-o.pdf pap1-bangs.eps>
-(epstopdf)             \includegraphics on input line 329.
+Package epstopdf Info: Source file: <pap0-bangs.eps>
+(epstopdf)                    date: 2018-05-28 21:36:59
+(epstopdf)                    size: 35678 bytes
+(epstopdf)             Output file: <pap0-bangs-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-28 23:59:10
+(epstopdf)                    size: 9410 bytes
+(epstopdf)             Command: <repstopdf --outfile=pap0-bangs-eps-converted-t
+o.pdf pap0-bangs.eps>
+(epstopdf)             \includegraphics on input line 360.
 Package epstopdf Info: Output file is already uptodate.
 
-<pap1-bangs-eps-converted-to.pdf, id=222, 542.025pt x 201.75375pt>
+<pap0-bangs-eps-converted-to.pdf, id=222, 542.025pt x 201.75375pt>
+File: pap0-bangs-eps-converted-to.pdf Graphic file (type pdf)
+
+<use pap0-bangs-eps-converted-to.pdf>
+Package pdftex.def Info: pap0-bangs-eps-converted-to.pdf used on input line 360
+.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+Package epstopdf Info: Source file: <pap0.eps>
+(epstopdf)                    date: 2018-05-27 19:53:50
+(epstopdf)                    size: 35724 bytes
+(epstopdf)             Output file: <pap0-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-27 19:54:01
+(epstopdf)                    size: 9132 bytes
+(epstopdf)             Command: <repstopdf --outfile=pap0-eps-converted-to.pdf 
+pap0.eps>
+(epstopdf)             \includegraphics on input line 365.
+Package epstopdf Info: Output file is already uptodate.
+
+<pap0-eps-converted-to.pdf, id=223, 542.025pt x 201.75375pt>
+File: pap0-eps-converted-to.pdf Graphic file (type pdf)
+
+<use pap0-eps-converted-to.pdf>
+Package pdftex.def Info: pap0-eps-converted-to.pdf used on input line 365.
+(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+Package epstopdf Info: Source file: <pap1-bangs.eps>
+(epstopdf)                    date: 2018-05-27 19:50:13
+(epstopdf)                    size: 37357 bytes
+(epstopdf)             Output file: <pap1-bangs-eps-converted-to.pdf>
+(epstopdf)                    date: 2018-05-27 19:54:02
+(epstopdf)                    size: 9809 bytes
+(epstopdf)             Command: <repstopdf --outfile=pap1-bangs-eps-converted-t
+o.pdf pap1-bangs.eps>
+(epstopdf)             \includegraphics on input line 370.
+Package epstopdf Info: Output file is already uptodate.
+
+<pap1-bangs-eps-converted-to.pdf, id=224, 542.025pt x 201.75375pt>
 File: pap1-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pap1-bangs-eps-converted-to.pdf>
-Package pdftex.def Info: pap1-bangs-eps-converted-to.pdf used on input line 329
+Package pdftex.def Info: pap1-bangs-eps-converted-to.pdf used on input line 370
 .
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
 Package epstopdf Info: Source file: <pap1.eps>
-(epstopdf)                    date: 2018-05-22 00:02:42
-(epstopdf)                    size: 38968 bytes
+(epstopdf)                    date: 2018-05-27 19:53:41
+(epstopdf)                    size: 35963 bytes
 (epstopdf)             Output file: <pap1-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:06:57
-(epstopdf)                    size: 9807 bytes
+(epstopdf)                    date: 2018-05-27 19:54:03
+(epstopdf)                    size: 9231 bytes
 (epstopdf)             Command: <repstopdf --outfile=pap1-eps-converted-to.pdf 
 pap1.eps>
-(epstopdf)             \includegraphics on input line 334.
+(epstopdf)             \includegraphics on input line 375.
 Package epstopdf Info: Output file is already uptodate.
 
-<pap1-eps-converted-to.pdf, id=223, 542.025pt x 201.75375pt>
+<pap1-eps-converted-to.pdf, id=225, 542.025pt x 201.75375pt>
 File: pap1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pap1-eps-converted-to.pdf>
-Package pdftex.def Info: pap1-eps-converted-to.pdf used on input line 334.
+Package pdftex.def Info: pap1-eps-converted-to.pdf used on input line 375.
 (pdftex.def)             Requested size: 505.89pt x 188.30939pt.
-Package epstopdf Info: Source file: <pap2-bangs.eps>
-(epstopdf)                    date: 2018-05-22 00:05:35
-(epstopdf)                    size: 36122 bytes
-(epstopdf)             Output file: <pap2-bangs-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:06:58
-(epstopdf)                    size: 9506 bytes
-(epstopdf)             Command: <repstopdf --outfile=pap2-bangs-eps-converted-t
-o.pdf pap2-bangs.eps>
-(epstopdf)             \includegraphics on input line 339.
-Package epstopdf Info: Output file is already uptodate.
 
-<pap2-bangs-eps-converted-to.pdf, id=224, 542.025pt x 201.75375pt>
-File: pap2-bangs-eps-converted-to.pdf Graphic file (type pdf)
+Underfull \vbox (badness 7944) has occurred while \output is active []
 
-<use pap2-bangs-eps-converted-to.pdf>
-Package pdftex.def Info: pap2-bangs-eps-converted-to.pdf used on input line 339
-.
-(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
-Package epstopdf Info: Source file: <pap2.eps>
-(epstopdf)                    date: 2018-05-22 00:05:26
-(epstopdf)                    size: 38241 bytes
-(epstopdf)             Output file: <pap2-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-05-22 00:08:50
-(epstopdf)                    size: 10032 bytes
-(epstopdf)             Command: <repstopdf --outfile=pap2-eps-converted-to.pdf 
-pap2.eps>
-(epstopdf)             \includegraphics on input line 344.
-Package epstopdf Info: Output file is already uptodate.
 
-<pap2-eps-converted-to.pdf, id=225, 542.025pt x 201.75375pt>
-File: pap2-eps-converted-to.pdf Graphic file (type pdf)
+Underfull \hbox (badness 10000) has occurred while \output is active
 
-<use pap2-eps-converted-to.pdf>
-Package pdftex.def Info: pap2-eps-converted-to.pdf used on input line 344.
-(pdftex.def)             Requested size: 505.89pt x 188.30939pt.
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+
+ []
+
+[8.8]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Underfull \vbox (badness 2213) has occurred while \output is active []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+
+ []
+
+[9.9 <./aut-post-bangs-eps-converted-to.pdf> <./aut-post-eps-converted-to.pdf>]
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1670,40 +1729,11 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 
  []
 
-[8.8]
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
-
-[9.9
-
- <./aut-post-bangs-eps-converted-to.pdf> <./aut-post-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
-
 [10.10 <./ap-partial-bangs-eps-converted-to.pdf> <./ap-partial-eps-converted-to
 .pdf>]
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
+Underfull \vbox (badness 1168) has occurred while \output is active []
 
 
-Underfull \hbox (badness 10000) has occurred while \output is active
-
- []
-
-[11.11 <./pap1-bangs-eps-converted-to.pdf> <./pap1-eps-converted-to.pdf>]
 Underfull \hbox (badness 10000) has occurred while \output is active
 
  []
@@ -1713,25 +1743,35 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 
  []
 
-[12.12 <./pap2-bangs-eps-converted-to.pdf> <./pap2-eps-converted-to.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 416.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 416.
+[11.11 <./pap0-bangs-eps-converted-to.pdf> <./pap0-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) has occurred while \output is active
+
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+
+ []
+
+[12.12 <./pap1-bangs-eps-converted-to.pdf> <./pap1-eps-converted-to.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 444.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 444.
 
 (./HS2018.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 416.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 416.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 444.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 444.
 Package rerunfilecheck Info: File `HS2018.out' has not changed.
-(rerunfilecheck)             Checksum: 6209D564C54D05F6F878EE4E49A01E2B;6845.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 416.
+(rerunfilecheck)             Checksum: ACB7C5C133146A19C01BD3D592BA9F17;6868.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 444.
  ) 
 Here is how much of TeX's memory you used:
- 29936 strings out of 492995
- 556771 string characters out of 6132704
- 663023 words of memory out of 5000000
- 32325 multiletter control sequences out of 15000+600000
- 170972 words of font info for 341 fonts, out of 8000000 for 9000
+ 29947 strings out of 492995
+ 557017 string characters out of 6132704
+ 663841 words of memory out of 5000000
+ 32327 multiletter control sequences out of 15000+600000
+ 171872 words of font info for 347 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,17n,94p,1386b,623s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,17n,94p,1327b,625s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_omcwp2.enc
 }{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/libertine/lbtn_tlukpt.enc}
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/u
@@ -1748,7 +1788,7 @@ eT.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/LinLibe
 rtineTB.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/libertine/Li
 nLibertineTI.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/newtx/t
 xsys.pfb>
-Output written on HS2018.pdf (12 pages, 482602 bytes).
+Output written on HS2018.pdf (12 pages, 486089 bytes).
 PDF statistics:
  354 PDF objects out of 1000 (max. 8388607)
  298 compressed objects within 3 object streams

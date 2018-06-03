@@ -406,7 +406,7 @@ Original      & 1   &   0.40	 & 0   \\
  
 \subsection{\At{} On Aeson}
  
- 
+
  The original \Ao{} experiments also showed that its genetic algorithm was able to infer application-specific bang patterns for the \texttt{Aeson} program. The \texttt{Aeson} program is a \texttt{JSON} file parser that can be used with one of two drivers that operate differently on the \texttt{JSON} file it parses. The \texttt{validate} driver checks if the file is a valid \texttt{JSON} file without the need to completely evaluate each \texttt{JSON} value. The \texttt{convert} driver converts the \texttt{JSON} file into a Haskell data structure, and thus it needs to completely evaluate each \texttt{JSON} value. If the \texttt{Aeson} parser is paired with the \texttt{validate} driver, it performs the best when it evaluates its parsing functions lazily. If \texttt{Aeson} is paired with the \texttt{convert} driver, it performs the best when it evaluates all parsing functions eagerly. 
  
 In the original \Ao{} experiment, two versions of \texttt{Aeson} were optimized. Each used one of the drivers and had the incorrect set of bangs pre-inserted to allow for room for improvement. After optimization, \Ao{} was able to correct the incorrect set of bangs by either inserting bangs in correct locations or removing bangs from incorrect locations. We were interested in seeing if \At{} preserves the same results, so we ran \At{} with identical experiment conditions to see if it preserves the correct bangs that \Ao{} produces. 
@@ -451,14 +451,8 @@ Original      & convert   & 1     & 2 \\
 
 The current strictness analyzer in GHC uses backward abstract interpretation to identify locations that can be eagerly evaluated. The analysis is approximate because the analysis is static. The analysis also conservatively binds locations as strict only if it can guarantee program termination because it is a part of the compiler. Autobahn has the advantage of both being dynamic and not needing to guarantee termination on all inputs as it is not a a part of the compiler. Instead, it allows users to decide the safety of suggested strictness annotations based on the intended application of the program. Other approaches to reduce laziness include Strict Haskell, which allows users to make entire modules strict rather than lazy by default using the -XStrict and -XStrictData language pragmas. Chang and Felleisen starts with a program written in a strict language, and inserts laziness annotations into it using dynamic profiling. It would be interesting to see if Chang and Felleisen's method could be applied to introduce laziness to Strict Haskell programs.
 
-
-\subsection{Profiling Haskell Programs}
-Apart from the profiling system that GHC provides, there exists a variety of other cost-based profiling systems for Haskell. 
-
-
-
 \subsection{\At{} Improvements}
-For future developments, it would be worth exploring the additional use of heap profiles to locate hot spots instead of solely using time and allocation profiles. Furthermore, our experiments show that the ideal values for \hotspotcost{} and \absim{} thresholds vary by program to program. Adopting more flexible thresholds that automatically adjust themselves based on the results of cost centre profiling might yield better results than using set values or asking users to provide them.
+For future developments, it would be worth exploring the additional use of heap profiles to locate hot spots instead of solely using time and allocation profiles. We have occasionally seen programs in our experiments that may be more accurately profiled by heap usage instead of time and allocation profiles. Although it may be difficult to predict which programs' \hotspots{} are more prominently associated with heap usage, \At{} could run both profiling systems for a program and compare the profiles before selecting a more suitable one to proceed with. Another potential improvement is implementing thresholds that automatically adjust themselves based on profiling results. Our experiments show that the ideal values for \hotspotcost{} and \absim{} thresholds vary by program to program. Adopting more flexible thresholds that automatically adjust themselves after inspecting the profile in the \preopt{} phase might yield better results than using set values or asking users to provide them.
 
 
 \section{Conclusion}

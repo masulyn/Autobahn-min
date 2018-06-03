@@ -449,7 +449,23 @@ Original      & convert   & 1     & 2 \\
 
 \subsection{\Ao{} and Other Methods of Removing Laziness}
 
-The current strictness analyzer in GHC uses backward abstract interpretation to identify locations that can be eagerly evaluated. The analysis is approximate because the analysis is static. The analysis also conservatively binds locations as strict only if it can guarantee program termination because it is a part of the compiler. Autobahn has the advantage of both being dynamic and not needing to guarantee termination on all inputs as it is not a a part of the compiler. Instead, it allows users to decide the safety of suggested strictness annotations based on the intended application of the program. Other approaches to reduce laziness include Strict Haskell, which allows users to make entire modules strict rather than lazy by default using the -XStrict and -XStrictData language pragmas. Chang and Felleisen starts with a program written in a strict language, and inserts laziness annotations into it using dynamic profiling. It would be interesting to see if Chang and Felleisen's method could be applied to introduce laziness to Strict Haskell programs.
+The current strictness analyzer in GHC uses backward abstract
+interpretation to identify locations that can be eagerly
+evaluated. The analysis is approximate because the analysis is
+static. The analysis also conservatively binds locations as strict
+only if it can guarantee program termination because it is a part of
+the compiler. Autobahn has the advantage of both being dynamic and not
+needing to guarantee termination on all inputs as it is not a a part
+of the compiler. Instead, it allows users to decide the safety of
+suggested strictness annotations based on the intended application of
+the program. Other approaches to reduce laziness include Strict
+Haskell~\cite{strict-haskell}, which allows users to make entire modules strict rather than
+lazy by default using the -XStrict and -XStrictData language
+pragmas. Chang and Felleisen starts with a program written in a strict
+language, and inserts laziness annotations into it using dynamic
+profiling. It would be interesting to see if Chang and Felleisen's
+method could be applied to introduce laziness to Strict Haskell
+programs.
 
 \subsection{\At{} Improvements}
 For future developments, it would be worth exploring the additional use of heap profiles to locate hot spots instead of solely using time and allocation profiles. We have occasionally seen programs in our experiments that may be more accurately profiled by heap usage instead of time and allocation profiles. Although it may be difficult to predict which programs' \hotspots{} are more prominently associated with heap usage, \At{} could run both profiling systems for a program and compare the profiles before selecting a more suitable one to proceed with. Another potential improvement is implementing thresholds that automatically adjust themselves based on profiling results. Our experiments show that the ideal values for \hotspotcost{} and \absim{} thresholds vary by program to program. Adopting more flexible thresholds that automatically adjust themselves after inspecting the profile in the \preopt{} phase might yield better results than using set values or asking users to provide them.
@@ -457,6 +473,20 @@ For future developments, it would be worth exploring the additional use of heap 
 
 \section{Conclusion}
 
-Laziness is a double edged sword: While it provides many benefits, excessive laziness often causes poor performance. Strictness annotations allow programmers to force eager evaluation, but its use is limited to programmers with extensive experience and high levels of expertise. Autobahn uses a genetic algorithm to automatically infer annotations for better program performance, but it often suggests too many bangs for users to inspect. We have built Autobahn 2.0, which uses GHC profiling feedback to perform search space manipulation to improve the efficiency of genetic algorithms, and eliminates bangs based on their associated performance costs. On average, experiments show that \At{} was able to reduce 90.9\% of generated bangs while only compromising 3\% runtime.
+Laziness is a double edged sword: While it provides many benefits,
+excessive laziness often causes poor performance. Strictness
+annotations allow programmers to force eager evaluation, but its use
+is limited to programmers with extensive experience and high levels of
+expertise. Autobahn uses a genetic algorithm to automatically infer
+annotations for better program performance, but it often suggests too
+many bangs for users to inspect. We have built Autobahn 2.0, which
+uses GHC profiling feedback to perform search space manipulation to
+improve the efficiency of genetic algorithms, and eliminates bangs
+based on their associated performance costs. On average, experiments
+show that \At{} was able to reduce 90.9\% of generated bangs while
+only compromising 3\% runtime.
+
+\bibliographystyle{abbrvnat}
+\bibliography{autobahn}
 
 \end{document}

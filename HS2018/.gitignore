@@ -1,4 +1,8 @@
 *.log
 *.aux
+*.bbl
+*.blg
+*~
+HS2018.synctex.gz
 HS2018.pdf
 HS2018.out

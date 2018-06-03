@@ -1,10 +1,12 @@
 PROJECT=HS2018
 TEX=pdflatex
+BTEX=bibtex
 BUILDTEX=$(TEX) $(PROJECT).tex
+BIBTEX=$(BTEX) $(PROJECT)
     
 all:
 	$(BUILDTEX)
-	$(BUILDTEX)
+	$(BIBTEX)
 	$(BUILDTEX)
 clean-all:
 	rm -f *.dvi *.log *.bak *.aux *.bbl *.blg *.idx *.ps *.eps *.pdf *.toc *.out *~

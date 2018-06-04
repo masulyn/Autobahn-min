@@ -207,41 +207,55 @@ following:
 
 \section{Background}
 
-\subsection{GHC Profiling and Cost Centres}
-GHC provides a time and memory profiling system to allow users to
-better understand which locations in a program consume the most resources.  The system
-adds annotations to the program and generates a report
-detailing the amount of time, memory allocations, or heap usage attributable
-to each location.
+\subsection{GHC Profiling and Cost Centers}
 
-To generate these profiles, users simply run their program 
-after re-compiling it with the profiling option and choose either a time and allocation or heap profile to generate, as well as the method in which the profiling 
-system adds annotations. While users have the option to manually specify
+\At{} uses profiling information to focus its search on bangs that are
+likely to impact performance.  GHC provides a time and memory
+profiling system to allow users to better understand which locations
+in a program consume the most resources.  The system adds annotations
+to the program and generates a report detailing the amount of time,
+memory allocations, or heap usage attributable to each location.
+
+To generate these profiles, users simply run their program on
+representative input after re-compiling it with profiling selected.
+Users can choose to generate either a time and allocation or a heap
+profile, as well as the method by which the profiling system adds
+annotations. While users have the option to manually specify
 annotations, \At{} uses the \texttt{-prof -fprof-auto} option, which
-automatically adds an annotation around every binding that is not marked
-\texttt{INLINE} in the program.
+automatically adds an annotation around every binding in the program
+that is not marked \texttt{INLINE}.  In the generated profile, each
+annotation gives rise to a \textit{cost center} that indicates how
+much time or memory were attributable to the given program point as a
+percentage of the whole program's resource utilization.  
 
-In the profile, these annotations are represented as cost centres with a 
-certain cost associated with each of them. These costs indicate how much
-time or memory resources each cost centre used as a percentage of the
-whole program's resources. 
-
-In order to minimize the number of bangs in 
-a program while maintaining similar program performance, we need to 
-preserve the bangs in the most costly cost centres and eliminate those 
-located in the less costly cost centres. \At{} identifies a cost centre that consumes costs more than the \hotspotcost{} threshold as a \textit{\hotspot{}}. A cost centre that does not consume more than the \hotspotcost{} threshold is a \textit{\coldspot{}}. Currently, we set the \hotspotcost{} threshold to 6\% of the the overall program runtime, although that threshold can be
-adjusted. As the threshold increases, fewer bangs
-are preserved at the risk of a higher possibility of compromised program 
-performance. 
+\ksf{This paragraph belongs in the Idea section about Autobahn 2.0}
+To minimize the number of bangs while
+maintaining performance, we preserve bangs
+in the most expensive cost centers and eliminate those in less
+expensive ones. We use the \hotspotcost{} threshold to determine which
+cost centers to consider hot.  A cost center consuming more than
+\hotspotcost{} resources is considered to be a \textit{\hotspot{}}; 
+one consuming less is a \textit{\coldspot{}}. Currently, we set
+the \hotspotcost{} threshold to 6\% of the the overall program
+runtime, although that threshold can be adjusted. As the threshold
+increases, \At{} preserves fewer bangs at the risk of greater
+degradations in program performance.
 
 \subsection{Genes and Chromosomes}
 
-Cost centre profiling provides guidance for the otherwise random search 
-that Autobahn performs using genetic algorithms. In the algorithm, any 
-program source location where a bang may be added is represented as a \textit{gene} that can 
-be turned on or off. A \textit{chromosome} is composed of all of the genes within a 
-program and represented as a fixed-length bit vector, in which the bit value 
-indicates the presence or absence of a bang. Since a program is a collection of source files, it is represented as a collection of bit vectors, or chromosomes.
+Cost center profiling provides guidance for the otherwise random
+search that \Ao{} performs using a genetic algorithm. In the
+algorithm, any program source location where a bang may be added is
+represented as a \textit{gene} that can be turned \textit{on},
+corresponding to the presence of a bang, or \textit{off},
+corresponding to its absence.  Since it doesn't make sense to put two
+bangs in one program location, there are a fixed number of possible
+bang locations in a given program. A \textit{chromosome} comprises all
+of the genes within a file. We represent a chromosome as a
+fixed-length bit vector, in which each bit indicates the presence or
+absence of a bang at the corresponding location. Since a program is a
+collection of source files, it is represented as a collection of bit
+vectors, or chromosomes.
 
 \subsection{\Ao{}'s Genetic Algorithm}
 

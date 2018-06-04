@@ -208,16 +208,14 @@ following:
 \section{Background}
 
 \subsection{GHC Profiling and Cost Centers}
-
-\At{} uses profiling information to focus its search on bangs that are
-likely to impact performance.  GHC provides a time and memory
-profiling system to allow users to better understand which locations
+To focus the search on bangs that are likely to impact performance, we
+make use of the information provided by GHC's profiling system.
+This system allows users to better understand which locations
 in a program consume the most resources.  The system adds annotations
 to the program and generates a report detailing the amount of time,
-memory allocations, or heap usage attributable to each location.
-
+memory allocations, or heap usage that is attributable to each location.
 To generate these profiles, users simply run their program on
-representative input after re-compiling it with profiling selected.
+representative input after re-compiling it with options to requst profiling.
 Users can choose to generate either a time and allocation or a heap
 profile, as well as the method by which the profiling system adds
 annotations. While users have the option to manually specify

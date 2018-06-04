@@ -208,18 +208,18 @@ following:
 \section{Background}
 
 \subsection{GHC Profiling and Cost Centres}
-GHC provides a time and memory profiling system to allow users to better understand where their program spends 
-the most time on. The
-system adds annotations to the user's program and generates a report
-detailing the amount of time, memory allocations or heap usage each 
-location used. 
+GHC provides a time and memory profiling system to allow users to
+better understand which locations in a program consume the most resources.  The system
+adds annotations to the program and generates a report
+detailing the amount of time, memory allocations, or heap usage attributable
+to each location.
 
 To generate these profiles, users simply run their program 
 after re-compiling it with the profiling option and choose either a time and allocation or heap profile to generate, as well as the method in which the profiling 
 system adds annotations. While users have the option to manually specify
 annotations, \At{} uses the \texttt{-prof -fprof-auto} option, which
 automatically adds an annotation around every binding that is not marked
-INLINE in the program.
+\texttt{INLINE} in the program.
 
 In the profile, these annotations are represented as cost centres with a 
 certain cost associated with each of them. These costs indicate how much

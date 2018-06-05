@@ -257,15 +257,42 @@ vectors, or chromosomes.
 
 \subsection{\Ao{}'s Genetic Algorithm}
 
-\Ao{}'s genetic algorithm evaluates and manipulates randomly generated chromosomes. It repeatedly generates new chromosomes before measuring their performance using a fitness function. We call a chromosome that either significantly slows down program performance or causes non termination an \textit{\unfit{}} chromosome. If the fitness function determines that a chromosome is \unfit{}, the chromosome is immediately discarded. If the fitness function determines that a chromosome behaved well, the chromosome is deemed \textit{\fit{}} and kept for future rounds of generation. 
+\Ao{}'s genetic algorithm evaluates and manipulates randomly generated
+chromosomes. It repeatedly generates new chromosomes before measuring
+their performance using a fitness function. We call a chromosome that
+either significantly slows down program performance or causes non
+termination an \textit{\unfit{}} chromosome. If the fitness function
+determines that a chromosome is \unfit{}, the chromosome is
+immediately discarded. If the fitness function determines that a
+chromosome behaved well, the chromosome is deemed \textit{\fit{}} and
+kept for future rounds of generation.
 
-For each round of chromosome generation, \Ao{} introduces randomness by performing either a mutation or a crossover. A mutation flips a gene in the chromosome whenever a randomly chosen floating point number exceeds the \textit{mutateProb} threshold. A crossover combines two chromosomes by randomly picking half of the genes from each parent chromosome. For either of these random operations, \Ao{} uses a unique number generator each time to guarantee randomness. 
+For each round of chromosome generation, \Ao{} introduces randomness
+by performing either a mutation or a crossover. A mutation flips a
+gene in the chromosome whenever a randomly chosen floating point
+number exceeds the \textit{mutateProb} threshold. A crossover combines
+two chromosomes by randomly picking half of the genes from each parent
+chromosome. For either of these random operations, \Ao{} uses a unique
+number generator each time to guarantee randomness.
 
 \subsection{Representative Input}
 
-To run \Ao{}, users need to provide representative input to their program. The input should be short enough for \Ao{} to finish execution in a reasonable amount of time while still be long enough for it to measure noticeable time improvements if there are any. Ideally, representative input should also be as similar to the typical use case of the program as possible to reduce chances of unexpected behavior after optimization when using different types of program input.
+To run \Ao{}, users need to provide input on which to run their
+program. The input should be short enough for \Ao{} to finish
+execution in a reasonable amount of time while still be long enough
+for it to measure noticeable time improvements if there are
+any.  The input should also be representative of the data the users
+intend to supply to the finished program so the system optimizes the
+program for that kind of data.  It is this ability to optimize for
+relevant input and not all input that gives bangs, whether added by
+Autobahn or by the user, the ability to outperform GHC's optimizer. 
 
-Similarly, the quality of representative input impacts the quality of \At{}'s performance as well, because different types of input may generate wildly different results in GHC profiles. Therefore, the user must carefully choose their program's representative input.
+
+\ksf{This also seems like it belongs in a section about \At{} not background.}
+Similarly, the quality of representative input impacts the quality of
+\At{}'s performance as well, because different inputs may
+generate wildly different results in GHC profiles. Therefore, users
+must carefully choose their program's representative input.
 
 \section{\At{}}
 \subsection{Why Too Many Bangs Are Generated}

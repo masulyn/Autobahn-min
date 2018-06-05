@@ -1,8 +1,13 @@
+\newif \ifdraft \drafttrue
 \documentclass[format=sigplan, review=true]{acmart}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows}
 \usetikzlibrary{arrows.meta}
+
+\definecolor{tuftsblue}{RGB}{72,145,206}
+\newcommand{\SHOWCOMMENT}[1]{\ifdraft #1 \fi}
+\newcommand{\ksf}[1]{\SHOWCOMMENT{{\color{tuftsblue} [K: #1]}}}
 
 \newcommand{\hotspot}[0]{hot spot}
 \newcommand{\hotspots}[0]{hot spots}
@@ -34,6 +39,7 @@
 \author{Kathleen Fisher}
 \affiliation{Tufts University}
 \email{kfisher@cs.tufts.edu}
+\acmYear{2018}
 \begin{abstract}
 
 While lazy evaluation has many advantages, it can result in serious
@@ -67,86 +73,226 @@ slowing program runtime by 3\%.
 \section{Introduction}
 
 \subsection{Lazy Evaluation}
+Haskell's lazy evaluation strategy supports modularity, can improve
+program efficiency, and enables the use of infinite data
+structures~\cite{Hughes89}. Under lazy evaluation, expressions are
+only evaluated when their values are needed. Every unevaluated
+expression is stored in a \textit{thunk}, and its evaluation is
+delayed until another expression demands the value of the current
+one~\cite{PeytonJones89}. 
 
-Lazy evaluation is a property of Haskell that improves program efficiency and provides programmers the ability to use infinite data structures. Under lazy evaluation, expressions are only evaluated when their values are needed. Every unevaluated expression is stored in a \textit{thunk}, and its evaluation is delayed until another expression demands the value of the current one. Most of the time, this greatly improves program performance as it avoids wasting time on evaluating unnecessary expressions. It also means that users can operate on infinite data structures by only evaluating finite portions of it.
+While lazy evaluation reaps many benefits, it can also create serious
+performance degradation in both time and space when large amounts of
+memory are allocated to thunks~\cite{Jones94,Santos98,Ennals03}.
+Reducing the number of thunks created at runtime is an important
+optimization in the GHC compiler, which uses a backward static
+analysis~\cite{Sergey14} to statically find expressions that the
+compiler can safely evaluate immediately rather than converting into
+thunks.  Because this analysis is part of the GHC compiler, it must be
+conservative, eliminating only thunks that it can prove will not
+affect the program semantics when given any possible input.
+Unfortunately, this conservative analysis is not always sufficient, in
+which case programmers can manually insert strictness annotations such
+as \textit{bang patterns}~\cite{bang}, which instruct the compiler to
+immediately evaluate the corresponding expression regardless of
+whether the strictness analysis determines it is safe to do so.  These
+manual strictness annotations can significantly improve
+performance~\cite[Chapter~25]{rwh}. However, programmers need to
+distinguish program points that will benefit from eager evaluation
+from program points that do not need to be evaluated or will not
+terminate when evaluated. This task is difficult and often reserved
+for expert Haskell programmers~\cite{Mitchell13}.
 
-While lazy evaluation reaps many benefits, it can also create serious performance slow downs when too much memory is allocated to a large number of thunks. We can reduce the quantity of thunks by avoiding creating them for expressions that we know will eventually be evaluated. To avoid the creation of a thunk, programmers can insert strictness annotations such as bang patterns at certain program points to enforce eager evaluation. However, programmers need to distinguish program points that will benefit from eager evaluation from program points that do not need to be evaluated or will not terminate when evaluated. This task is difficult and often reserved for expert Haskell programmers. 
+\subsection{\Ao}
 
-\subsection{Autobahn}
-
-\textsc{Autobahn} is a Haskell optimizer that allows programmers to reduce thunks in their program by automatically inferring strictness annotations. Users provide \textsc{Autobahn} with an unoptimized program, representative input, and an optional configuration file to obtain an optimized version of the program over the course of a couple of hours. 
-
-\textsc{Autobahn} uses a genetic algorithm to randomly search for beneficial locations to place bangs in the program. The genetic algorithm iteratively measures the performances of a series of candidate bang placements. Candidates that improve upon the original program's performance are preserved, and candidates that trigger non-termination or worsen program performance are eliminated. \textsc{Autobahn} eventually returns the user with a list of well-performing candidates, ranked by how much each candidate improves program performance. Users can then inspect the candidate bang placements, and decide if they want to apply one of them to the program.
+\Ao~\cite{autobahn-wang} is a Haskell optimizer that allows programmers to
+reduce thunk usage by automatically inferring strictness
+annotations. Users provide \Ao{} with an unoptimized
+program, representative input, and an optional configuration file to
+obtain an optimized version of the program over the course of a couple
+of hours.
+\Ao{} uses a genetic algorithm to randomly search for
+beneficial locations to place bangs in the program. The genetic
+algorithm iteratively measures the performances of a series of
+candidate bang placements. Candidates that improve upon the original
+program's performance are preserved, and candidates that trigger
+non-termination or worsen program performance are
+eliminated. \Ao{} eventually returns a list
+of well-performing candidates, ranked by how much each candidate
+improves program performance. Users can then inspect the candidate
+bang placements, and decide if they want to apply one of them to the
+program.
 
 \subsection{Too Many Bangs}
 
-Candidates should be inspected before being applied because they can potentially introduce program non-termination when new input is given. Because \textsc{Autobahn} measures performance using representative input, the resulting candidate is optimized for that specific input. If a new type of input is supplied to the program after it is optimized, it could result in different behavior at program points that may cause the program to run forever. We can run GHC's static analysis after \textsc{Autobahn} to check for safe bangs, but it on average only marks 10\% of bangs as safe. This is because the analysis is necessarily conservative to guarantee termination on all inputs. 
+Users need to inspect candidate bang placements before applying them
+to ensure they maintain the desired semantics on all relevant inputs.
+Because \Ao{} measures performance when the program is run on the
+supplied input, the resulting annotations optimize the program
+\textit{for that specific input}, which is why it is important the
+user provides representative input.  When run on different input, the
+annotations could change the termintion behavior of the program, which
+may or may not be a problem.  We can run GHC's static analysis after
+\Ao{} to check the safety of the inferred bangs; on average it
+only marks 10\% of them as safe.  The remaining 90\% are either unsafe
+on some inputs or their safety is unknown because of the
+conservativity of the analysis.
 
-In reality, bangs only need to be safe on inputs that the user will run it with. 
-Because only the user will know the range of potential input types, only the user can inspect candidate bang placements and decide if they are safe to be applied. However, users face a time-consuming task of inspecting a large number of bangs when \textsc{Autobahn} generates too many bangs in a candidate. This occurs when the random genetic algorithm places many bangs throughout the program, including bangs that do not contribute much to program performance improvement. On average, \textsc{Autobahn} generates 11 bangs per 100 lines of code in its best performing candidates, and the user must manually inspect every one of those.   
 
-\subsection{Autobahn 2.0}
+In reality, bangs only need to be safe on inputs that the user will
+actually pass to the program.  By analogy, we do not generally mind
+that the usual factorial function diverges when passed a negative
+number because we know the function is only intended to be applied to
+postive numbers.  Because only the user knows the range of valid
+inputs, only the user can inspect candidate bang placements to decide
+if they are safe on all relevant inputs. However, users face a
+time-consuming task when \Ao{} generates many bangs in a candidate
+placement.  This task is particularly frustrating when some of the
+bangs may not contribute much to program performance. On average,
+\Ao{} generates 11~bangs per 100~lines of code in its best performing
+candidates, and the user must manually inspect every one of those.
 
-This paper presents an improved version of \textsc{Autobahn} that aims to reduce the number of generated bangs. We refer to the original Autobahn optimizer as \Ao{}, and the improved version for bang minimization as \At{}. A \textit{\preopt{}} phase and \textit{\postopt{}} phase are each added before and after \Ao{} to locate and eliminate unnecessary bangs using GHC profiling. GHC profiles show the amount of runtime and memory each location in the program used. The \preopt{} phase adjusts the number of files that \Ao{} optimizes within a single program. \Ao{} is instructed to optimize files that contain locations that cost a large amount of resources, and to avoid optimizing files that do not contain costly locations. After \Ao{} runs, the \postopt{} phase individually tests each produced bang that falls within a costly location. Bangs that produce an insignificant impact on improving program performance are eliminated. On average, the addition of these two phases allows \At{} to produce 90.9\% fewer bangs than \Ao{}, while maintain similar runtime improvements. In this paper, I
+\subsection{\At{}}
+
+This paper presents \At{}, an improved version of \Ao{} that aims
+to reduce the number of generated bangs. 
+\At{} introduces a \textit{\preopt{}} phase and
+\textit{\postopt{}} phase that run before and after \Ao{},
+respectively.  Both phases use information from GHC's profiler to
+locate and eliminate ineffective bangs. 
+GHC profiles are helpful in this regard because they
+show the amount of runtime and memory each location in the
+program is responsible for. The \preopt{} phase uses this information to adjust the set of files that
+\Ao{} considers during its optimization.
+Specifically, this phase instructs \Ao{} to
+optimize files that contain locations that require significant
+resources, potentially adding files not originally mentioned by the
+user,  and to skip files that do not. After \Ao{} runs, the \postopt{} phase individually tests
+each candidate bang that falls within a costly location. Bangs that
+do not significantly impact program performance are
+eliminated. On average, the addition of these two phases allows \At{}
+to recommend 90.9\%~fewer bangs than \Ao{}, while maintaining similar
+runtime improvements. The contribution of this paper are the
+following:
 \begin{itemize}
-  \item demonstrate the effectiveness of the \preopt{} phase on programs from the NoFib benchmark suite that have had at least one file removed from consideration for optimization. There are 20 such programs in total. On average the \preopt{} phase reduced 63 potential bang locations per 100 LOC, and resulted in mean bang reductions of 63.38\%. 
-  \item show that the \preopt{} phase's suggestions for additional files to optimize can improve \Ao{}'s optimization results by 86.6\% using the \textit{sumList} microbenchmark.
+  \item We show how to use profiling information to automatically reduce the number
+    of bangs inferred by \Ao{} while maintaining roughly the same
+    performance. 
+  \item We demonstrate the effectiveness of the \preopt{} phase on
+    programs from the NoFib benchmark suite that have had at least one
+    file removed from consideration for optimization. There are 20
+    such programs in total. On average the \preopt{} phase eliminated
+    63~potential bang locations per 100~LOC, resulting in a mean bang
+    reduction of 63.38\%. \ksf{Does this mean that the preopt phase
+      had no effect on the other X programs in the benchmark suite?
+      We need to show how often the preopt phase is relevant.}
+  \item We use a microbenchmark to show that the \preopt{} phase's
+    suggestions for additional 
+    files to consider can improve \Ao{}'s optimization results by
+    86.6\%. 
   \item POSTSEARCHDATA
-  \item show that \At{} applied to the NoFib benchmark suite reduced the number of generated bangs from 11 bangs per 100 LOC to 1 bang per 100 LOC on average, while only increasing the optimized runtime by 3\%.
-  \item use \At{} in a case study to optimize the performance of the \texttt{gcSimulator} garbage collector simulator. While the program runtime slowed down by 15\%, the number of bangs generated decreased by 81.9\%.
-  \item apply \At{} in a second case study to show that it can preserve the application-specific annotations inferred by \Ao{} for the Aeson library. 
+  \item We show that \At{} applied to the NoFib benchmark suite reduced
+    the number of generated bangs from 11~bangs per 100~LOC to 1~bang
+    per 100~LOC on average, while only increasing the optimized
+    runtime by 3\%.
+  \item We use \At{} in a case study to optimize the performance of 
+    \texttt{gcSimulator}~\cite{Ricci13}, a garbage collector simulator. While the
+    program slowed down by 15\%, the number of bangs generated
+    decreased by 81.9\%.
+  \item We apply \At{} in a second case study to show that it can
+    preserve the application-specific annotations inferred by \Ao{}
+    for two different uses of the Aeson~\cite{aeson} library.
 \end{itemize}
 
 
 \section{Background}
 
-\subsection{GHC Profiling and Cost Centres}
-GHC provides a time and memory profiling system to allow users to better understand where their program spends 
-the most time on. The
-system adds annotations to the user's program and generates a report
-detailing the amount of time, memory allocations or heap usage each 
-location used. 
-
-To generate these profiles, users simply run their program 
-after re-compiling it with the profiling option and choose either a time and allocation or heap profile to generate, as well as the method in which the profiling 
-system adds annotations. While users have the option to manually specify
+\subsection{GHC Profiling and Cost Centers}
+To focus the search on bangs that are likely to impact performance, we
+make use of the information provided by GHC's profiling system.
+This system allows users to better understand which locations
+in a program consume the most resources.  The system adds annotations
+to the program and generates a report detailing the amount of time,
+memory allocations, or heap usage that is attributable to each location.
+To generate these profiles, users simply run their program on
+representative input after re-compiling it with options to requst profiling.
+Users can choose to generate either a time and allocation or a heap
+profile, as well as the method by which the profiling system adds
+annotations. While users have the option to manually specify
 annotations, \At{} uses the \texttt{-prof -fprof-auto} option, which
-automatically adds an annotation around every binding that is not marked
-INLINE in the program.
+automatically adds an annotation around every binding in the program
+that is not marked \texttt{INLINE}.  In the generated profile, each
+annotation gives rise to a \textit{cost center} that indicates how
+much time or memory were attributable to the given program point as a
+percentage of the whole program's resource utilization.  
 
-In the profile, these annotations are represented as cost centres with a 
-certain cost associated with each of them. These costs indicate how much
-time or memory resources each cost centre used as a percentage of the
-whole program's resources. 
-
-In order to minimize the number of bangs in 
-a program while maintaining similar program performance, we need to 
-preserve the bangs in the most costly cost centres and eliminate those 
-located in the less costly cost centres. \At{} identifies a cost centre that consumes costs more than the \hotspotcost{} threshold as a \textit{\hotspot{}}. A cost centre that does not consume more than the \hotspotcost{} threshold is a \textit{\coldspot{}}. Currently, we set the \hotspotcost{} threshold to 6\% of the the overall program runtime, although that threshold can be
-adjusted. As the threshold increases, fewer bangs
-are preserved at the risk of a higher possibility of compromised program 
-performance. 
+\ksf{This paragraph belongs in the Idea section about Autobahn 2.0}
+To minimize the number of bangs while
+maintaining performance, we preserve bangs
+in the most expensive cost centers and eliminate those in less
+expensive ones. We use the \hotspotcost{} threshold to determine which
+cost centers to consider hot.  A cost center consuming more than
+\hotspotcost{} resources is considered to be a \textit{\hotspot{}}; 
+one consuming less is a \textit{\coldspot{}}. Currently, we set
+the \hotspotcost{} threshold to 6\% of the the overall program
+runtime, although that threshold can be adjusted. As the threshold
+increases, \At{} preserves fewer bangs at the risk of greater
+degradations in program performance.
 
 \subsection{Genes and Chromosomes}
 
-Cost centre profiling provides guidance for the otherwise random search 
-that Autobahn performs using genetic algorithms. In the algorithm, any 
-program source location where a bang may be added is represented as a \textit{gene} that can 
-be turned on or off. A \textit{chromosome} is composed of all of the genes within a 
-program and represented as a fixed-length bit vector, in which the bit value 
-indicates the presence or absence of a bang. Since a program is a collection of source files, it is represented as a collection of bit vectors, or chromosomes.
+Cost center profiling provides guidance for the otherwise random
+search that \Ao{} performs using a genetic algorithm. In the
+algorithm, any program source location where a bang may be added is
+represented as a \textit{gene} that can be turned \textit{on},
+corresponding to the presence of a bang, or \textit{off},
+corresponding to its absence.  Since it doesn't make sense to put two
+bangs in one program location, there are a fixed number of possible
+bang locations in a given program. A \textit{chromosome} comprises all
+of the genes within a file. We represent a chromosome as a
+fixed-length bit vector, in which each bit indicates the presence or
+absence of a bang at the corresponding location. Since a program is a
+collection of source files, it is represented as a collection of bit
+vectors, or chromosomes.
 
 \subsection{\Ao{}'s Genetic Algorithm}
 
-\Ao{}'s genetic algorithm evaluates and manipulates randomly generated chromosomes. It repeatedly generates new chromosomes before measuring their performance using a fitness function. We call a chromosome that either significantly slows down program performance or causes non termination an \textit{\unfit{}} chromosome. If the fitness function determines that a chromosome is \unfit{}, the chromosome is immediately discarded. If the fitness function determines that a chromosome behaved well, the chromosome is deemed \textit{\fit{}} and kept for future rounds of generation. 
+\Ao{}'s genetic algorithm evaluates and manipulates randomly generated
+chromosomes. It repeatedly generates new chromosomes before measuring
+their performance using a fitness function. We call a chromosome that
+either significantly slows down program performance or causes non
+termination an \textit{\unfit{}} chromosome. If the fitness function
+determines that a chromosome is \unfit{}, the chromosome is
+immediately discarded. If the fitness function determines that a
+chromosome behaved well, the chromosome is deemed \textit{\fit{}} and
+kept for future rounds of generation.
 
-For each round of chromosome generation, \Ao{} introduces randomness by performing either a mutation or a crossover. A mutation flips a gene in the chromosome whenever a randomly chosen floating point number exceeds the \textit{mutateProb} threshold. A crossover combines two chromosomes by randomly picking half of the genes from each parent chromosome. For either of these random operations, \Ao{} uses a unique number generator each time to guarantee randomness. 
+For each round of chromosome generation, \Ao{} introduces randomness
+by performing either a mutation or a crossover. A mutation flips a
+gene in the chromosome whenever a randomly chosen floating point
+number exceeds the \textit{mutateProb} threshold. A crossover combines
+two chromosomes by randomly picking half of the genes from each parent
+chromosome. For either of these random operations, \Ao{} uses a unique
+number generator each time to guarantee randomness.
 
 \subsection{Representative Input}
 
-To run \Ao{}, users need to provide representative input to their program. The input should be short enough for \Ao{} to finish execution in a reasonable amount of time while still be long enough for it to measure noticeable time improvements if there are any. Ideally, representative input should also be as similar to the typical use case of the program as possible to reduce chances of unexpected behavior after optimization when using different types of program input.
+To run \Ao{}, users need to provide input on which to run their
+program. The input should be short enough for \Ao{} to finish
+execution in a reasonable amount of time while still be long enough
+for it to measure noticeable time improvements if there are
+any.  The input should also be representative of the data the users
+intend to supply to the finished program so the system optimizes the
+program for that kind of data.  It is this ability to optimize for
+relevant input and not all input that gives bangs, whether added by
+Autobahn or by the user, the ability to outperform GHC's optimizer. 
 
-Similarly, the quality of representative input impacts the quality of \At{}'s performance as well, because different types of input may generate wildly different results in GHC profiles. Therefore, the user must carefully choose their program's representative input.
+
+\ksf{This also seems like it belongs in a section about \At{} not background.}
+Similarly, the quality of representative input impacts the quality of
+\At{}'s performance as well, because different inputs may
+generate wildly different results in GHC profiles. Therefore, users
+must carefully choose their program's representative input.
 
 \section{\At{}}
 \subsection{Why Too Many Bangs Are Generated}

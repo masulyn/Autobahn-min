@@ -35,6 +35,7 @@
 \newcommand{\Preopt}[0]{Pre-search}
 \newcommand{\Postopt}[0]{Post-search}
 \newcommand{\absim}[0]{\textit{absenceImpact}}
+\newcommand{\overallThreshold}[0]{\textit{overallThreshold}}
 \newcommand{\nonterm}[0]{non-terminating}
 \newcommand{\unimp}[0]{unimproved}
 
@@ -230,8 +231,8 @@ To generate these profiles, users simply run their program on
 representative input after re-compiling it with options to requst profiling.
 Users can choose to generate either a time and allocation or a heap
 profile, as well as the method by which the profiling system adds
-annotations. While users have the option to manually specify
-annotations, \At{} uses the \texttt{-prof -fprof-auto} option, which
+annotations. Users can manually specify
+annotations or invoke the profiler with  the \texttt{-prof -fprof-auto} option, which
 automatically adds an annotation around every binding in the program
 that is not marked \texttt{INLINE}.  In the generated profile, each
 annotation gives rise to a \textit{cost center} that indicates how
@@ -565,44 +566,156 @@ must carefully choose the representative input.
 \section{Implementation}
 
 \subsection{Program Architecture}
+\At{} wraps \Ao{} with the  \preopt{} and \postopt{} phases as shown
+in \figref{fig:pipeline}.  
 
-The addition of \preopt{} search space reduction and \postopt{} bang reduction alters the original program architecture of \Ao{}. Prior to optimization, the original program is first profiled and evaluated for search space manipulation in the \preopt{} phase. \Preopt{} builds the user's program with profiling enabled, and runs the unoptimized version with the user provided representative input to obtain a time and allocation profile. The profile is only generated once, and the rest of of \At{} refers to the same profile throughout the entire program. Depending on the location of \hotspots{} indicated by the profile, the program's optimization coverage will either be automatically reduced or manually expanded by the user. 
+Prior to running the genetic algorithm, the \preopt{} phase invokes
+GHC's profiler on the unoptimized version of the user's program with
+the \texttt{-prof -fprof-auto} option to auto-generate cost centers
+around every non-inlined program binding.  It uses the supplied
+representative data as input to the program to generate the time and
+allocation profile.  This baseline profile is only generated once, and
+the rest of \At{} refers to the same profile for \hotspot{}
+information throughout the entire optimization pipeline.
+Depending on the where the \hotspots{} fall according to the profiler, 
+the program's optimization coverage will either be
+automatically reduced or manually expanded by the user.
 
-Then \Ao{} is uses the same genetic algorithm to find a winning chromosome. It uses the \textit{haskell-src-exts} parser to parse source files and identify genes, then applies a genetic algorithm with a fitness function to search for the best performing chromosome.
+Then \At{} reuses the existing implementation
+of \Ao{}~\cite{autobahn-wang} to identify a winning set of 
+chromosomes.
+\Ao{} uses the \textit{haskell-src-exts}~\cite{langexts} parser to parse
+source files and to identify genes.  
+It then applies a genetic algorithm,
+implemented using the \texttt{GA} Haskell library~\cite{genetic}
+with a fitness function based on measured runtime performance, to search for the best performing chromosomes.
 
-The resulting chromosome is further tested and reduced using GHC profiling information in the \postopt{} bang reduction phase. After an initial pass of elimination to get rid of all turned-off bangs and bangs located in \coldspots{}, we individually test the impact of the absence of a turned-on bang in each \hotspot{}. If a bang meets the \absim{} threshold, it is kept in future rounds of testing and will remain in the final combination of bangs for the optimized program. If a bang does not meet the \absim{} threshold, it is removed for future rounds of testing and will not appear in the final combination. 
+The \postopt{} phase eliminates bangs from the best-performing
+chromosomes returned from \Ao{}.  It does so by re-running the program
+once for each gene that both lies in a \hotspot{} and is turned on in
+the winning chromosomes.  Specifically, it turns off the gene, runs
+the program on the representative input, measures its performance, and
+keeps any bang that impacts performance more than the \absim{}
+threshold.  Similar to \Ao{}, the postopt{} phase uses
+the \textit{haskell-src-exts} library to parse the relevant source
+files, set all the bangs appropriately, and then pretty-print the
+modified source code to then be compiled by GHC and run on the
+representative input. 
 
-Bangs in \hotspots{} are tested in order of decreasing costs. While we recognize that the order in which we test them may affect their performance, it is simply too time consuming to test every possible combination of bangs in every possible order. For simplicity, we chose to only consistently test each individual bang once in order of decreasing costs. 
+Note that this process does not require re-running the original
+profile.  Instead, we reuse the profiling information calculated
+during the \preopt{} phase.  Bangs in \hotspots{} are tested in order
+of decreasing costs. While we recognize that the order in which we
+test the bangs may affect the performance, it is too time consuming to
+test the bangs in all possible orders.  For simplicity, we chose to
+test each bang once in order of decreasing costs.
 
-Finally, the \postopt{} phase returns the final combination of bangs that have survived each round of testing. If \Ao{} failed to find a chromosome that improved program runtime by 6\% to begin with, then the \postopt{} phase will refuse to minimize because the insignificant performance improvement indicates that users are better off keeping the original unoptimized program instead.
+\ksf{For your thesis or for the final version, it might be worth
+playing around a bit to see if the order makes any difference.  For
+example, do the results change substantially if you wonder them in
+increasing order instead?   Or is it just random.}
+
+Finally, the \postopt{} phase returns the final combination of bangs
+that have survived each round of testing. If \Ao{} failed to find 
+chromosomes that improved program runtime by at least the
+\overallThreshold{} parameter, then
+the \postopt{} phase will return the unoptimized program.
+We base this choice on the
+theory that the relatively insignificant performance improvement
+indicates users are better off keeping the original program rather
+than having to reason about the safety of the inferred bangs. 
+Currently, we set the \overallThreshold{} value to 6\%, but users
+may change it. 
+
+
+
+\cut{
+The resulting chromosome is further tested and reduced using GHC
+profiling information in the \postopt{} bang reduction phase. After an
+initial pass of elimination to get rid of all turned-off bangs and
+bangs located in \coldspots{}, we individually test the impact of the
+absence of a turned-on bang in each \hotspot{}. If a bang meets
+the \absim{} threshold, it is kept in future rounds of testing and
+will remain in the final combination of bangs for the optimized
+program. If a bang does not meet the \absim{} threshold, it is removed
+for future rounds of testing and will not appear in the final
+combination.
+}
 
 
 \subsection{Running \At{}}
 
-A user runs \At{} the same way as they would run the \Ao{}. The user provides a copy of their program source code, representative input, and an optional Autobahn configuration file. Because both search space reduction and minimization after Autobahn typically do not require a significant amount of time, the user should barely notice an increase in the amount of time needed for optimization. 
+Users run \At{} the same way as they would run \Ao{}. They
+provide a copy of their program source code, representative input,
+and an optional configuration file. The \preopt{}
+and \postopt{} phases typically require a negligible amount of time
+compared with the time required to run \Ao{}.
 
-If \At{} successfully ran, the user can find the minimized source code in the same project directory along with the usual Autobahn survivor and results directories. If \preopt{} profiling detected that the program is unsuitable for optimization, or if \Ao{} failed to significantly optimize the program, then \At{} would warn the user and halt the optimization process. If external libraries could be added to Autobahn's coverage to potentially boost optimization performance, the \preopt{} phase would alert the user and continue to optimize as normal.
+If \At{} completes successfully, users can find the resulting source
+code with the minimized bang annountations in the same project
+directory as they would find the usual \Ao{} \texttt{survivor}
+and \texttt{results} directories. If \preopt{} profiling detected that
+the program is unsuitable for optimization, or if \Ao{} failed to
+significantly optimize the program, then \At{} warns the user and
+halts the optimization process. If external libraries could be added to
+the optimization coverage to potentially improve the results,
+the \preopt{} phase alerts the user and then continues to optimize as
+normal.
 
 \subsection{Source Locations}
-
-Because each bit in a bit vector represents a gene in a chromosome, we modified the bit vector to indicate which cost centre each bit was located in as well. 
-Cost centres are uniquely identified by source location in source files. We mapped each bit to its corresponding source line. To turn the bangs in a \hotspot{} on or off, we can traverse the bit-location vector and manipulate the bits that are tagged with source lines that fall within the range of that \hotspot{}'s source location.
+\Ao{} uses a bit vector to represent the genes in a
+chromosome, with each bit corresponding to a possible bang location in
+a source file.  In \At{}, we modified this representation so that each
+bit also indicates the cost center associated with the possible bang
+location.   Cost centers are uniquely identified by the corresponding source
+locations in source files.  Thus, we mapped each bit to its corresponding
+source line. To turn the bangs in a \hotspot{} on or off, we can
+traverse the bit-location vector and manipulate the bits that are
+tagged with source lines that fall within the range of
+that \hotspot{}'s source location.
 
 \subsection{Removing Illegal Genes}
+Both \Ao{} and \At{} use the \textit{haskell-src-exts} parser to add
+and remove bangs.  
+Unfortunately, the version of \textit{haskell-src-exts} parser that we use
+incorrectly identifies the left-hand side of bindings within instance
+declarations as potential locations to place bangs. For that reason,
+\Ao{} did not optimize files that contain instance declarations. 
+To eliminate this restriction, we instead removed any randomly
+generated illegal bangs prior to each round of fitness evaluation in
+the genetic algorithm. The rest of the genetic search runs
+identically as before.
 
-Unfortunately, the \textit{haskell-src-exts} parser that \Ao{} uses incorrectly identifies the left hand side of bindings within instance declarations as potential locations to place bangs. For that reason, files that contain instance declarations have been previously avoided and left unoptimized when testing \Ao{}. We wanted to support the optimization of these files in \At{}, so we removed any randomly generated illegal bangs prior to each round of fitness evaluation in the genetic algorithm. The rest of the genetic search and \At{} runs identically as before.
+To keep track of whether a bang is legal, we used a
+validity-indicating boolean vector to represent whether each gene in
+the source code is legal. Prior to inserting bangs into a
+program, \At{} would check the validity of a gene against the boolean
+vector to make sure that the bang is located in a legal location.
 
-To keep track of whether a bang is legal, we used a validity-indicating boolean vector to represent whether each gene in the source code is legal. Prior to inserting bangs into a program, \At{} would check the validity of a gene against the boolean vector to make sure that the bang is located in a legal location.
+Generically traversing the parser-generated AST using boilerplate code
+fails to identify illegal genes, so we needed to manually traverse the AST
+to construct the validity vector. As we traversed the AST, we kept
+track of whether a left-hand side binding is within an instance
+declaration. If so, then that binding is an illegal bang location and
+is marked as \texttt{false} in the validity vector. All other
+legal bang locations are marked as  \texttt{true}.
 
-Generically traversing the parser-generated AST using boilerplate code fails to identify illegal genes, so we needed to manually traverse it to construct the validity vector. As we traversed the tree, we kept track of whether a left hand side binding is within an instance declaration. If so, then that binding is an illegal bang location and is marked as a false boolean value in the validity vector. All other legal bang locations are marked as a true value.
-
-\At{} successfully uses this method to avoid inserting bangs into illegal locations after being misguided by the parser. As a result, it allows us to optimize files that include instance declarations, which we previously avoided altogether when using \Ao{}. 
+With this approach, \At{} successfully avoids inserting bangs into
+illegal locations.  As a result, \At{} can now optimize fiels that
+include instance declarations, which was not previously possible.
 
 \section{Evaluation}
 
 \subsection{Experiment Setup}
 
-All versions of Autobahn were compiled using GHC version \texttt{8.0.2}. The NoFib benchmarks were also compiled with GHC version \texttt{8.0.2}, \texttt{-XBangPatterns} and enabled profiling along with NoFib's default flags. Our research did not test the certain benchmarks in the NoFib suite that failed to compile and run on their own and benchmarks that \Ao{} refuses to minimize because they already had very fast runtimes. There were 60 total remaining benchmarks that we ran experiments on.
+All versions of Autobahn were compiled using GHC
+version \texttt{8.0.2}. The NoFib benchmarks were also compiled with
+GHC version \texttt{8.0.2}, \texttt{-XBangPatterns} and enabled
+profiling along with NoFib's default flags. Our research did not test
+the certain benchmarks in the NoFib suite that failed to compile and
+run on their own and benchmarks that \Ao{} refuses to minimize because
+they already had very fast runtimes. There were 60 total remaining
+benchmarks that we ran experiments on.
 
 In the runtime graphs for all sections below, a runtime value of 2.0 indicates that the optimized version of the program is \textit{\nonterm{}}. A runtime value of 1.0 indicates that the optimized version of the program had an identical runtime compared to the original version and is \textit{\unimp{}}.
 

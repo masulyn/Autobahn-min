@@ -275,8 +275,20 @@ two chromosomes by randomly picking half of the genes from each parent
 chromosome. For either of these random operations, \Ao{} uses a unique
 number generator each time to guarantee randomness.
 
-\subsection{Representative Input}
+\subsection{Optimization Coverage}
+\Ao{} uses program source files as the unit of granularity for 
+the set of program locations to consider when inferring bangs.  By
+default, \Ao{} optimizes all source code files in the directory
+containing the program. However, users can specify a different set of
+files by manually adding or removing file paths in the \Ao{}
+configuration file.  We call the set of files considered in a given
+run of \Ao{} its \textit{optimization coverage}.
+\Ao{} does not infer bangs for external libraries
+that are imported by the program, but users can manually add local
+copies of the source code for the external libraries to include them in the optimization process.
 
+
+\subsection{Representative Input}
 To run \Ao{}, users need to provide input on which to run their
 program. The input should be short enough for \Ao{} to finish
 execution in a reasonable amount of time while still be long enough
@@ -456,31 +468,58 @@ in more detail.
 
 
 \subsection{\Preopt{} Profiling}
-\Ao{} uses program source files as the unit of granularity in deciding
-which program locations to consider when inferring bangs. 
-By default, \Ao{} optimizes all files in the directory containing the
-program source code. However, users can specify optimization coverage
-manually by adding or removing file paths in the \Ao{} configuration.
-\Ao{} does not consider external libraries imported in the
-source code, but users can manually add local copies of external
-libraries to the program directory so those files can be included in
-the optimization process.
-However, just as manually reasoning about bang placement is
-difficult, reasoning about which files to optimize can be similarly
-difficult.  By examining GHC profiles, we can have a much
-better idea of which files to consider based on whether or not they
-contain \hotspots{}. Combining this knowledge with the option to
-configure the files that \Ao{} considers, \At{} can automatically
-choose the initial chromosome set by units of program files.
+
+Just as manually reasoning about bang placement can be difficult, 
+so too reasoning about which files to optimize can be challenging.
+\At{} makes this process easier for the user by leveraging information
+in GHC profiles.  
+To that end, the \preopt{} phase begins by generating a GHC time
+and allocation profile for the unoptimized program by running it on 
+user-provided representative input.
+\At{} then sets the optimization coverage
+for \Ao{} to be source files that contain at least one \hotspot{}. 
+In addition, 
+\At{} identifies library files that contain \hotspots{} and
+suggests to users that they add local copies so the library source
+files may be optimized as well. 
+\Ao{} then optimizes the program as usual, except using a more
+targeted set of files/chromosomes.
+Note that this phase can both expand the search space, by identifying
+library files that contain hotspots, as well as reduce it, by
+identifying program source files with no \hotspots{}. 
+
+\Preopt{} profiling offers three important benefits.
+First, it can greatly reduce the number of bangs \Ao{} suggests by
+limiting the search space to those program files that have a chance of
+significantly impacting performance. This focusing reduces the
+possibility of generating \useless{} or \dangerous{} bangs by
+eliminating them from consideration
+and
+increases the chances of generating \useful{} ones by allowing more of
+the relevant search space to be explored within a given time budget.
+Second, if a \hotspot{} is located in an external library file,
+the \preopt{} phase can identify the relevant files so they can be
+included in the optimization process. 
+Third, it identifies programs that are potentially unsuitable for
+\Ao{} optimization. If a program contains a large number of cost
+centers that all contribute minimally to program runtime, there may
+not be any way to substantially improve program performance by adding
+bang annotations. If the \preopt{} phase concludes that
+a program only contains \coldspots{}, it will alert the user and
+abort, saving the time and effort of running the remaining phases, 
+which are unlikely to identify significant performance improvements.
 
 
-\Preopt{} profiling does more than just reducing existing search space. Instead, it guides, redirects and expands the current search space to maximize efficiency and performance prior to \Ao{}'s optimization. Because chromosome sizes directly influence the number of generated bangs, search space manipulation can minimize the possibility of generating \useless{} or \dangerous{} bangs and maximize the chances of generating \useful{} ones.
+It is worth noting that although the \preopt{} phase can reduce the
+size of the search space, it does not reduce \Ao{}'s runtime as a
+result. Unless the search space is small enough to be exhaustively
+searched, \Ao{} will search until consuming its entire time budget:
+if a user allowed \Ao{} to run for two hours, it
+will run for two hours regardless of the search space
+size. The reduced search space does allow \Ao{} to explore the space
+more thoroughly, statistically speaking, potentially allowing it to 
+find better results within the fixed time budget.
 
-To reduce the initial search space, the \preopt{} phase begins by generating a GHC time and allocation profile for the unoptimized program with user provided representative input. Then, the files that contain at least one \hotspot{} are identified. Files that do not contain \hotspots{} are eliminated from the Autobahn coverage of files. \Ao{} then optimizes the program as usual, except using a much smaller set of files and thus chromosomes to begin its genetic algorithmic search. 
-
-There are three important impacts that \preopt{} profiling creates. First of all, it greatly reduces the number of bangs Autobahn generates by reducing the initial search space. Secondly, it identifies programs that are potentially unsuitable for Autobahn optimization. If a program contains a large set of cost centres that all contribute minimally to program runtime, there may not exist a single location in which placing a bang will make a significant difference in program runtime. If the \preopt{} identifies a program that only contains \coldspots{}, it will alert the user and save them the time and effort of running Autobahn when they will most likely see minimal performance improvements. Lastly, if a \hotspot{} is located in an external library file, the \preopt{} phase can suggest users which external libraries to add to the Autobahn coverage for better optimization results.
-
-It is worth noting that although \preopt{} can reduce search space, it cannot reduce \Ao{}'s runtime as a result. Unless the search space is small enough to be exhaustively searched, \Ao{} will continue to search through it until the allotted runtime is up. So if a user allowed \Ao{} to run for four hours, it will continue to run for four hours regardless of search space size. However, reduced space allows \Ao{} to search more thoroughly and potentially find better results that it did not have time to find before. 
 
 \subsection{\Postopt{} Bang Elimination}
 

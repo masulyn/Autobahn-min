@@ -9,11 +9,20 @@
 \newcommand{\SHOWCOMMENT}[1]{\ifdraft #1 \fi}
 \newcommand{\ksf}[1]{\SHOWCOMMENT{{\color{tuftsblue} [K: #1]}}}
 
+\newcommand{\cut}[1]{}
+
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\tblref}[1]{Table~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\listingref}[1]{Listing~\ref{#1}}
+
+
 \newcommand{\hotspot}[0]{hot spot}
 \newcommand{\hotspots}[0]{hot spots}
 \newcommand{\coldspot}[0]{cold spot}
 \newcommand{\coldspots}[0]{cold spots}
-\newcommand{\hotspotcost}[0]{\textit{hotSpotCost}}
+\newcommand{\hotspotcost}[0]{\textit{hotSpotThreshold}}
 \newcommand{\unfit}[0]{unfit}
 \newcommand{\dangerous}[0]{dangerous}
 \newcommand{\useful}[0]{useful}
@@ -229,18 +238,6 @@ annotation gives rise to a \textit{cost center} that indicates how
 much time or memory were attributable to the given program point as a
 percentage of the whole program's resource utilization.  
 
-\ksf{This paragraph belongs in the Idea section about Autobahn 2.0}
-To minimize the number of bangs while
-maintaining performance, we preserve bangs
-in the most expensive cost centers and eliminate those in less
-expensive ones. We use the \hotspotcost{} threshold to determine which
-cost centers to consider hot.  A cost center consuming more than
-\hotspotcost{} resources is considered to be a \textit{\hotspot{}}; 
-one consuming less is a \textit{\coldspot{}}. Currently, we set
-the \hotspotcost{} threshold to 6\% of the the overall program
-runtime, although that threshold can be adjusted. As the threshold
-increases, \At{} preserves fewer bangs at the risk of greater
-degradations in program performance.
 
 \subsection{Genes and Chromosomes}
 
@@ -300,22 +297,122 @@ must carefully choose their program's representative input.
 \section{\At{}}
 \subsection{Why Too Many Bangs Are Generated}
 
-The first step to eliminating bangs is to identify categories of bangs and hypothesize the reason why each category exists. A \textit{\dangerous{}} bang is a bang that can significantly slow down program runtime or cause program non-termination. A \textit{\useful{}} bang improves program performance, and a \textit{\useless{}} bang neither improves nor worsens program performance. 
+The first step towards reducing the number of inferred bangs is to identify
+categories of bangs and to hypothesize why each such category exists.
+To that end, we introduce three categories of bangs:
+a \textit{\dangerous{}} bang is one that can significantly
+degrade program performance, including causing non-termination;
+a \textit{\useless{}} bang neither improves nor degrades 
+performance but is undesirable because programmers must waste
+valuable time reasoning about its safety; finally,
+a \textit{\useful{}} bang improves program performance.
 
-While an \unfit{} chromosome may perform poorly as a whole, it can contain a mixture of \dangerous, \useful{} and \useless{} bangs. \Ao{} handles \unfit{} chromosomes by discarding them entirely, but fails to provide a method of isolating the specific \dangerous{} bangs in an \unfit{} chromosome. It is necessary to isolate and remove \dangerous{} bangs because they might otherwise reappear in later generations as a result of random mutation. 
 
-Fit chromosomes also face a similar issue. \Ao{} handles \fit{} chromosomes by preserving the entire chromosome, without separately identifying the \useful{} bangs from the \useless{} ones. This is problematic for two reasons. Firstly, we might lose \useful{} bangs in future rounds of generations because we cannot track them and guarantee that random methods of mutation and crossover will preserve them. Secondly, \useless{} bangs could survive by being grouped with \useful{} bangs even though they should be eliminated. The accumulation of such bangs can dramatically increase the number of bangs in a program, leaving it up to the user to identify potentially unsafe bangs from the safe ones. 
+An \unfit{} chromosome performs poorly as a whole, but it can contain
+a mixture of \dangerous, \useless{}, and \useful{} bangs (By
+definition, it must contain at least one \dangerous{} bang).
+\Ao{} handles \unfit{} chromosomes by discarding them entirely.  It does not
+attempt to identify the \dangerous{} bangs. Removing such bangs from
+consideration, rather than simply discarding their chromosomes, would
+be useful because otherwise they can reappear in later generations as
+the result of a random mutation.
 
-We hypothesize that \Ao{} generates copious amounts of bangs because it is incapable of identifying categories of bangs within the same chromosome. The further addition of randomness means that the entire chromosome is repeatedly searched as the search space is never definitively reduced. Because there is a fixed number of genes in a program, the search space for the genetic algorithm is also equivalently fixed. Therefore, as the program source code increases in size, the algorithm also generates significantly more bangs as chromosomes increase in size. 
+Fit chromosomes face a similar issue. \Ao{} handles \fit{} chromosomes
+by preserving the entire chromosome, without separating the \useful{}
+bangs from the \useless{} ones. This lack of discrimination is
+problematic for two reasons. First, we might lose \useful{} bangs in
+future generations because we cannot guarantee that they will be
+preserved by the mutation and crossover operations of the genetic
+algorithm.  Second, \useless{} bangs can survive if they are grouped
+with  \useful{} ones. The accumulation of such \useless{} bangs
+can dramatically increase the number of inferred bangs, leaving the
+user with a substantial reasoning task.  As program source code
+increases in size, the number of \useless{} bang positions also grows,
+increasing the likelihood the genetic algorithm will infer and
+preserve \useless{} bangs that happen to live on a chromosome
+with \useful{} ones. 
+
+\cut{
+We hypothesize that \Ao{} generates large numbers of superfluous bangs
+because it does not identify the different categores of bangs within
+the same chromosome. 
+The randomness of \Ao{}'s genetic algorithm means the search space is
+never reduced in size.
+
+The further addition of randomness means that the entire
+chromosome is repeatedly searched as the search space is never
+definitively reduced. Because there is a fixed number of genes in a
+program, the search space for the genetic algorithm is also
+equivalently fixed. Therefore, as the program source code increases in
+size, the algorithm also generates significantly more bangs as
+chromosomes increase in size.
+}
 
 \subsection{The Solution}
 
-\At{} uses GHC profiling to do what Autobahn cannot: isolate portions of a chromosome by their individual contributions to program performance. Cost centres not only break down a chromosome into smaller portions by source code bindings, but their associated costs also imply how likely a bang placement will affect program performance. If executing code at a \hotspot{} occupied a significant portion of the overall program runtime, then a bang-induced change in performance at the \hotspot{} will likely significantly affect overall runtime as well. 
+Precisely identifying which bangs are \useless{}/\useful{} is undecideable, but
+we can use GHC profiling to make an educated guess. 
+Intuitively, a bang
+that appears in a cost center that uses many resources, which we 
+call a \textit{\hotspot}, is more likely to be \useful{}, while one in a
+cost center using few resources, which we call a \textit{\coldspot}, is likely to
+be \useless{}.  Leveraging that intuition, \At{} preserves bangs that appear
+in \hotspots{} while eliminating those in \coldspots.
 
-There are two ways to apply GHC profiling information to reduce the number of generated bangs. The first way is by reducing the previously fixed size of the initial chromosome. Because \Ao{}'s search space is directly correlated to the size of the program source code, we can reduce the search space by eliminating all files that only contain \coldspots{} prior to Autobahn's optimization. Since \useless{} bangs are most likely later generated and located within \coldspots{}, early elimination of genes in \coldspots{} is beneficial. 
+We introduce the \hotspotcost{} parameter to determine
+which cost centers to consider hot:  a cost center consuming more
+than \hotspotcost{} resources is considered hot, while
+one consuming fewer is cold.  
+Currently, we set \hotspotcost{} 
+to 6\% of the overall program runtime, although that threshold can
+be adjusted. As the threshold increases, \At{} preserves fewer bangs
+at the risk of greater degradations in program performance.
 
-However, \hotspots{} can contain a mixture of \useful{} and \useless{} bangs as well. To definitively eliminate \useless{} bangs and preserve \useful{} bangs, we can individually isolate and measure the performance of each bang in each \hotspot{}. The effects of combining bangs is hard to predict, but the permutation size of all possible combinations of the remaining bangs can grow very large. To simplify the process, we adopt the method of individually turning off one bang at a time to test. We can then exhaustively test each bang because the number of \hotspots{} in a program is limited. This testing process relies on \Ao{}'s randomly generated winning combination of bangs as a starting point. Both of these methods are later explained in full detail, and a diagram of the workflow is shown below.
-\newline
+
+\cut{
+isolate portions
+of a chromosome by their individual contributions to program
+performance. Cost centers not only break down a chromosome into
+smaller portions by source code bindings, but their associated costs
+also imply how likely a bang placement will affect program
+performance. If executing code at a \hotspot{} occupied a significant
+portion of the overall program runtime, then a bang-induced change in
+performance at the \hotspot{} will likely significantly affect overall
+runtime as well. }
+
+\At{} uses GHC profiling information to reduce the
+number of generated bangs in two different ways, corresponding to two
+different phases in the optimization pipeline, which is shown in \figref{fig:pipeline}.  The first phase, which
+we call
+the pre-search phase, eliminates
+any chromosome corresponding to a program source code file that
+contains only \coldspots{}. \At{} invokes \Ao{} only on chromosomes
+corresponding to files that contain at least one \hotspot{}.  Removing
+chromosomes that are unlikely to contain \useful{} bangs reduces the
+size of the search space with little chance of inadvertently
+eliminating good sets of annotations.  The smaller search space is
+likely to make \Ao{} more effective in improving performance.  In
+addition, the system will not infer bangs for any of the genes on the
+eliminated chromosomes.  Since such bangs are very likely to have
+been \useless{}, this step is very likely to reduce the number of
+inferred \useless{} bangs.
+
+The second phase, which we call the post-search phase, uses profiling
+information is to categorize as likely \useless{}/\useful{} bangs that occur within \hotspots{} on
+chromosomes that \Ao{} determines to be fit.  In a world with infinite resources,
+we would test all combininations of such bangs and select the best one
+because the effect of combining bangs is hard to predict.
+Unfortunately, the exponential search space is too large to explore
+exhaustively. Instead, we individually turn off one such bang at a
+time, measure the resulting performance, and keep only those that
+significantly impact performance.  The number of such bangs is
+sufficiently small that we can test each in turn because the number of
+bangs in \hotspots{} in a program is relatively small.
+
+In the rest of this section, we exlain \At{}'s optimization pipeline
+in more detail.
+
+\begin{figure}
 \tikzset{%
   >={Latex[width=2mm,length=2mm]},
             base/.style = {rectangle, rounded corners, draw=black,
@@ -353,7 +450,9 @@ However, \hotspots{} can contain a mixture of \useful{} and \useless{} bangs as 
   \draw[->]      (posto) -- node[text width=4cm, xshift=-2cm, yshift=0.8cm] {Individually test each bang in winning chromosome}
                                    (result);
   \end{tikzpicture}
-
+\caption{\At{} optimization pipeline.}
+\label{fig:pipeline}
+\end{figure}
 
 \subsection{Autobahn Coverage}
 

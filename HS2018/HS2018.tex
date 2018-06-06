@@ -518,27 +518,42 @@ find better results within the fixed time budget.
 
 \subsection{\Postopt{} Bang Elimination}
 
-After \Ao{} optimizes the search space and determines a winning
-chromosome, \At{} once again uses GHC profiling information to reduce
-the number of bangs in the winning chromosome. It begins by mapping
-each gene in the winning bit vector to their corresponding set of cost
-centres.
+After \Ao{} explores the search space and suggests a winning set of
+chromosomes, \At{} uses GHC profiling information to eliminate any
+bangs on those chromosomes that don't significantly contribute to
+program performance. To that end, 
+the \postopt{} phase decides that any gene that is off in the winning
+chromosomes should not have a bang in the final recommendation.
+It removes these genes from further consideration. 
+The \postopt{} phase then maps each remaining gene, which must be
+turned on, to its corresponding cost center.  It turns off all genes
+that do not fall within \hotspots{}, deciding not to recommend bangs
+for the corresponding locations on the theory that such bangs are
+likely to be \useless{}.  It then removes these genes from further
+consideration. 
 
-For each gene in the bit vector, the \postopt{} phase filters out all of those that are already turned off and keep them turned off. It then examines genes that are turned on and fall within a \coldspot{}, and turns them off before filtering them out as well. We can turn them off because those genes are most likely \useless{} bangs. 
-
-The remaining genes are the interesting ones that both contain a bang and fall within a \hotspot{}. These genes require further testing because even though \hotspots{} are likely to significantly reduce overall runtime when their own runtimes are reduced, we are unsure if the cost centre runtime was reduced in the first place. That is, placing a bang in a cost centre may not always improve performance at the cost centre. Therefore, genes within \hotspots{} that cannot be improved through the placement of bangs are also \useless{} and should be discarded.
-
- 
-There are usually so few remaining genes that are both turned on and within a \hotspot{} that it is possible to exhaustively test them. The \postopt{} phase tests them by isolating and turning off each bang while keeping all other remaining bangs on. It then measures program runtime and compares it to the program performance of the winning chromosome determined by Autobahn. 
-
-If the absence of this bang slows down the program by the \absim{}
-threshold, this bang is useful and kept in the pool of remaining
-bangs. If the bang's absence does not slow down the program by at
+The remaining genes are the interesting ones in that they both
+contain a bang and fall within a \hotspot{}. These genes require
+further testing because they may still be \useless{}, failing to
+improve progam performance even though they fall within a \hotspot{}.
+If they are \useless{}, they should be discarded. 
+There is usually a sufficiently small number of remaining genes that
+are both turned on and within a \hotspot{} that it is possible to
+measure their impact one by one.  Specifically, 
+the \postopt{} phase tests each such gene in turn, turning
+it off while keeping all the remaining bangs on.  It 
+then runs the resulting program and compares its performance to that
+of the winning chromosomes as determined by \Ao{}.
+If the absence of the bang slows down the program by the value of the \absim{}
+threshold parameter, the \postopt{} phase deems that the bang is useful and
+decides to keep it. 
+If the bang's absence does not slow down the program by at
 least the \absim{} threshold, the bang is deemed \useless{} and
 discarded. The \absim{} threshold is adjustable and currently set to
-5\%. The \postopt{} phase repeats this process for every bang to be
-tested, and the minimization result is the combination of surviving
-bangs by the end of testing.
+5\%. The \postopt{} phase repeats this process for every bang
+that is on in the winning chromosomes and in a \hotspot{}. 
+The  minimization result is the combination of all the surviving
+bangs at the end of testing.
 
 \subsection{Representative Input}
 Just as with \Ao{}, the quality of the representative input impacts the quality of

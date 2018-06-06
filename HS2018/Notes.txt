@@ -1,3 +1,47 @@
+
+
+AESON
+
+5-13, ran both with clean InternalTypes.hs file, only optimized Main
+5-4, ran both with clean InternalTypes.hs file, optimized both InternalTypes and Main
+
+json, 
+
+comment in and out A.Done, call json’, one with bangs and one without
+
+json’, bang before s in s <- A.anyWord8 *> jstring_ and n in n <- scientific
+
+how did you calculate 24 per 100 LOC
+
+
+
+with value’ bangs	with InternalTypes bangs	convert      objects.json    14.823898s
+without value’ bangs	with InternalTypes bangs	convert       objects.json     12.087662
+with value’ bangs	with InternalTypes bangs	convert      chicagoezma-pppn.json    14.433711s
+without value’ bangs	with InternalTypes bangs	convert       chicagoezma-pppn.json     18.096124
+
+with value’ bangs	with InternalTypes bangs	convert      objects.json    17.372876s
+without value’ bangs	with InternalTypes bangs	convert       objects.json     12.087662
+
+with value’ bangs	with InternalTypes bangs	validate      objects.json    7.590134s
+without value’ bangs	with InternalTypes bangs	validate       objects.json     14.077775
+with value’ bangs	with InternalTypes bangs	validate      chicagoezma-pppn.json    22.061136s
+without value’ bangs	with InternalTypes bangs	validate       chicagoezma-pppn.json     19.475297
+
+
+
+
+
+
+
+NOFIB GRAPHS
+
+explain why 49 benchmarks, account for missing benchmarks
+
+
+autobahn fail vs fluctuation in measurement when minimizer calculated it
+
+
 Section 5.2.  Explain precisely how you chose these 20 benchmark
 programs. ===> FIXED
 
@@ -112,6 +156,56 @@ Make captions more self-contained, as we've discussed previously. ===> FIXED
 
 STILL NEED TO:
 
-FIGURE OUT HOW TO STACK BARS IN GNUPLOT FOR FAILURE RATE
-logscale starts from 0.25, which makes lcss look like it doesn't have a runtime
+aut-post complete fails:
+tree join
+
+aut complete fails:
+anna
+fluid
+fulsom
+symalg
+
+pap complete fails:
+awards
+callback001
+callback002
+exp3_8
+fulsom
+mutstore2
+threads007
+x2n1
+
+pap complete success:
+pap partial success:
+pap complete fail: 8 
+
+
+pap aut2 summary: runtime: 517.2 (mean 0.862) bangs: 2869.1 (mean 4.78)
+
+aut summary: runtime: 447.15 (mean 0.745) bangs: 41078 (mean 68.46)
+
+post-aut summary: runtime: 594.682 (mean 0.991) bangs: 2512 (mean 4.18)
+
+
+
+
+minimizing bangs future work
+
+
+
+
+SUMMARY
+
+summary statistics needs to include autobahn 1.0 and 2.0 results across all succeeded and failed benchmarks
+
+
+GRAPHS
+
+discuss callback001 and other outliers
+
+
+number of failed benchmarks decreased in aut 2.0. fluctuation could make a difference ,pre phase didn't have an effect on them
+
+logscale starts from 0.25, which makes lcss look like it doesn't have a runtime (Add note to point out that left hand axis starts at 0.25)
+
 

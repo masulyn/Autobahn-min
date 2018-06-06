@@ -384,7 +384,7 @@ runtime as well. }
 number of generated bangs in two different ways, corresponding to two
 different phases in the optimization pipeline, which is shown in \figref{fig:pipeline}.  The first phase, which
 we call
-the pre-search phase, eliminates
+the \Preopt{} phase, eliminates
 any chromosome corresponding to a program source code file that
 contains only \coldspots{}. \At{} invokes \Ao{} only on chromosomes
 corresponding to files that contain at least one \hotspot{}.  Removing
@@ -397,7 +397,7 @@ eliminated chromosomes.  Since such bangs are very likely to have
 been \useless{}, this step is very likely to reduce the number of
 inferred \useless{} bangs.
 
-The second phase, which we call the post-search phase, uses profiling
+The second phase, which we call the \Postopt{} phase, uses profiling
 information is to categorize as likely \useless{}/\useful{} bangs that occur within \hotspots{} on
 chromosomes that \Ao{} determines to be fit.  In a world with infinite resources,
 we would test all combininations of such bangs and select the best one
@@ -454,13 +454,25 @@ in more detail.
 \label{fig:pipeline}
 \end{figure}
 
-\subsection{Autobahn Coverage}
-
-By default, Autobahn optimizes all files in the program directory. Users can specify optimization coverage by manually adding or removing file paths while configuring Autobahn. Although Autobahn does not consider external libraries imported in the source code, users can manually add local copies of external libraries in the program directory for optimization. 
-
-However, just as manually reasoning about the placement of bangs is difficult, users generally find it difficult to reason about which files should or should not be optimized. By examining GHC profiles, we can have a much better idea of which files to eliminate based on whether or not they contain \hotspots{}. Combining this knowledge with the option to configure Autobahn coverage, we can now manipulate the initial chromosome size by units of file sizes. 
 
 \subsection{\Preopt{} Profiling}
+\Ao{} uses program source files as the unit of granularity in deciding
+which program locations to consider when inferring bangs. 
+By default, \Ao{} optimizes all files in the directory containing the
+program source code. However, users can specify optimization coverage
+manually by adding or removing file paths in the \Ao{} configuration.
+\Ao{} does not consider external libraries imported in the
+source code, but users can manually add local copies of external
+libraries to the program directory so those files can be included in
+the optimization process.
+However, just as manually reasoning about bang placement is
+difficult, reasoning about which files to optimize can be similarly
+difficult.  By examining GHC profiles, we can have a much
+better idea of which files to consider based on whether or not they
+contain \hotspots{}. Combining this knowledge with the option to
+configure the files that \Ao{} considers, \At{} can automatically
+choose the initial chromosome set by units of program files.
+
 
 \Preopt{} profiling does more than just reducing existing search space. Instead, it guides, redirects and expands the current search space to maximize efficiency and performance prior to \Ao{}'s optimization. Because chromosome sizes directly influence the number of generated bangs, search space manipulation can minimize the possibility of generating \useless{} or \dangerous{} bangs and maximize the chances of generating \useful{} ones.
 

@@ -1167,11 +1167,26 @@ increasing order of \At{} failure rate. }
 \label{fig:2-failures}
 \end{figure*}
 
-\subsection{\At{} On Larger Programs}
+\subsection{Case Study: \At{} On \texttt{gcSimulator}}
+As a case study, we ran \At{} on \texttt{gcSimulator}, which is a
+garbage collection simulator that consumes program execution traces
+produced by the Elephant Tracks~\cite{Ricci13} monitoring system.  The
+simulator comprises 2026~lines of code spread across 20~source code
+files.  To keep \Ao{} runtime within reasonable ranges, we used the
+first 1M of the \texttt{batik} trace file from the DaCapo
+benchmarks~\cite{Blackburn06} as the representative input.  For this
+case study, we lowered the \absim{} threshold to 1\%
+because \texttt{gcSimulator} does not have many \hotspots{} at higher
+thresholds.  Once \At{} was done optimizing, we evaluated the
+resulting program on larger trace file sizes of 100M and 500M. Because
+running the simulator on the full 6184M trace size took too
+long with or without optimization, we did not record results for the
+full trace.
 
-We ran \At{} on the gcSimulator garbage collector to see how well it performs on larger programs. To keep optimization runtime within reasonable ranges, we used the first 1M of the batik trace file as the representative input. For gcSimulator, we lowered the \absim{} threshold to 1\% because it does not have many \hotspots{} to begin with. Once \At{} was done optimizing, we tested the resulting program on larger trace file sizes of 100M and 500M. Because running the garbage collector on the full 6184M trace size took too long with or without optimization, we did not record results for the full trace. 
-
-The original \Ao{} was able to produce results that not only ran faster on representative input, but also on larger trace files as well. \At{} was also able to generate similar results with much fewer bangs, as demonstrated in \tblref{tab:gc}.
+\Ao{} produces results that run
+faster on representative input as well as on larger trace files.
+\At{} was  able to generate similar performance results with many fewer
+bangs (125 vs. 690), as demonstrated in \tblref{tab:gc}.
 
 \begin{table}
 \begin{tabular}{lllr}
@@ -1190,21 +1205,62 @@ Original      & 1   &   0.40	 & 0   \\
 
 \hline
 \end{tabular}
-\caption{Performance results for GC Simulator.}
+\caption{Performance results for \texttt{gcSimulator}.}
 \label{tab:gc}
 \end{table}
 
 
-\subsection{\At{} On Aeson}
+\subsection{Case Study: \At{} with Aeson Library}
 \ksf{We could also consider deleting this section if we don't have
        enough space.} 
 
- The original \Ao{} experiments also showed that its genetic algorithm was able to infer application-specific bang patterns for the \texttt{Aeson} program. The \texttt{Aeson} program is a \texttt{JSON} file parser that can be used with one of two drivers that operate differently on the \texttt{JSON} file it parses. The \texttt{validate} driver checks if the file is a valid \texttt{JSON} file without the need to completely evaluate each \texttt{JSON} value. The \texttt{convert} driver converts the \texttt{JSON} file into a Haskell data structure, and thus it needs to completely evaluate each \texttt{JSON} value. If the \texttt{Aeson} parser is paired with the \texttt{validate} driver, it performs the best when it evaluates its parsing functions lazily. If \texttt{Aeson} is paired with the \texttt{convert} driver, it performs the best when it evaluates all parsing functions eagerly. 
- 
-In the original \Ao{} experiment, two versions of \texttt{Aeson} were optimized. Each used one of the drivers and had the incorrect set of bangs pre-inserted to allow for room for improvement. After optimization, \Ao{} was able to correct the incorrect set of bangs by either inserting bangs in correct locations or removing bangs from incorrect locations. We were interested in seeing if \At{} preserves the same results, so we ran \At{} with identical experiment conditions to see if it preserves the correct bangs that \Ao{} produces. 
+The original experiments\cite{autobahn-wang} showed that \Ao{} was
+able to infer application-specific bang patterns for two different
+uses of the \texttt{Aeson} parser library for \texttt{JSON} files.
+The \texttt{validate} driver checks if the input file is a
+valid \texttt{JSON} file, which does not require completely evaluating
+each \texttt{JSON} value in the file.  The \texttt{convert} driver
+converts the \texttt{JSON} file into a Haskell data structure, and it
+does need to completely evaluate each \texttt{JSON} value. If
+the \texttt{Aeson} parser is paired with the \texttt{validate} driver,
+it performs best when it evaluates its parsing functions
+lazily. If \texttt{Aeson} is paired with the \texttt{convert} driver,
+it performs best when it evaluates its parsing functions eagerly.  In
+the experiments, the drivers were paired with library code that had
+the wrong bangs pre-inserted to allow room for improvement.  \Ao{} did
+correctly suggest the appropriate bang annotations for both drivers, in
+one case inserting bangs and in the other removing them.
 
-In the \preopt{} phase, \At{} identified that \texttt{Aeson}'s top hot spots were in fact located in external libraries. We followed the program's suggestions to include \texttt{Data.Attoparsec.Internal.Types} as a local file in \Ao{}'s optimization coverage. However, results showed that the inclusion of this file did not significantly improve \Ao{}'s ability to optimize \texttt{Aeson}. It is possible that external libraries and files that were suggested by the \preopt{} phase do not improve \Ao{}'s optimization runtime results, in which case it is the user's decision if they still wish to include the external files as a part of the optimization coverage. In our case, we decided to remove the newly added external file, and reran the experiment using the original setup. 
+To explore whether \At{} preserves these results, we ran \At{} with
+identical experimental conditions.
+In the initial run, the \preopt{} phase identified
+that \texttt{Aeson}'s top hot spots were in fact located in external
+libraries. We followed the suggestions to
+include \texttt{Data.Attoparsec.Internal.Types} as a local file
+in \Ao{}'s optimization coverage. However, further experimentation
+showed that including this file did not significantly improve \Ao{}'s
+optimization ability, so we reverted to the original configuration.
+We subsequently lowered the \hotspotcost{} threshold to 0.2\% because
+otherwise most of the \hotspots{} were located in external libraries.
 
+In subsequent runs, \Ao{} did not generate the exact
+application-specific bang patterns for the two drivers seen earlier,
+even when run without the \preopt{} phase.  The underlying genetic
+algorithm is random, so each run can produce different results.  Since
+our interest was partly whether the \postopt{} phase preserves
+application-specific bang patterns inferred by \Ao{} while reducing
+the number of \useless{} bangs, we manually inserted the desired bangs
+into the \Ao{} ouput and proceeded with the \postopt{} phase.
+With this input, the \postopt{} phase of 
+successfully identified the key parsing function as a \hotspot{}
+and preserved the bang pattern in the parsing function. Therefore, 
+if \Ao{} had produced the correct bang patterns, \At{} would have
+preserved them. 
+\tblref{tab:aeson} shows the resulting performance and bang counts.
+Because the \At{} data in the table reflects manually inserting a
+bang, we include the same edits in the data associated with \Ao{}.
+Essentially, the table reflects what would have been the outcome if
+the \Ao{} phase had successfully identified the key annotations. 
 
 %\begin{tabular}{p{2.5cm}p{1.5cm}p{1cm}p{1.5cm}}
 %\hline
@@ -1220,28 +1276,24 @@ In the \preopt{} phase, \At{} identified that \texttt{Aeson}'s top hot spots wer
 %\end{tabular}
 
 
-In our second run of the experiment, \Ao{} was unable to generate the correct bang patterns prior to the \preopt{} phase. Because \Ao{}'s genetic algorithm is random, every experiment will turn out slightly differently every time it is run. We were unable to use \Ao{} to reproduce the exact application-specific bang patterns for \texttt{Aeson}'s two drivers that the original paper was able to produce. Therefore, we manually inserted the correct bangs into the optimization results and resumed the bang reduction process to see if the \preopt{} phase could eliminate the useless bangs and preserve the correct bangs. We also lowered the \hotspotcost{} threshold to 0.2\% because most of the high-cost \hotspots{} were located in external libraries. 
-
-\At{} was able to identify the key parsing function as a \hotspot{}
-and preserved the bang pattern in the parsing function. Therefore, the
-correct bang patterns produced by \Ao{} were successfully preserved in
-the results of \At{} as shown in \tblref{tab:aeson}. 
 
 \begin{table}
-\begin{tabular}{p{2.5cm}p{1cm}p{1.5cm}p{1.5cm}}
+\begin{tabular}{p{2.5cm}p{1.5cm}p{1.5cm}p{1.5cm}}
 \hline
-Version   & Driver & Normalized Runtime & No. Bangs\\
+Version   & Driver & Runtime Ratio & No. Bangs\\
 \hline
-Original      & convert   & 1     & 2 \\
-          & validate        & 1     &  4\\
-\Ao{}       & convert     & 0.91     & 46\\
-          & validate        & 0.86	& 93\\
-\At{}       & convert     & 0.93     &   7 \\
-          & validate        & 0.85 & 2	\\
+Original      & \texttt{convert}   & 1     &  2\\
+              & \texttt{validate}  & 1     &  4\\
+\Ao{}*        & \texttt{convert}   & 0.91  & 46\\
+              & \texttt{validate}  & 0.86  & 93\\
+\At{}*        & \texttt{convert}   & 0.93  &  7\\
+              & \texttt{validate}  & 0.85  &  2\\
 \hline
 \end{tabular}
-\caption{Results for optimizing two different driver programs for
-the \texttt{Aeson} library.}
+\caption{Optimizing two driver programs for
+the \texttt{Aeson} library, with the output of the genetic algorithm 
+modified in both \Ao{} and \At{} to include the key bang patterns
+found earlier~\cite{autobahn-wang} (Hence the asterisks).} 
 \label{tab:aeson}
 \end{table}
 

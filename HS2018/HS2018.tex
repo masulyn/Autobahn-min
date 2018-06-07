@@ -802,7 +802,8 @@ Since \Ao{} and the \Preopt{} optimizer handle these 40 benchmarks
 identically, we exclude them from the graphs reporting on the results
 of the \preopt{} phase. We discuss the third category of benchmarks in 
 \secref{sec:file-elim}. \ksf{How many programs were in each
-category?}
+category?}  \ksf{Is this right:} None of the 60 programs had an
+external \hotspot{} not in the original optimization coverage.
 
 \figref{fig:preopt-bangs} shows the results from the 20 benchmarks that
 had at least one file eliminated during the \preopt{} phase. The
@@ -881,21 +882,60 @@ we ran with no bangs in the program. Therefore, the optimization
 results were likely skewed by the fluctuating runtime.
 
 \subsection{\Preopt{} File Addition}
+\ksf{We could cut this section if we need to save a lot of space.}
+To demonstrate the effectiveness of using the \preopt{} phase to
+expand Autobahn's coverage for improved optimization results, we
+tested our approach on the \texttt{sumList} microbenchmark. We
+created \texttt{sumList} to simulate the scenario in which a
+programmer references code from an external library or external file
+that contains \hotspots{} but is not within the current optimization
+coverage. 
 
-To demonstrate the effectiveness of using the \preopt{} phase to expand Autobahn's coverage for improved optimization results, we tested our approach on the \texttt{sumList} microbenchmark. We created \texttt{sumList} to simulate the scenario in which a programmer references code from an external library or external file that contains \hotspots{} but is not within their current coverage range. 
+The \texttt{sumList} program's \texttt{Main.hs} file contains only one
+function: a main function that constructs a list of integers from 1 to
+1,000,000 and then calculates the sum of all integers in the list using an
+external \textit{sum} function located in \texttt{Sum.hs}. Users
+may decide to set the optimization coverage to [\texttt{Main.hs}],
+because they are interested in making the main program run
+faster. However, as demonstrated in \tblref{table:sumList}, \Ao{} was only able to
+improve program performance by 3\%, even when it was able to
+exhaustively search the possible bang locations in the 6 lines of code in the \texttt{main}
+function. Upon inspecting the results, users may be mistaken in
+believing that their program runtime cannot be improved
+further.
 
+But there are indeed other opportunities to speed up \textit{sumList}
+located in places that the users did not think about. If the users were
+to rerun the optimization using the \preopt{} phase, then GHC's time and
+allocation profile indicates that the largest \hotspotcost{} was 9.5\%
+and located in lines 7 to 8 in the \textit{sum} function
+in \texttt{Sum.hs}. The \textit{sum} function is entirely lazy and did
+not immediately compute the sum of each integer as it recursed through
+the list. In the resulting log file, the \preopt{} phase 
+suggests 
+adding \texttt{Sum.hs} to the optimization coverage.
+After expanding the coverage and re-running the optimization,
+the resulting \texttt{sumList} ran at only 13\% of the original
+runtime, a dramatic improvement.
 
-The \texttt{sumList} program's \texttt{Main.hs} file contains only one function: a main function that constructs a list of integers from 1 to 1,000,000, and calculates the sum of all integers in the list using an external \textit{sum} function located in \texttt{Sum.hs}. The user may decide to set the optimization coverage to [\texttt{Main.hs}], because they are interested in making the main program run faster. However, as demonstrated in table 1, \Ao{} was only able to improve program performance by 3\%, even when it was able to exhaustively search the only six lines of code in the main function. Upon inspecting the results, the user may be mistaken in believing that their program runtime cannot be possibly improved further. 
-
-But there are indeed other opportunities to speed up \textit{sumList} located in places that the user did not think about. The user decides to rerun the \Ao{} using the \preopt{} phase as well. GHC's time and allocation profile indicates that the largest \hotspotcost{} was 9.5\% and located in lines 7 to 8 in the \textit{sum} function in \texttt{Sum.hs}. The \textit{sum} function is entirely lazy and did not immediately compute the sum of each integer as it recursed through the list. In the resulting log file, the user is alerted about this fact through a message that advises them to consider adding \texttt{Sum.hs} to the list of files that \Ao{} optimizes. After expanding the coverage and running optimization again, \texttt{sumList} was able to run at only 13\% of the original runtime, a dramatic improvement compared to optimizing using \Ao{} alone.
-
-Although the \texttt{sumList} example is short and simple, it shows the larger potential for users to obtain much better optimization results when running the \preopt{} phase in conjunction with \Ao{}. Programmers often build upon each other's code and use external functions that they may not be entirely familiar with or did not consider optimizing. The \preopt{} phase identifies valuable missed opportunities and improves \Ao{}'s optimization results. Of course, the addition of more files to optimize means that more bangs might be generated. It is up to the user to decide if they want to add the suggested files for better optimization results at the risk of them needing to inspect more bangs.
+Although the \texttt{sumList} example is short and synthetic, it shows
+the larger potential for users to obtain much better optimization
+results when running the \preopt{} phase in conjunction
+with \Ao{}. Programmers often build upon each other's code and use
+external functions that they may not be entirely familiar with or did
+not consider optimizing. The \preopt{} phase can identify valuable
+missed opportunities. Of
+course, the addition of more files to optimize means that more bangs
+might be generated. It is up to the user to decide if they want to add
+the suggested files for better optimization results at the risk of
+needing to inspect more bangs.
 \newline
 %We also ran experiments using the Aeson parser library that handles JSON files using either the \texttt{validate} or \texttt{convert} driver programs. \texttt{validate} simply checks if the file is written in valid JSON syntax, and \texttt{convert} actually converts file input into a Haskell data structure. 
 
 %While running the \preopt{} phase on the Aeson library, we were suggested by the program to include files from the external \texttt{Data/Aeson} library in the Autobahn optimization coverage because the \texttt{Data/Aeson/InternalTypes.hs} file included multiple \hotspots{}. However, \texttt{InternalTypes.hs} already included manually inserted bangs by its author. Therefore we ran experiments using a version of \texttt{InternalTypes.hs} with no bangs in it to see if we could recreate the manually inserted bangs. If so, library authors could run Autobahn to place bangs in their files instead of manually doing so. 
 
 
+\begin{table}
 \begin{tabular}{p{2.5cm}p{1.5cm}p{2cm}p{1cm}}
 \hline
 Version   & Coverage & Normalized Runtime & No.Bangs \\
@@ -905,7 +945,9 @@ Original      & N/A   &   1	 & 0   \\
 Pre-optimization	& [\texttt{Main.hs}, \texttt{Sum.hs}]         & 0.13      & 4\\
 \hline
 \end{tabular}
-
+\caption{Results for \texttt{sumList} microbenchmark.}
+\label{table:sumList}
+\end{table}
 %\begin{tabular}{llr}
 %\hline
 %Version   & Driver & Normalized Runtime \\

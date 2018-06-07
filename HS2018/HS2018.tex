@@ -1303,40 +1303,58 @@ found earlier~\cite{autobahn-wang} (Hence the asterisks).}
 
 The current strictness analyzer in GHC uses backward abstract
 interpretation to identify locations that can be eagerly
-evaluated. The analysis is approximate because the analysis is
-static. The analysis also conservatively binds locations as strict
-only if it can guarantee program termination because it is a part of
-the compiler. Autobahn has the advantage of both being dynamic and not
-needing to guarantee termination on all inputs as it is not a a part
-of the compiler. Instead, it allows users to decide the safety of
-suggested strictness annotations based on the intended application of
-the program. Other approaches to reduce laziness include Strict
+evaluated~\cite{Sergey14}. The analysis is sound but necessarily
+approximate because it is static and the underlying property is
+undecidable. The analysis only marks locations as strict if it can
+guarantee termination on all possible inputs, not just realistic ones,
+since it is part of the compiler.  Like \Ao{}, \At{} leverages the
+advantages of being dynamic and not attempting to guarantee
+termination on all inputs.  Instead, \Ao{} allows users to decide if
+the annotations are safe on the intended inputs.
+
+Other approaches for reducing laziness include Strict
 Haskell~\cite{strict-haskell}, which allows users to make entire modules strict rather than
-lazy by default using the -XStrict and -XStrictData language
-pragmas. Chang and Felleisen starts with a program written in a strict
-language, and inserts laziness annotations into it using dynamic
+lazy by default using the \texttt{-XStrict} and \texttt{-XStrictData} language
+pragmas. Chang and Felleisen~\cite{Chang14} take the opposite
+approach: they start with a program written in a strict
+language and inserts laziness annotations using dynamic
 profiling. It would be interesting to see if Chang and Felleisen's
 method could be applied to introduce laziness to Strict Haskell
 programs.
 
 \subsection{\At{} Improvements}
-For future developments, it would be worth exploring the additional use of heap profiles to locate hot spots instead of solely using time and allocation profiles. We have occasionally seen programs in our experiments that may be more accurately profiled by heap usage instead of time and allocation profiles. Although it may be difficult to predict which programs' \hotspots{} are more prominently associated with heap usage, \At{} could run both profiling systems for a program and compare the profiles before selecting a more suitable one to proceed with. Another potential improvement is implementing thresholds that automatically adjust themselves based on profiling results. Our experiments show that the ideal values for \hotspotcost{} and \absim{} thresholds vary by program to program. Adopting more flexible thresholds that automatically adjust themselves after inspecting the profile in the \preopt{} phase might yield better results than using set values or asking users to provide them.
+For future developments, it would be worth exploring the additional
+use of heap profiles to locate hot spots instead of solely using time
+and allocation profiles. We have occasionally seen programs in our
+experiments that may be more accurately profiled by heap usage instead
+of time and allocation profiles. Although it may be difficult to
+predict which programs' \hotspots{} are more prominently associated
+with heap usage, \At{} could run both profiling systems for a program
+and compare the profiles before selecting the more suitable one to
+use. Another potential improvement is implementing thresholds
+that automatically adjust themselves based on profiling results. Our
+experiments show that the ideal values for \hotspotcost{} and \absim{}
+thresholds vary by program to program. Adopting more flexible
+thresholds that automatically adjust themselves after inspecting the
+profile in the \preopt{} phase might yield better results than using
+set values or asking users to provide them.
 
 
 \section{Conclusion}
 
 Laziness is a double edged sword: While it provides many benefits,
-excessive laziness often causes poor performance. Strictness
+excessive laziness can cause poor performance. Strictness
 annotations allow programmers to force eager evaluation, but its use
-is limited to programmers with extensive experience and high levels of
-expertise. Autobahn uses a genetic algorithm to automatically infer
-annotations for better program performance, but it often suggests too
-many bangs for users to inspect. We have built Autobahn 2.0, which
-uses GHC profiling feedback to perform search space manipulation to
-improve the efficiency of genetic algorithms, and eliminates bangs
-based on their associated performance costs. On average, experiments
-show that \At{} was able to reduce 93\% of generated bangs while
-only compromising 15.7\% runtime in the NoFib benchmark.
+is limited to experienced programmers with high levels of
+expertise. \Ao{} uses a genetic algorithm to automatically infer
+annotations to improve program performance, but it often suggests too
+many bangs for users to inspect. We have built \At{}, which
+uses GHC profiling feedback to focus the search space and
+eliminates \useless{} bangs in a post-processing phase. On average,
+experiments show that \At{} is able to remove 93\% of bangs that \Ao{}
+recommended while only compromising 15.7\% runtime in the NoFib
+benchmark.
+\ksf{Check these figures.}
 
 \bibliographystyle{abbrvnat}
 \bibliography{autobahn}

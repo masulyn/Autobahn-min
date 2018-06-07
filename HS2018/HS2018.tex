@@ -46,6 +46,8 @@
 \newcommand{\preoptFewerBangs}[0]{YYY}
 \newcommand{\preoptPerformance}[0]{ZZZ}
 \newcommand{\AoPerformance}[0]{WWW}
+\newcommand{\postBangs}[0]{XXX}
+\newcommand{\postRatioWorse}[0]{XXX}
 
 \begin{document}
 \acmJournal{PACMPL}
@@ -731,8 +733,10 @@ left 60 benchmarks on which we could run experiments.
 To study runtime performance results, we report what we call
 the \textit{runtime performance ratio}, which is the ratio of the
 optimized program's runtime to the runtime of the original program.
-Ratios less than 1 are considered successful because they indicate the
-optimized program performs better than the original, while higher
+A ratio that reflects a performance improvement of more than \absim{}
+is considered successful
+because such a ratio indicates the
+optimized program performs substantially better than the original, while higher
 ratios are failures.  A runtime performance ratio of 1 indicates that
 the optimized version of the program has the same runtime as the
 original version and is thefore \textit{\unimp{}}.  A runtime
@@ -758,7 +762,8 @@ runtime performance ratio for that run is 1 and it recommended
 0~bangs. If a benchmark succeeded at the \Ao{} stage but failed
 in the \postopt{} phase, then we say its runtime performance ratio is 1 and the
 number of inferred bangs is the number of bangs suggested by the \Ao{}
-phase. Finally, we computed the \ksf{harmonic} mean of the runtime
+phase. \ksf{Why is the ratio 1 in this case instead of whatever it was
+after \Ao?} Finally, we computed the \ksf{harmonic} mean of the runtime
 performance ratios and the \ksf{arithmetic} mean of the number of
 recommended bangs.    
 
@@ -963,38 +968,105 @@ Pre-optimization	& [\texttt{Main.hs}, \texttt{Sum.hs}]         & 0.13      & 4\\
 
 \subsection{\Postopt{} Bang Reduction}
 
-To test the efficiency of reducing bangs using the \postopt{} phase, we compared the results of running only \Ao{} with \Ao{} and the \postopt{} phase. Similarly, we took the mean of running the program ten times on the NoFib benchmark suite while optimizing on runtime only, and set both \hotspotcost{} and \absim{} thresholds to 6\%. 
+To assess the effectiveness of the \postopt{} phase,
+we compare the results of running \Ao{} with running 
+the \textit{\Postopt{} optimizer} comprised of \Ao{} followed by
+the \postopt{} phase.
 
+\cut{
+Already discussed and so not necessary:
+Similarly, we took the mean of running the
+program ten times on the NoFib benchmark suite while optimizing on
+runtime only, and set both \hotspotcost{} and \absim{} thresholds to
+6\%.
+A benchmark is successfully optimized if \Ao{} improved its
+performance by at least 6\% after optimization. }
 
-A benchmark is successfully optimized if \Ao{} improved its performance by at least 6\% after optimization. Figure 3 and Figure 4 include results from the 21 benchmarks that were consistently successfully optimized by \Ao{} in each run. Figure 5 and Figure 6 include results from the 28 benchmarks that did not succeed in every run but succeeded at least once, sorted in increasing order of failure rate. We did not include results from the 12 remaining benchmarks that failed to optimize by \Ao{} in every run. Figure 7 shows how frequently a benchmark failed at the \Ao{} stage and how frequently it failed at the end of the \postopt{} phase.
+Figures~\ref{fig:post-bangs-all} and \ref{fig:post-ratio-all}
+give the number of bangs and the runtime performance ratios,
+respectively, for the 21 benchmarks that \Ao{} successfully optimized on all 10 runs. 
+Figures~\ref{fig:post-bangs-some} and \ref{fig:post-ratio-some}
+give the number of bangs and the runtime performance ratios, respectively,
+for the 28 benchmarks on which \Ao{} was partially successful,
+sorted in increasing order of failure rate for \Ao{} \ksf{Is it \Ao's
+failure rate?  If not, fix here and in the caption}. 
+We do not show the results from the remaining 12 benchmarks that \Ao{}
+failed to optimize on every run since the numbers for those benchmarks
+would be unchanged from the original program.  \figref{fig:post-failures} shows how
+frequently a benchmark failed at the \Ao{} stage vs. how frequently it
+failed at the \postopt{} phase.
 
-Figure 3 shows that the number of bangs eliminated by the \postopt{} phase is quite significant. Figure 4 shows the corresponding runtime performance of each optimized program. In most benchmarks, the \postopt{} phase does a little worse than running only \Ao{}, because the \absim{} threshold limits the remaining bangs to those that affect program runtime by at least 6\%. If a user wants to maintain more similar runtime results, they can lower the \absim{} threshold so the minimizer becomes less aggressive in bang elimination. That way, more bangs will be preserved, but runtime performance will improve. The \texttt{callback001} and \texttt{pic} benchmarks are good examples of when a program has no cost centres that meet the \hotspotcost{} threshold, therefore all its bangs were eliminated by the \postopt{} phase. In this scenario, a lower threshold would've helped discover useful bangs that are located in the relatively less costly bangs. 
-
-The interesting results for programs \texttt{anna} and \texttt{fluid} show that while \Ao{} found bangs that triggered a \nonterm{} runtime code, \postopt{} bang elimination was able to get rid of the \dangerous{} bangs that caused non termination and produce successful optimization results. 
+Figures~\ref{fig:post-bangs-all} and \ref{fig:post-bangs-some} show
+that the number of bangs eliminated by the \postopt{} phase is quite
+significant: on average \postBangs{}. Figures~\ref{fig:post-ratio-all}
+and~\ref{fig:post-ratio-some} show the corresponding runtime
+performance of each optimized program. In most benchmarks, the \postopt{} phase does
+a little worse than running only \Ao{}, on average \postRatioWorse{}, because the \absim{} threshold
+only allows bangs that affect program runtime by at
+least that threshold (6\% in these experiments). If users want to
+maintain more similar runtime results, 
+they can lower the \absim{} threshold so the minimizer becomes less
+aggressive in bang elimination. That way, more bangs will be
+preserved, but runtime performance will
+improve. The \texttt{callback001} and \texttt{pic} benchmarks are good
+examples of when a program has no cost centres that meet
+the \hotspotcost{} threshold, so the \postopt{} phase eliminated all their bangs.
+In these cases, a lower threshold would have
+helped discover useful bangs \ksf{I don't get this part: that are located in the relatively less
+costly bangs.}
+The data for \texttt{anna} and \texttt{fluid}
+show that while \Ao{} found bangs that triggered a \nonterm{} runtime
+code, \postopt{} bang elimination was able to eliminate
+the \dangerous{} bangs that caused the bad behavior and instead produce
+successful optimization results.
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{aut-post-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \postopt{} phase combined with \Ao{} across 21 benchmarks that successfully optimized every time. Columns that exceed the maximum axis value are labelled with their actual values. }
+\caption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer 
+across 21 benchmarks that \Ao{} successfully optimized
+every time. Columns that exceed the maximum axis value are labeled
+with their actual values. }
+\label{fig:post-bangs-all}
 \end{figure*}
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{aut-post}
-\caption{Normalized runtime of \Ao{} results vs. \postopt{} phase combined with \Ao{} results across 21 benchmarks that successfully optimized every time. The x-axis normalized runtime is on a log scale of base 2. Columns that exceed the maximum axis value are labelled with their actual values. *\Ao{} resulted in non-terminating optimization results for \texttt{anna} and \texttt{fluid}, and the \postopt{} phase was able to remove the non-terminating bangs to end non program non-termination. }
+\caption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
+across 21 benchmarks that \Ao{} successfully
+optimized every time. The x-axis is on a base-2 log scale.
+For the *-ed benchmarks, \Ao{} generated non-terminating
+optimization results, but the \postopt{} phase removed
+the \dangerous{} bangs and succeeded in optimizing the program. }
+\label{fig:post-ratio-all}
 \end{figure*}
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{ap-partial-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \postopt{} phase combined with \Ao{} across 27 benchmarks that sometimes succeeded to optimize. Success rate out of 10 runs is shown. Columns that exceed the maximum axis value are labelled with their actual values. Graph is sorted in increasing order of failure rate.}
+\caption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer
+across 27 benchmarks that \Ao{} successfully optimized on some runs. Failure rate
+out of 10 runs is shown. Columns that exceed 
+the maximum axis value are labeled with their actual values. 
+The benchmarks are sorted in increasing order of failure rate. \ksf{It
+doesn't look like the benchmarks are sorted in this order?  Is the
+failure based on \Ao{} or on \At{}?}} 
+\label{fig:post-bangs-some}
 \end{figure*}
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{ap-partial}
-\caption{Normalized runtime of \Ao{} results vs. \postopt{} phase combined with \Ao{} results across 27 benchmarks that sometimes succeeded to optimize. The x-axis normalized runtime is on a log scale of base 2. Success rate out of 10 runs is shown. Columns that exceed the maximum axis value are labelled with their actual values.}
+\caption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
+across 27 benchmarks that \Ao{} successfully optimized on some runs.
+The x-axis is on a base-2 log scale.
+}
+\label{fig:post-ratio-some}
 \end{figure*}
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{aut-post-fail}
-\caption{Frequency of \Ao{} failure vs \At{} failure across 27 benchmarks that sometimes succeeded to optimize. Graph is sorted in increasing order of \At{} failure rate. }
+\caption{Frequency of \Ao{} failure vs \At{} failure across 27
+benchmarks on which optimization sometimes succeeded. Benchmarks are sorted in
+increasing order of \At{} failure rate. } 
+\label{fig:post-failures}
 \end{figure*}
 
 \subsection{Combining \preopt{} and \postopt{}}

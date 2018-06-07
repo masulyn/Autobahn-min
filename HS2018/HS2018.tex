@@ -858,7 +858,27 @@ in \figref{fig:preopt-bangs}.}
 \subsection{\Preopt{} File Elimination}
 \label{sec:file-elim}
 
-We found six benchmarks in the NoFib suite that the \preopt{} phase identifies as unsuitable for optimization when the \hotspotcost{} threshold is set to 6\%. These are \texttt{awards, callback001, callback002, mutstore2, sorting,} and \texttt{threads007}. As expected, when attempting to optimize \texttt{awards}, \texttt{sorting} and \texttt{threads007}, \Ao{} consistently fails to optimize and returns the \unimp{} runtime code. However, Autobahn was able to successfully optimize the other programs. Through inspection, we concluded that \texttt{callback002} would've benefited from a lower \hotspotcost{} threshold as its most costly hot spot takes up 3.9\% of the program runtime. Both \texttt{callback001} and \texttt{threads007} would've benefited from inspecting heap profiles instead of time and allocation profiles as the costs associated with their hot spots were noticeably larger in heap allocations while remaining insignificant in runtime costs. The \texttt{mutstore2} program's performance fluctuated wildly even without bangs in it. For example, its measured runtime was as low as 60\% - 80\% of its original runtime in one third of the experiments we ran with no bangs in the program. Therefore, the optimization results were likely skewed by the fluctuating runtime.
+The preopt{} phase identifies 6 benchmarks among the 60 in our suite
+as unsuitable for optimization when the \hotspotcost{}
+threshold is set to 6\%:  \texttt{awards}, \texttt{callback001},
+\texttt{callback002}, \texttt{mutstore2}, \texttt{sorting}, and \texttt{threads007}. As
+expected, when attempting to
+optimize \texttt{awards}, \texttt{sorting},
+and \texttt{threads007}, \Ao{} consistently fails, returning
+the \unimp{} runtime code. However, \Ao{} was able to
+successfully optimize the other programs. Through inspection, we
+concluded that \texttt{callback002} would have benefited from a
+lower \hotspotcost{} threshold as its most costly hot spot takes up
+3.9\% of the program runtime. Both \texttt{callback001}
+and \texttt{threads007} would have benefited from inspecting heap
+profiles instead of time and allocation profiles as the costs
+associated with their hot spots were noticeably larger in heap
+allocations while remaining insignificant in runtime
+costs. The \texttt{mutstore2} program's performance fluctuated wildly
+even without bangs in it. For example, its measured runtime was as low
+as 60\% - 80\% of its original runtime in one-third of the experiments
+we ran with no bangs in the program. Therefore, the optimization
+results were likely skewed by the fluctuating runtime.
 
 \subsection{\Preopt{} File Addition}
 

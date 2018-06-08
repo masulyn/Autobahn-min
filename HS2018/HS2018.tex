@@ -44,7 +44,7 @@
 
 
 \newcommand{\preoptElim}[0]{45}
-\newcommand{\preoptFewerBangs}[0]{12.21\%}
+\newcommand{\preoptFewerBangs}[0]{87.79\%}
 \newcommand{\preoptPerformance}[0]{0.69}
 \newcommand{\AoPerformance}[0]{0.75}
 \newcommand{\postBangs}[0]{93.8\%}
@@ -204,35 +204,39 @@ potentially adding files not originally included by the users.
 After \Ao{} runs, the \postopt{} phase individually tests
 each candidate bang that falls within a costly location. Bangs that
 do not significantly impact program performance are
-eliminated. On average, the addition of these two phases allows \At{}
-to recommend 90.2\%~fewer bangs than \Ao{}, while maintaining similar
-runtime improvements. The contribution of this paper are the
-following:
-\ksf{Check that the statistics on this summary are correct.}
+eliminated.   The system is parameterized, so users can manage the
+tradeoff between aggressively reducing the number of bangs and
+preserving performance improvements.  In our experiments, we chose to
+aggressively reduce the number bangs, accepting some performance
+degradation over the level of optimization provided by \Ao{}.
+
+The contribution of this paper are the following:
 \begin{itemize}
-  \item We show how to use profiling information to automatically reduce the number
+  \item We describe how to use profiling information to automatically reduce the number
     of bangs inferred by \Ao{} while maintaining roughly the same
-    performance. 
-  \item We demonstrate the effectiveness of the \preopt{} phase on
-    programs from the NoFib benchmark suite.  This phase removed at
-    least one file from consideration in 20 of the benchmarks, 
-    corresponding to 33.3\% of the programs we considered.
+    level of optimization.
+  \item We show that \At{} applied to the NoFib benchmark suite reduced
+    the number of generated bangs by 90.2\% on average, while
+    increasing the runtime of the optimized program by 15.7\% over the
+    runtime of the program optimized by \Ao{} alone. We refer to this
+    performance change as a 15.7\% \textit{optimization degradation}.
+\cut{(2.0 runtime - 1.0 runtime)/original}
+  \item We demonstrate that the \preopt{} phase removed at least
+    one file from consideration in 20 of the benchmarks in the NoFib
+    suite, corresponding to 33.3\% of the programs we considered.
     For these programs, the \preopt{} phase eliminated
-    45~potential bang locations per 100~LOC on average, resulting in a mean bang
+    45~potential bang locations per 100~LOC, resulting in a mean bang
     reduction of 87.79\% across the entire benchmark suite. 
   \item We use a microbenchmark to show that the \preopt{} phase's
     suggestions for additional files to consider can improve \Ao{}'s
     optimization results by 86.6\%.
-  \item We evaluate the \postopt{} phase on the NoFib benchmark suite,
-    showing that this phase can reduce the number of generated bangs by 93.8\%
-    at the cost of increasing optimization runtime by 33\%.
-  \item We show that \At{} applied to the NoFib benchmark suite reduced
-    the number of generated bangs by 90.2\% on average, while only increasing the optimized
-    runtime by 15.7\%.
+  \item We evaluate the \postopt{} phase on the NoFib benchmarks,
+    showing it can reduce the number of inferred bangs by
+    93.8\% with a 33\% optimization degradation.
   \item We use \At{} in a case study to optimize the performance of 
-    \texttt{gcSimulator}~\cite{Ricci13}, a garbage collector simulator. While the
-    program slowed down by 15\%, the number of bangs generated
-    decreased by 81.8\%.
+    \texttt{gcSimulator}~\cite{Ricci13}, a garbage collector
+    simulator. The system reduced the number of inferred bangs by
+    81.8\% with a 15\% optimization degradation.
 \acut{
   \item We apply \At{} in a second case study to show that it can
     preserve the application-specific annotations inferred by \Ao{}
@@ -638,10 +642,11 @@ test the bangs may affect the performance, it is too time consuming to
 test the bangs in all possible orders.  For simplicity, we chose to
 test each bang once in order of decreasing costs.
 
+\cut{
 \ksf{For your thesis or for the final version, it might be worth
 playing around a bit to see if the order makes any difference.  For
 example, do the results change substantially if you wonder them in
-increasing order instead?   Or is it just random.}
+increasing order instead?   Or is it just random.}}
 
 Finally, the \postopt{} phase returns the final combination of bangs
 that have survived each round of testing. If \Ao{} failed to find 
@@ -775,11 +780,11 @@ the \postopt{} phase of \At{}
 fails. If a benchmark failed at the \Ao{} stage, then we say that its
 runtime performance ratio for that run is 1 and it recommended
 0~bangs. If a benchmark succeeded at the \Ao{} stage but failed
-in the \postopt{} phase, then we say its runtime performance ratio is 1 and the
+in the \postopt{} phase, then we say its runtime performance ratio is
+1 (because we discard the optimization results) and the
 number of inferred bangs is the number of bangs suggested by the \Ao{}
-phase. \ksf{Why is the ratio 1 in this case instead of whatever it was
-after \Ao?} Finally, we computed the \ksf{harmonic} mean of the runtime
-performance ratios and the \ksf{arithmetic} mean of the number of
+phase.  Finally, we computed the \cut{\ksf{harmonic}}average of the runtime
+performance ratios and the \cut{\ksf{arithmetic}}average of the number of
 recommended bangs.    
 
 When we study the results of a particular optimization system on a
@@ -790,15 +795,15 @@ completely fails if all of its runs are failures, and partially
 succeeds if there is a mixture of these outcomes.
 
 Finally, to compute summary statistics across all the benchmarks, 
-we calculate the \ksf{harmonic} mean of the runtime performance ratios
-and the \ksf{arithmetic} mean of the total number of suggested bangs
+we calculate the \cut{\ksf{harmonic} mean} average of the runtime performance ratios
+and the \cut{\ksf{arithmetic} mean} average of the total number of suggested bangs
 across all 60 benchmark programs. 
 
 
 \subsection{\Preopt{} Search Space Reduction}
 
 To assess the impact of the \preopt{} phase, we study the number of
-genes that the phase eliminated (or added) for consideration by \Ao{}.
+genes that the phase eliminated from (or added to) consideration by \Ao{}.
 We compare the number of bangs that \Ao{} inferred when run with and
 without the \preopt{} phase, calling the optimizer comprised of
 the \preopt{} phase plus \Ao{} the \textit{\Preopt{} optimizer. } We
@@ -820,30 +825,31 @@ optimization because they had no significant \hotspots{}.
 Since \Ao{} and the \Preopt{} optimizer handle these 40 benchmarks
 identically, we exclude them from the graphs reporting on the results
 of the \preopt{} phase. We discuss the second category of benchmarks in 
-\secref{sec:file-elim}. \ksf{How many programs were in each
-category?}  \ksf{Is this right:} None of the 60 programs had an
-external \hotspot{} not in the original optimization coverage.
+\secref{sec:file-elim}. None of the 60 programs in the benchmark suite
+had an external \hotspot{} not in the original optimization coverage.
 
 \figref{fig:preopt-bangs} shows the results from the 20 benchmarks that
 had at least one file eliminated during the \preopt{} phase. The
-\texttt{Eliminated Genes} column gives the number of potential bang
+column \texttt{Eliminated Genes} gives the number of potential bang
 locations that were eliminated before \Ao{} ran. 
 The \texttt{Original Bangs} column records the number of bangs in the
-original program, most of which were 0. 
+original program, most of which were zero. 
 The \texttt{Failed runs} column gives the fraction of the 10 runs on
 which the \Preopt{} optimizer failed. 
 Finally, the \texttt{\Ao{} Bangs} and \texttt{\Preopt{} Bangs} columns
 give the number of recommended bangs by the two systems,
 respectively.  On average, the \preopt{} phase eliminated
 \preoptElim{} genes per 100 LOC across the 60 programs in the benchmark suite before
-invoking \Ao{} and the \Preopt{} optimizer eliminated \preoptFewerBangs{} of the generated
-bangs. 
+invoking \Ao{}.
+The \Preopt{} optimizer recommended \preoptFewerBangs{} fewer bangs
+than \Ao{}.  
+
 
 The \texttt{anna}, \texttt{expert}, and \texttt{symalg} benchmarks are
 particularly interesting because \Ao{} consistently failed to find
 winning chromosomes for them, and so it did not generate any bangs. However,
 after reducing the size of the search space, the \Preopt{}
-optimizer was able to find meaningful bangs.
+optimizer was able to find meaningful bangs for them.
 
 \figref{fig:preopt-runtime} shows the corresponding runtime
 performance ratios produced by \Ao{} and the \Preopt{} optimizer on
@@ -852,8 +858,11 @@ The graph shows that even when a large number of genes are
 eliminated prior to running the genetic algorithm, the optimizer is still able to
 find \useful{} bangs that result in similar runtime improvement. This data
 confirms that the eliminated genes were on the whole not \useful{}.
-On average, the \Preopt{} optimizer returns runtime performance ratios
-of \preoptPerformance{} compared to \AoPerformance{} for \Ao.
+On average on these 20~programs, the \Preopt{} optimizer returns
+runtime performance ratios of \preoptPerformance{} compared
+to \AoPerformance{} for \Ao, which is an
+optimization \textit{improvement}.  
+
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{pre-aut-bangs}
@@ -901,7 +910,6 @@ we ran with no bangs in the program. Therefore, the optimization
 results were likely skewed by the fluctuating runtime.
 
 \subsection{\Preopt{} File Addition}
-\ksf{We could cut this section if we need to save a lot of space.}
 To demonstrate the effectiveness of using the \preopt{} phase to
 expand Autobahn's coverage for improved optimization results, we
 tested our approach on the \texttt{sumList} microbenchmark. We
@@ -986,7 +994,6 @@ To assess the effectiveness of the \postopt{} phase,
 we compare the results of running \Ao{} with running 
 the \textit{\Postopt{} optimizer} comprised of \Ao{} followed by
 the \postopt{} phase.
-
 \cut{
 Already discussed and so not necessary:
 Similarly, we took the mean of running the
@@ -995,39 +1002,42 @@ runtime only, and set both \hotspotcost{} and \absim{} thresholds to
 6\%.
 A benchmark is successfully optimized if \Ao{} improved its
 performance by at least 6\% after optimization. }
-
 Figures~\ref{fig:post-bangs-all} and \ref{fig:post-ratio-all}
 give the number of bangs and the runtime performance ratios,
-respectively, for the 21 benchmarks that \Ao{} successfully optimized on all 10 runs. 
+respectively, for the 21 benchmarks that \At{} successfully optimized on all 10 runs. 
 Figures~\ref{fig:post-bangs-some} and \ref{fig:post-ratio-some}
 give the number of bangs and the runtime performance ratios, respectively,
 for the 28 benchmarks on which \At{} was partially successful,
-sorted in increasing order of failure rate for \At{} \ksf{Is it \Ao's
-failure rate?  If not, fix here and in the caption}. 
+sorted in increasing order of \At{}'s failure rate.
 We do not show the results from the remaining 12 benchmarks that \At{}
 failed to optimize on every run since the numbers for those benchmarks
 would be unchanged from the original program.  \figref{fig:post-failures} shows how
 frequently a benchmark failed at the \Ao{} stage vs. how frequently it
 failed at the \postopt{} phase.
 
+
 Figures~\ref{fig:post-bangs-all} and \ref{fig:post-bangs-some} show
-that the number of bangs eliminated by the \postopt{} phase is quite
+that the number of bangs eliminated by the \Postopt{} optimizer is quite
 significant: on average \postBangs{}. Figures~\ref{fig:post-ratio-all}
 and~\ref{fig:post-ratio-some} show the corresponding runtime
-performance of each optimized program. In most benchmarks, the \postopt{} phase does
-a little worse than running only \Ao{}, on average \postRatioWorse{}, because the \absim{} threshold
-only allows bangs that affect program runtime by at
-least that threshold (6\% in these experiments). If users want to
-maintain more similar runtime results, 
+performance ratios of each optimized program. In most benchmarks,
+the \Postopt{} optimizer does
+a little worse than \Ao{}, on average \postRatioWorse{} worse, because 
+the \postopt{} phase only preserves bangs that affect program
+runtime by at least the \absim{} threshold (6\% in these experiments). 
+If users want to
+maintain higher levels of optimization,
 they can lower the \absim{} threshold so the minimizer becomes less
 aggressive in bang elimination. That way, more bangs will be
 preserved, but runtime performance will
-improve. The \texttt{callback001} and \texttt{pic} benchmarks are good
-examples of when a program has no cost centres that meet
+improve. 
+
+Looking at these results in more detail, 
+the \texttt{callback001} and \texttt{pic} benchmarks are good
+examples of when a program has no cost centers that meet
 the \hotspotcost{} threshold, so the \postopt{} phase eliminated all their bangs.
 In these cases, a lower threshold would have
-helped discover useful bangs that are located in the relatively less costly locations. \ksf{I don't get this part: that are located in the relatively less
-costly bangs.}
+helped discover useful bangs that are located in the relatively colder locations.
 The data for \texttt{anna} and \texttt{fluid}
 show that while \Ao{} found bangs that triggered a \nonterm{} runtime
 code, \postopt{} bang elimination was able to eliminate

@@ -24,6 +24,9 @@
 
 \newcommand{\eg}{\textit{e.g.}}
 
+\newcommand{\scaption}[1]{\caption{\small{#1}}}
+\setlength{\abovecaptionskip}{1ex}
+
 \newcommand{\hotspot}[0]{hot spot}
 \newcommand{\hotspots}[0]{hot spots}
 \newcommand{\coldspot}[0]{cold spot}
@@ -305,14 +308,14 @@ number generator each time to guarantee randomness.
 \subsection{Optimization Coverage}
 \Ao{} uses program source files as the unit of granularity for 
 the set of program locations to consider when inferring bangs.  By
-default, \Ao{} optimizes all source code files in the directory
-containing the program. However, users can specify a different set of
-files by manually adding or removing file paths in the \Ao{}
-configuration file.  We call the set of files considered in a given
-run of \Ao{} its \textit{optimization coverage}.
+default, \Ao{} optimizes all source code files in the program's
+directory. However, users can specify a different set of files by
+manually adding or removing file paths in the \Ao{} configuration.
+We call the set of files considered in a given run of \Ao{}
+its \textit{optimization coverage}.
 \Ao{} does not infer bangs for external libraries
 that are imported by the program, but users can manually add local
-copies of the source code for the external libraries to include them in the optimization process.
+copies of the source code for such libraries to include them in the optimization process.
 
 
 \subsection{Representative Input}
@@ -484,7 +487,7 @@ in more detail.
   \draw[->]      (posto) -- node[text width=4cm, xshift=-2cm, yshift=0.8cm] {Individually test each bang in winning chromosome}
                                    (result);
   \end{tikzpicture}
-\caption{\At{} optimization pipeline.}
+\scaption{\At{} optimization pipeline.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -493,7 +496,7 @@ in more detail.
 
 Just as manually reasoning about bang placement can be difficult, 
 so too reasoning about which files to optimize can be challenging.
-\At{} makes this process easier for the user by leveraging information
+\At{} makes this process easier by leveraging information
 in GHC profiles.  
 To that end, the \preopt{} phase begins by generating a GHC time
 and allocation profile for the unoptimized program by running it on 
@@ -533,12 +536,9 @@ which are unlikely to identify significant performance improvements.
 
 
 It is worth noting that although the \preopt{} phase can reduce the
-size of the search space, it does not reduce \Ao{}'s runtime as a
-result. Unless the search space is small enough to be exhaustively
-searched, \Ao{} will search until consuming its entire time budget:
-if a user allowed \Ao{} to run for two hours, it
-will run for two hours regardless of the search space
-size. The reduced search space does allow \Ao{} to explore the space
+size of the search space, it does not reduce \Ao{}'s runtime.
+\Ao{} will always search until exhausting its time budget. 
+The reduced search space does allow \Ao{} to explore the space
 more thoroughly, statistically speaking, potentially allowing it to 
 find better results within the fixed time budget.
 
@@ -563,7 +563,7 @@ The remaining genes are the interesting ones in that they both
 contain a bang and fall within a \hotspot{}. These genes require
 further testing because they may still be \useless{}, failing to
 improve program performance even though they fall within a \hotspot{}.
-If they are \useless{}, they should be discarded. 
+\cut{If they are \useless{}, they should be discarded. }
 There is usually a sufficiently small number of remaining genes that
 are both turned on and within a \hotspot{} that it is possible to
 measure their impact one by one. Specifically, 
@@ -572,15 +572,14 @@ it off while keeping all the remaining bangs on.  It
 then runs the resulting program and compares its performance to that
 of the winning chromosomes as determined by \Ao{}.
 If the absence of the bang slows down the program by the value of the \absim{}
-threshold parameter, the \postopt{} phase deems that the bang is useful and
+threshold parameter, the \postopt{} phase deems the bang useful and
 decides to keep it. 
-If the bang's absence does not slow down the program by at
-least the \absim{} threshold, the bang is deemed \useless{} and
-discarded. The \absim{} threshold is adjustable and currently set to
+Otherwise, the bang is deemed \useless{} and is
+discarded. The \absim{} threshold is adjustable; we set it to
 5\%. The \postopt{} phase repeats this process for every bang
-that is on in the winning chromosomes and in a \hotspot{}. 
+that is both in the winning chromosomes and in a \hotspot{}. 
 The minimization result is the combination of all the surviving
-bangs at the end of testing.
+bangs.
 
 It is possible that there are no surviving bangs at the end of testing, and that occurs when
 there are no \hotspot{} bangs remaining after all the \coldspot{} bangs are eliminated. 
@@ -604,7 +603,7 @@ Prior to running the genetic algorithm, the \preopt{} phase invokes
 GHC's profiler on the unoptimized version of the user's program with
 the \texttt{-prof -fprof-auto} option to auto-generate cost centers
 around every non-inlined program binding.  It uses the supplied
-representative data as input to the program to generate the time and
+representative data as input to generate the time and
 allocation profile.  This baseline profile is only generated once, and
 the rest of \At{} refers to the same profile for \hotspot{}
 information throughout the entire optimization pipeline.
@@ -865,8 +864,8 @@ optimization \textit{improvement}.
 
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pre-aut-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \Preopt{} optimizer across 20 benchmarks that had at least
+\includegraphics[width=0.9\textwidth]{pre-aut-bangs}
+\scaption{Number of bangs generated by \Ao{} vs. \Preopt{} optimizer across 20 benchmarks that had at least
 one file eliminated during the \preopt{} phase. Columns that exceed
 the maximum axis value are labeled with their actual values. The
 benchmarks are sorted in increasing order of number of failed runs for
@@ -875,8 +874,8 @@ the \Preopt{} optimizer.}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pre-aut}
-\caption{Peformance runtime ratios of \Ao{} vs. \Preopt{} optimizer
+\includegraphics[width=0.9\textwidth]{pre-aut}
+\scaption{Peformance runtime ratios of \Ao{} vs. \Preopt{} optimizer
 across 20 benchmarks that had at least one
 file eliminated during the \preopt{} phase. The x-axis 
 is on a base-2 log scale. The benchmarks appear in the same order as
@@ -924,7 +923,7 @@ function: a main function that constructs a list of integers from 1 to
 external \textit{sum} function located in \texttt{Sum.hs}. Users
 may decide to set the optimization coverage to [\texttt{Main.hs}],
 because they are interested in making the main program run
-faster. However, as demonstrated in \tblref{table:sumList}, \Ao{} was only able to
+faster. However, as demonstrated in \figref{fig:sumList}, \Ao{} was only able to
 improve program performance by 3\%, even when it was able to
 exhaustively search the possible bang locations in the 6 lines of code in the \texttt{main}
 function. Upon inspecting the results, users may be mistaken in
@@ -962,7 +961,7 @@ needing to inspect more bangs.
 %While running the \preopt{} phase on the Aeson library, we were suggested by the program to include files from the external \texttt{Data/Aeson} library in the Autobahn optimization coverage because the \texttt{Data/Aeson/InternalTypes.hs} file included multiple \hotspots{}. However, \texttt{InternalTypes.hs} already included manually inserted bangs by its author. Therefore we ran experiments using a version of \texttt{InternalTypes.hs} with no bangs in it to see if we could recreate the manually inserted bangs. If so, library authors could run Autobahn to place bangs in their files instead of manually doing so. 
 
 
-\begin{table}
+\begin{figure}
 \begin{tabular}{p{2.5cm}p{1.5cm}p{2cm}p{1cm}}
 \hline
 Version   & Coverage & Normalized Runtime & No.Bangs \\
@@ -972,9 +971,9 @@ Original      & N/A   &   1	 & 0   \\
 Pre-optimization	& [\texttt{Main.hs}, \texttt{Sum.hs}]         & 0.13      & 4\\
 \hline
 \end{tabular}
-\caption{Results for \texttt{sumList} microbenchmark.}
-\label{table:sumList}
-\end{table}
+\scaption{Results for \texttt{sumList} microbenchmark.}
+\label{fig:sumList}
+\end{figure}
 %\begin{tabular}{llr}
 %\hline
 %Version   & Driver & Normalized Runtime \\
@@ -1045,8 +1044,8 @@ the \dangerous{} bangs that caused the bad behavior and instead produce
 successful optimization results.
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{aut-post-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer 
+\includegraphics[width=0.9\textwidth]{aut-post-bangs}
+\scaption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer 
 across 21 benchmarks that \Ao{} successfully optimized
 every time. Columns that exceed the maximum axis value are labeled
 with their actual values. }
@@ -1054,8 +1053,8 @@ with their actual values. }
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{aut-post}
-\caption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
+\includegraphics[width=0.9\textwidth]{aut-post}
+\scaption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
 across 21 benchmarks that \Ao{} successfully
 optimized every time. The x-axis is on a base-2 log scale.
 For the *-ed benchmarks, \Ao{} generated non-terminating
@@ -1065,8 +1064,8 @@ the \dangerous{} bangs and succeeded in optimizing the program. }
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{ap-partial-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer
+\includegraphics[width=0.9\textwidth]{ap-partial-bangs}
+\scaption{Number of bangs generated by \Ao{} vs. \Postopt{} optimizer
 across 27 benchmarks that \Ao{} successfully optimized on some runs. Failure rate
 out of 10 runs is shown. Columns that exceed 
 the maximum axis value are labeled with their actual values. 
@@ -1075,18 +1074,17 @@ The benchmarks are sorted in increasing order of \At{} failure rate. }
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{ap-partial}
-\caption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
+\includegraphics[width=0.9\textwidth]{ap-partial}
+\scaption{Performance runtime ratios of \Ao{} vs. \Postopt{} optimizer
 across 27 benchmarks that \Ao{} successfully optimized on some runs.
-The x-axis is on a base-2 log scale. \ksf{This needs to be sorted to
-match fig:post-bangs-some}
+The x-axis is on a base-2 log scale. 
 }
 \label{fig:post-ratio-some}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{aut-post-fail}
-\caption{Frequency of \Ao{} failure vs \At{} failure across 27
+\includegraphics[width=0.9\textwidth]{aut-post-fail}
+\scaption{Frequency of \Ao{} failure vs \At{} failure across 27
 benchmarks on which optimization sometimes succeeded. Benchmarks are sorted in
 increasing order of \At{} failure rate. } 
 \label{fig:post-failures}
@@ -1141,8 +1139,8 @@ might result in a better performance improvement.
 
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pap0-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \At{} across the first
+\includegraphics[width=0.9\textwidth]{pap0-bangs}
+\scaption{Number of bangs generated by \Ao{} vs. \At{} across the first
 26 of 52 benchmarks that \At{} successfully optimized
 at least once. Failure
 rate out of 10 runs is shown. Benchmarks are sorted in increasing order of
@@ -1152,16 +1150,16 @@ with their actual values.}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pap0}
-\caption{Runtime performance ratios of \Ao{} vs. \At{} across
+\includegraphics[width=0.9\textwidth]{pap0}
+\scaption{Runtime performance ratios of \Ao{} vs. \At{} across
 the first 26 of 52 benchmarks that \At{} successfully optimized at least
 once. The x-axis is on a base-2 log scale.} 
 \label{fig:2-ratio-26}
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pap1-bangs}
-\caption{Number of bangs generated by \Ao{} vs. \At{} across the
+\includegraphics[width=0.9\textwidth]{pap1-bangs}
+\scaption{Number of bangs generated by \Ao{} vs. \At{} across the
 remaining 26 of 52 benchmarks that \At{} successfully optimized at least
 once. Failure rate out of 10 runs is shown. Benchmarks are sorted in
 increasing order of failure rate. Columns that exceed the maximum axis
@@ -1170,8 +1168,8 @@ value are labeled with their actual values. }
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pap1}
-\caption{Runtime performance ratios of \Ao{} vs. \At{} across the
+\includegraphics[width=0.9\textwidth]{pap1}
+\scaption{Runtime performance ratios of \Ao{} vs. \At{} across the
 remaining 26 of 52 benchmarks that \At{} successfully optimized at least
 once. The x-axis is on a base-2 log scale.
 }
@@ -1179,8 +1177,8 @@ once. The x-axis is on a base-2 log scale.
 \end{figure*}
 
 \begin{figure*}
-\includegraphics[width=\textwidth]{pap-fail}
-\caption{Frequency of \Ao{} failure vs \At{} failure across the 36
+\includegraphics[width=0.9\textwidth]{pap-fail}
+\scaption{Frequency of \Ao{} failure vs \At{} failure across the 36
 benchmarks that \At{} sometimes successfully optimized. Benchmarks are sorted in
 increasing order of \At{} failure rate. } 
 \label{fig:2-failures}
@@ -1205,9 +1203,9 @@ full trace.
 \Ao{} produces results that run
 faster on representative input as well as on larger trace files.
 \At{} was  able to generate similar performance results with many fewer
-bangs (125 vs. 690), as demonstrated in \tblref{tab:gc}.
+bangs (125 vs. 690), as demonstrated in \figref{fig:gc}.
 
-\begin{table}
+\begin{figure}
 \begin{tabular}{lllr}
 \hline
 Version   & File Size (M) & Runtime & No.Bangs \\
@@ -1224,9 +1222,9 @@ Original      & 1   &   0.40	 & 0   \\
 
 \hline
 \end{tabular}
-\caption{Performance results for \texttt{gcSimulator}.}
-\label{tab:gc}
-\end{table}
+\scaption{Performance results for \texttt{gcSimulator}.}
+\label{fig:gc}
+\end{figure}
 
 \acut{
 \subsection{Case Study: \At{} with Aeson Library}
@@ -1275,10 +1273,10 @@ successfully identified the key parsing function as a \hotspot{}
 and preserved the bang pattern in the parsing function. Therefore, 
 if \Ao{} had produced the correct bang patterns, \At{} would have
 preserved them. 
-\tblref{tab:aeson} shows the resulting performance and bang counts.
-Because the \At{} data in the table reflects manually inserting a
+\figref{fig:aeson} shows the resulting performance and bang counts.
+Because the \At{} data reflects manually inserting a
 bang, we include the same edits in the data associated with \Ao{}.
-Essentially, the table reflects what would have been the outcome if
+Essentially, the data reflects what would have been the outcome if
 the \Ao{} phase had successfully identified the key annotations. 
 
 %\begin{tabular}{p{2.5cm}p{1.5cm}p{1cm}p{1.5cm}}
@@ -1296,7 +1294,7 @@ the \Ao{} phase had successfully identified the key annotations.
 
 
 
-\begin{table}
+\begin{figure}
 \begin{tabular}{p{2.5cm}p{1.5cm}p{1.5cm}p{1.5cm}}
 \hline
 Version   & Driver & Runtime Ratio & No. Bangs\\
@@ -1309,12 +1307,12 @@ Original      & \texttt{convert}   & 1     &  2\\
               & \texttt{validate}  & 0.85  &  2\\
 \hline
 \end{tabular}
-\caption{Optimizing two driver programs for
+\scaption{Optimizing two driver programs for
 the \texttt{Aeson} library, with the output of the genetic algorithm 
 modified in both \Ao{} and \At{} to include the key bang patterns
 found earlier~\cite{autobahn-wang} (Hence the asterisks).} 
-\label{tab:aeson}
-\end{table}
+\label{fig:aeson}
+\end{figure}
 }
 
 \section{Related Work and Future Work}
@@ -1363,18 +1361,16 @@ set values or asking users to provide them.
 \section{Conclusion}
 
 Laziness is a double-edged sword: While it provides many benefits,
-excessive laziness can cause poor performance. Strictness
-annotations allow programmers to force eager evaluation, but its use
-is limited to experienced programmers with high levels of
-expertise. \Ao{} uses a genetic algorithm to automatically infer
-annotations to improve program performance, but it often suggests too
-many bangs for users to inspect. We have built \At{}, which
-uses GHC profiling feedback to focus the search space and
-eliminates \useless{} bangs in a post-processing phase. On average,
-experiments show that \At{} is able to remove 90.2\% of bangs that \Ao{}
-recommended while only compromising 15.7\% runtime in the NoFib
-benchmark suite.
-\ksf{Check these figures.}
+excessive laziness can cause poor performance. Strictness annotations
+allow programmers to force eager evaluation, but its use is limited to
+experienced programmers with high levels of expertise. \Ao{} uses a
+genetic algorithm to automatically infer annotations to improve
+program performance, but it often suggests too many bangs for users to
+inspect. We have built \At{}, which uses GHC profiling feedback to
+focus the search space and eliminates \useless{} bangs in a
+post-processing phase.  Experiments on the NoFib benchmark show
+that \At{} removes 90.2\% of bangs that \Ao{} recommended with only a
+15.7\% optimization degradation.
 
 \bibliographystyle{abbrvnat}
 \bibliography{autobahn}

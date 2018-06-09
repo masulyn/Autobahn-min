@@ -182,7 +182,7 @@ In reality, bangs only need to be safe on inputs that the user will
 actually pass to the program.  By analogy, we do not generally mind
 that the usual factorial function diverges when passed a negative
 number because we know the function is only intended to be applied to
-postive numbers.  Because only the user knows the range of valid
+positive numbers.  Because only the user knows the range of valid
 inputs, only the user can inspect candidate bang placements to decide
 if they are safe on all relevant inputs. However, users face a
 time-consuming task when \Ao{} generates many bangs in a candidate
@@ -390,7 +390,7 @@ chromosomes increase in size.
 
 \subsection{The Solution}
 
-Precisely identifying which bangs are \useless{}/\useful{} is undecideable, but
+Precisely identifying which bangs are \useless{}/\useful{} is undecidable, but
 we can use GHC profiling to make an educated guess. 
 Intuitively, a bang
 that appears in a cost center that uses many resources, which we 
@@ -878,7 +878,7 @@ the \Preopt{} optimizer.}
 
 \begin{figure*}
 \includegraphics[width=\textwidth]{pre-aut}
-\scaption{Peformance runtime ratios of \Ao{} vs. \Preopt{} optimizer
+\scaption{Performance runtime ratios of \Ao{} vs. \Preopt{} optimizer
 across 20 benchmarks that had at least one
 file eliminated during the \preopt{} phase. The x-axis 
 is on a base-2 log scale. The benchmarks appear in the same order as
@@ -1276,7 +1276,7 @@ algorithm is random, so each run can produce different results.  Since
 our interest was partly whether the \postopt{} phase preserves
 application-specific bang patterns inferred by \Ao{} while reducing
 the number of \useless{} bangs, we manually inserted the desired bangs
-into the \Ao{} ouput and proceeded with the \postopt{} phase.
+into the \Ao{} output and proceeded with the \postopt{} phase.
 With this input, the \postopt{} phase of 
 successfully identified the key parsing function as a \hotspot{}
 and preserved the bang pattern in the parsing function. Therefore, 
@@ -1326,7 +1326,7 @@ found earlier~\cite{autobahn-wang} (Hence the asterisks).}
 
 \section{Related Work and Future Work}
 
-\subsection{\Ao{} and Other Methods of Removing Laziness}
+\subsection{\Ao{} and Other Methods of Managing Laziness}
 
 The current strictness analyzer in GHC uses backward abstract
 interpretation to identify locations that can be eagerly

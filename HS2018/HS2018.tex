@@ -1014,7 +1014,10 @@ We do not show the results from the remaining 12 benchmarks that \At{}
 failed to optimize on every run since the numbers for those benchmarks
 would be unchanged from the original program.  \figref{fig:post-failures} shows how
 frequently a benchmark failed at the \Ao{} stage vs. how frequently it
-failed at the \postopt{} phase.
+failed at the \postopt{} phase. The graph shows that the majority of \Postopt{} optimizer fails are
+ due to failure at the \Ao{} stage, which produces a poor performing set of bangs for the \postopt{} phase
+ to minimize on. Therefore, benchmarks that failed at the \Ao{} stage are highly likely to fail during 
+ the \postopt{} phase as well.
 
 
 Figures~\ref{fig:post-bangs-all} and \ref{fig:post-bangs-some} show
@@ -1088,7 +1091,7 @@ The x-axis is on a base-2 log scale.
 \includegraphics[width=0.9\textwidth]{aut-post-fail}
 \scaption{Frequency of \Ao{} failure vs \At{} failure across 27
 benchmarks on which optimization sometimes succeeded. Benchmarks are sorted in
-increasing order of \At{} failure rate. } 
+increasing order of \Preopt{} optimizer failure rate. } 
 \label{fig:post-failures}
 \end{figure*}
 

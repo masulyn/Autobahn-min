@@ -1371,9 +1371,11 @@ genetic algorithm to automatically infer annotations to improve
 program performance, but it often suggests too many bangs for users to
 inspect. We have built \At{}, which uses GHC profiling feedback to
 focus the search space and eliminates \useless{} bangs in a
-post-processing phase.  Experiments on the NoFib benchmark show
+post-processing phase.  Experiments show
 that \At{} removes 90.2\% of bangs that \Ao{} recommended with only a
-15.7\% optimization degradation.
+15.7\% optimization degradation on the NoFib benchmark, 
+and 81.8\% of the bangs with a 15.7\% degradation 
+on the \texttt{gcSimulator} case study.
 
 \bibliographystyle{abbrvnat}
 \bibliography{autobahn}

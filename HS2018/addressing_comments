@@ -1,0 +1,80 @@
+[ FIXED ]
+
+Questions about Autobahn 1.0:
+
+- Does it only consider improved runtime, or also memory consumption?
+
+- Does it only ever add strictness annotations, or also remove them? 
+
+
+[ YET TO BE FIXED ]
+
+The answers to these following questions are already addressed in the paper. I think the reviewer
+might have just missed it:
+
+	- Why does the pre-search phase only exclude entire modules? The profiling information
+	should provide more fine-grained information.
+
+	- Why are you only looking at time profiles? Heap profiles could be much more meaningful,
+	as often (nearly) all the performance loss in overly lazy programs comes from too much garbage
+	collection being necessary as a result. In such cases, the time profile will probably not
+	show the problem. (In fact, you say so yourself.)
+
+	- Why can you not say how much performance degradation you are willing to tolerate in the
+	post-search phase. (If this is in fact possible, I have overlooked it.)
+
+These comments can’t be immediately fixed:
+
+
+	- In the abstract: it would also be useful to mention the absolute performance of the system 
+	in terms of the average speedup that it generates
+	- Running times of Autobahn 1.0 or 2.0 are not mentioned in the paper. 
+	Most figure talk about relative running times. (how long Autobahn 1.0 or 2.0 needs for analysis) 
+
+	For both of these, I don’t have absolute runtimes immediately on hand right now, 
+	but I can run some scripts to find them eventually
+	
+
+	- What is the actual impact of this ~90% bang elimination for the user? How many less bang patterns 
+	does the user need to inspect and how does this translates to the overall user experience using Autobahn? 
+	I suggest you close section 5 with a user-experience discussion and a qualitative evaluation of the tool. 
+
+	This requires a user-experience discussion section. This can maybe be addressed in the demo use case?
+
+
+	- It seems the time investment is considerable, and while there may be some higher-level
+	lessons the programmer can infer from the results and apply to future developments, one
+	problem remains that after any kind of refactoring or extension of the program, the process
+	would have to be repeated.
+
+	This is true, and is not something we have a good solution for right now.
+
+
+	- paper doesn't contain enough technical information, working examples, or any Haskell code
+
+	- paper does not have a discussion on the lessons learnt from the development of the tool so 
+	it is difficult to draw result can can be generalized or applied on another work
+
+	Both of these would require refinement of the paper.
+
+
+	- Now that source plugins exist in GHC, would it perhaps be better to try to hook the optimisations into 
+	GHC itself via a plugin, so that you do not have to rely on an external parser such as haskell-src-exts, 
+	which will always be fragile?
+
+	This requires a change in how Autobahn is implemented.
+
+
+These comments can be addressed in the paper, but are probably too specific/unrelated to include in the proposal:
+
+	- At 5.4 the line numbers in the Sum.hs file are distracting, since I was looking the paper for these lines.
+
+	- Does it only consider annotations in terms, or also strictness annotations in datatypes?
+	In practice, the most significant performance improvements seem to come from changing the
+	strictness invariants associated with the data structures used in the program, and doing so
+	consistently is best achieved by annotating the datatypes themselves, and possibly smart
+	constructors or elimination functions. It would be nice if the system could be restricted to
+	make changes in these parts of the program.
+	
+	It considers both. I think it’s a detail that I could make sure to go over in the presentation, but perhaps
+ 	too specific to include in the paper?

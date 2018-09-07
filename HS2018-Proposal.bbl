@@ -1,0 +1,19 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ricci et~al.(2013)Ricci, Guyer, and Moss]{Ricci13}
+N.~P. Ricci, S.~Z. Guyer, and J.~E.~B. Moss.
+\newblock {Elephant Tracks}: {Portable} production of complete and precise {GC}
+  traces.
+\newblock ISMM '13, 2013.
+
+\bibitem[Wang et~al.(2016)Wang, Nunez, and Fisher]{autobahn-wang}
+Y.~R. Wang, D.~Nunez, and K.~Fisher.
+\newblock Autobahn: Using genetic algorithms to infer strictness annotations.
+\newblock Haskell '16, 2016.
+
+\end{thebibliography}

@@ -1,0 +1,279 @@
+\documentclass[sigplan,screen]{acmart}
+\usepackage{balance}
+
+\newcommand{\hotspot}[0]{hot spot}
+\newcommand{\hotspots}[0]{hot spots}
+\newcommand{\coldspot}[0]{cold spot}
+\newcommand{\coldspots}[0]{cold spots}
+\newcommand{\hotspotcost}[0]{\textit{hotSpotThreshold}}
+\newcommand{\unfit}[0]{unfit}
+\newcommand{\dangerous}[0]{dangerous}
+\newcommand{\useful}[0]{useful}
+\newcommand{\useless}[0]{useless}
+\newcommand{\Ao}[0]{\textsc{Autobahn 1.0}}
+\newcommand{\At}[0]{\textsc{Autobahn 2.0}}
+\newcommand{\fit}[0]{fit}
+\newcommand{\preopt}[0]{pre-search}
+\newcommand{\postopt}[0]{post-search}
+\newcommand{\Preopt}[0]{Pre-search}
+\newcommand{\Postopt}[0]{Post-search}
+\newcommand{\absim}[0]{\textit{absenceImpact}}
+\newcommand{\overallThreshold}[0]{\textit{overallThreshold}}
+\newcommand{\nonterm}[0]{non-terminating}
+\newcommand{\unimp}[0]{unimproved}
+
+\newcommand{\preoptElim}[0]{45}
+\newcommand{\preoptFewerBangs}[0]{87.79\%}
+\newcommand{\preoptPerformance}[0]{0.69}
+\newcommand{\AoPerformance}[0]{0.75}
+\newcommand{\postBangs}[0]{93.8\%}
+\newcommand{\postRatioWorse}[0]{33\%}
+
+
+
+%%% The following is specific to Haskell '18 and the paper
+%%% 'Autobahn 2.0: Minimizing Bangs while Maintaining Performance'
+%%% by Marilyn Sun and Kathleen Fisher.
+%%%
+\setcopyright{acmcopyright}
+\acmPrice{15.00}
+\acmDOI{10.1145/3242744.3264734}
+\acmYear{2018}
+\copyrightyear{2018}
+\acmISBN{978-1-4503-5835-4/18/09}
+\acmConference[Haskell '18]{Proceedings of the 11th ACM SIGPLAN International Haskell Symposium}{September 27--28, 2018}{St. Louis, MO, USA}
+\acmBooktitle{Proceedings of the 11th ACM SIGPLAN International Haskell Symposium (Haskell '18), September 27--28, 2018, St. Louis, MO, USA}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10011007.10011006.10011041.10011049</concept_id>
+<concept_desc>Software and its
+engineering~Preprocessors</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10011007.10011006.10011008.10011024.10011027</concept_id>
+<concept_desc>Software and its engineering~Control
+structures</concept_desc>
+<concept_significance>100</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[300]{Software and its engineering~Preprocessors}
+\ccsdesc[100]{Software and its engineering~Control structures}
+
+\keywords{Program Optimization, Lazy Evaluation, Bang Patterns,
+Genetic Algorithms}
+
+
+\begin{document}
+\title[\At{}: Minimizing Bangs\ldots (System Demonstration)]{\At:\break Minimizing Bangs while Maintaining Performance
+  (System Demonstration)}
+\author{Marilyn Sun}
+\affiliation{
+  \institution{Tufts University}
+  \country{USA}
+}
+\email{marilyn.sun@tufts.edu}
+
+\author{Kathleen Fisher}
+\affiliation{
+  \institution{Tufts University}
+  \country{USA}
+}
+\email{kfisher@cs.tufts.edu}
+\begin{abstract}
+
+Lazy evaluation has many advantages, but it can cause bad
+performance. Consequently, Haskell allows users to
+force eager evaluation at certain program points by inserting
+strictness annotations, known and written as bangs (!).
+Unfortunately, manual bang placement
+is difficult. \Ao{}
+uses a genetic algorithm to infer bang annotations
+that improve performance. However, \Ao{} often generates
+large numbers of superfluous bangs,
+which is problematic because users must inspect each such bang to
+determine whether it is safe.
+We introduce \At, which uses GHC
+profiling information to reduce the number of superfluous bangs.
+When evaluated on the NoFib benchmark suite, 
+\At{} reduced the number of inferred bangs by 90.2\% on average,
+while only degrading program performance by 15.7\% compared with the
+performance produced by \Ao{}. 
+In a case study on a garbage collection simulator, 
+\At{} eliminated 81.8\% of the recommended bangs, with the 
+same 15.7\% optimization degradation.
+\end{abstract}
+\maketitle
+
+\section{Too Many Bangs}
+
+\Ao~\cite{autobahn-wang} is a tool that helps Haskell programmers 
+reduce their thunk usage by inferring strictness
+annotations. Users provide \Ao{} with a
+program to optimize and representative input; it returns
+an optimized version after a couple of hours.
+It uses a genetic algorithm to randomly search for
+beneficial bang locations. It can 
+both add and remove annotations.
+The genetic
+algorithm iteratively measures the runtime performance and memory
+consumption of a series of 
+candidate bang placements. It preserves candidates that improve the original
+program's performance, discarding those that trigger worse performance
+(including non-termination).
+Because the system  measures performance dynamically, the resulting
+annotations optimize the program 
+\textit{for the supplied input}.  When run on different input, the
+annotations could change the termination behavior of the program,
+which may or may not be a problem.
+Users then face the time-consuming task of inspecting suggested bang placements
+to ensure the bangs maintain the desired semantics on all \textit{relevant}
+inputs.  
+
+\section{\At{}}
+
+\At{} strives
+to reduce the number of generated bangs. 
+To that end,
+it adds \textit{\preopt{}} and
+\textit{\postopt{}} phases that run before and after \Ao{},
+respectively.  Both phases use information from GHC's profiler to discover
+ineffective bangs. 
+The profiling system reports the time,
+memory allocation, or heap usage attributable to each
+tracked location.
+Any program source location where a bang may be added is
+represented as a \textit{gene} that can be turned \textit{on}
+or \textit{off}.
+A \textit{chromosome} comprises all
+of the genes within a file. We represent a chromosome as a
+fixed-length bit vector, and a program as a collection of chromosomes.
+Intuitively, a bang that appears in a location that uses many resources, 
+a \textit{\hotspot}, is more likely to be \useful{}, while one in a
+location using few resources, a \textit{\coldspot}, is likely to
+be \useless{}.  Leveraging that intuition, \At{} preserves bangs that appear
+in \hotspots{} while eliminating those in \coldspots{}.
+
+\subsection{The \Preopt{} Phase}
+ \Ao{} uses program source files as the unit of granularity for 
+the set of program locations to consider. By
+default, it optimizes all source code files in the program's
+directory. The \preopt{} phase uses profiling information to adjust
+the set of files under consideration. 
+It begins by generating a GHC time
+and allocation profile for the unoptimized program by running it on 
+user-provided representative input.
+\At{} then sets the optimization coverage
+for \Ao{} to be source files that contain at least one \hotspot{}. 
+In addition, 
+\At{} identifies library files that contain \hotspots{} and
+suggests to users that they add local copies so the library source
+files may be optimized as well. 
+\Ao{} then optimizes the program as usual with the more
+targeted set of files.
+Note that this phase can both expand the search space, by identifying
+library files that contain hotspots, as well as reduce it, by
+identifying program source files with no \hotspots{}. 
+
+\Preopt{} profiling offers three important benefits.
+First, it can greatly reduce the number of bangs \Ao{} suggests by
+limiting the search space to those program files that have a chance of
+significantly impacting performance. This focusing reduces the
+possibility of generating \useless{} or \dangerous{} bangs by
+eliminating them from consideration
+and
+increases the chances of generating \useful{} ones by allowing more of
+the relevant search space to be explored within a given time budget.
+Second, if a \hotspot{} is located in an external library file,
+the \preopt{} phase can identify the relevant files so they can be
+included in the optimization process. 
+Third, it identifies programs that are potentially unsuitable for
+\Ao{} optimization. If a program contains a large number of cost
+centers that all contribute minimally to program runtime, there may
+not be any way to substantially improve program performance by adding
+bang annotations. If the \preopt{} phase concludes that
+a program only contains \coldspots{}, it will alert the user and
+abort, saving the time and effort of running the remaining phases, 
+which are unlikely to identify significant performance improvements.
+
+\subsection{The \Postopt{} Phase}
+After \Ao{} suggests a set of chromosomes,
+\At{} uses GHC profiling information to eliminate 
+bangs that do not significantly contribute to program performance.
+Specifically, the \postopt{} phase 
+eliminates any
+gene that did not either contain a bang in the recommendation
+or fall within a \hotspot{}. 
+The remaining genes require
+further testing because they may still be \useless{}, failing to
+improve program performance despite falling within a \hotspot{}.
+The number of such genes is sufficiently small that
+the \postopt{} phase can test each such gene in turn, turning
+it off while keeping the remaining bangs on.  It 
+then runs the resulting program and compares its performance to that
+of the program recommended by \Ao{}.
+If the absence of the bang slows down the program by the value of the \absim{}
+threshold parameter, the \postopt{} phase deems the bang useful and
+decides to keep it. 
+Otherwise, the bang is deemed \useless{} and is
+discarded. The \absim{} threshold is adjustable; we set it to
+6\%.  This parameter allows users to manage the tradeoff
+between aggressively reducing the number of bangs and
+preserving performance improvements.  In our experiments, we chose to
+aggressively reduce the number bangs in exchance for some performance
+degradation. 
+The \postopt{} phase repeats this process for every bang
+that is both in the recommended chromosomes and in a \hotspot{}. 
+The minimization result is the combination of all the surviving
+bangs.
+
+
+\section{Evaluation}
+We report the average of the runtime performance ratios
+and the average of the total number of suggested bangs
+over 10 runs across all 60 benchmark programs.  
+\begin{itemize}
+  \item \At{} applied to the NoFib benchmark suite reduced
+    the number of generated bangs by 90.2\% on average, while
+    increasing the runtime of the optimized program by 15.7\% over the
+    program optimized by \Ao{} alone. We refer to this
+    performance change as a 15.7\% \textit{optimization degradation}.
+  \item The \preopt{} phase removed at least
+    one file from consideration in 21 NoFib benchmark programs,
+    35\% of the programs we considered.
+    For these programs, the \preopt{} phase eliminated
+    45~potential bang locations per 100~LOC, resulting in a mean bang
+    reduction of 87.79\% across the entire benchmark suite. 
+  \item Running the \postopt{} phase alone on the NoFib benchmarks
+    can reduce the number of inferred bangs by
+    93.8\% with a 33\% optimization degradation.
+  \item When run on 
+    \texttt{gcSimulator}~\cite{Ricci13}, 
+    \At{} reduced the number of inferred bangs by
+    81.8\% with a 15.7\% optimization degradation.
+    \end{itemize}
+
+\section{Demo{}}
+
+In our demo, we describe the intuitions  behind our approach. 
+Specifically, we explain the significance of incorporating GHC profiling
+information with an otherwise random genetic search, and why \At{} is able to
+automatically reduce the number of bangs inferred by \Ao{} while maintaining roughly the same
+level of optimization. We describe how bangs are sorted
+into categories, filtered, and eliminated in each of the \preopt{} and \postopt{} phases, and provide
+an overview of \At{}'s optimization pipeline.  
+Additionally, we discuss implementation specifics such as the program architecture and 
+the representation of \hotspots{}, \coldspots{}, bangs, and source locations in our optimizer.
+We also take a closer look at the results obtained while evaluating the effectiveness of \At{}. 
+Finally, we demonstrate a typical use case of \At{} by running it on an example program and 
+walking through the minimization process and outcome.
+
+
+%\balance
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{demo}
+\end{document}

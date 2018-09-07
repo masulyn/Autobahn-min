@@ -69,6 +69,7 @@
 \affiliation{Tufts University}
 \email{kfisher@cs.tufts.edu}
 \acmYear{2018}
+
 \begin{abstract}
 
 While lazy evaluation has many advantages, it can result in serious
@@ -118,8 +119,8 @@ obtain an optimized version of the program over the course of a couple
 of hours. If a program already contains strictness annotations, \Ao{} may remove existing annotations that do not improve program performance. 
 \Ao{} uses a genetic algorithm to randomly search for
 beneficial locations to place bangs in the program. The genetic
-algorithm iteratively measures the runtime performances and memory consumptions of a series of
-candidate bang placements. Candidates that improve upon the original
+algorithm iteratively measures the runtime performances or memory consumptions of a series of
+candidate bang placements, depending on the performance metric specified by the user. Candidates that improve upon the original
 program's performance are preserved, and candidates that trigger
 non-termination or worsen program performance are
 eliminated. \Ao{} eventually returns a list
@@ -313,7 +314,6 @@ the representation of \hotspots{}, \coldspots{}, bangs and source locations in o
 We also take a closer look at the results obtained while evaluating the effectiveness of \At{}. 
 Finally, we demonstrate a typical use case of \At{} by running it on an example program and 
 walking through the minimization process and outcome.
-
 
 
 \bibliographystyle{abbrvnat}

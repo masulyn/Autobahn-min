@@ -1,0 +1,16 @@
+1. Heap profiling testing
+  - Generally, hit or miss
+  - Pre-phase:
+  - Aut:
+  - Post-phase:
+  - huh? anna, atom, queens prolog, cichelli
+  - worsened performance: sorting, wheel-sieve2, tak, fish, bernouilli
+  - comparable: lcss
+  - better: calendar, boyer2
+  
+  closer look at calendar
+2. Quick check 
+  - works on fibonacci
+  - most nofib programs already check for bad input
+  - lcss: bad input could result in non termination (irregardless of if there's a bang)
+3. Winter break plans

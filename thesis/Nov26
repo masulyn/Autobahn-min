@@ -4,7 +4,11 @@
     - Mostly worsened performance (not eliminating fewer bangs but eliminating all aka giving up, or not terminating)
     - Sometimes comparable
     - Occasionally very good! (Eliminated fewer bangs but improved time performance or eliminated more bangs)
-  closer look at calendar
+  - Profiles can sometimes give hints as to how useful time/heap profiling will be
+    - Closer look at prolog, lcss, wheel-sieve2
+  - Idea: 
+    - Instead of allowing users to choose time/heap profiling, have Aut 2.0 be (somewhat) smart and decide for user
+    - Mixed profiling?
 2. Quick check 
   - Confirmed that random test input generator works on finding non terminating input in small programs (fibonacci)
   - most nofib programs already check for bad input
@@ -43,5 +47,5 @@ atom            0       0       1       0       0.51    35      0.99    0
 
 Worse performance:
 
-wheel-sieve2    0       0       1       0       0.90    14      0.93    0
-                                1       0       0.84    8.00    0.88    0.60
+prolog          6       241     1       0       0.83    99      0.83    0
+                                1       0       0.73    65.33   0.71    1.83

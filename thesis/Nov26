@@ -1,16 +1,47 @@
 1. Heap profiling testing
   - Generally, hit or miss
-  - Pre-phase:
-  - Aut:
-  - Post-phase:
-  - huh? anna, atom, queens prolog, cichelli
-  - worsened performance: sorting, wheel-sieve2, tak, fish, bernouilli
-  - comparable: lcss
-  - better: calendar, boyer2
-  
+  - Some trends when compared to time profiling (look at chart below):
+    - Mostly worsened performance (not eliminating fewer bangs but eliminating all aka giving up, or not terminating)
+    - Sometimes comparable
+    - Occasionally very good! (Eliminated fewer bangs but improved time performance or eliminated more bangs)
   closer look at calendar
 2. Quick check 
-  - works on fibonacci
+  - Confirmed that random test input generator works on finding non terminating input in small programs (fibonacci)
   - most nofib programs already check for bad input
-  - lcss: bad input could result in non termination (irregardless of if there's a bang)
+  - lcss: bad input (negative third number in input array) could result in non termination (irregardless of if there's a bang)
+  - Still valuable if it can find bad input, but not sure how valuable until run large scale experiments on more programs
+  - To run large scale experiments: need to a way to automatically generate test generators based on input type
+  - Potentially: apply quick check at the very end, although my guess is that it won't be very helpful
 3. Winter break plans
+  - Talked to Sam
+
+
+========================= selection of results ==============================
+(first line: heap
+second line: time)
+
+                no.cut  no.cut  orig    orig    Aut1    Aut1     Aut2    Aut2
+                files   pats    time    bangs   time    bangs   time    bangs
+
+Better performance:
+
+boyer2          2       92      1       0       0.79    84      0.82    5
+                                1       0       0.82    70.80   0.80    10.20
+
+calendar        0       0       1       0       0.50    32      0.25    7
+                                1       0       0.54    31.75   0.46    0.75
+
+
+Comparable:
+
+lcss            0       0       1       0       0.32    37      0.32    9
+                                1       0       0.32    24      0.21    7
+                                
+atom            0       0       1       0       0.51    35      0.99    0
+                                1       0       0.43    36.57   0.78    0
+
+
+Worse performance:
+
+wheel-sieve2    0       0       1       0       0.90    14      0.93    0
+                                1       0       0.84    8.00    0.88    0.60

@@ -1,0 +1,106 @@
+\chapter{Background} 
+
+\label{Chapter2} % \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{GHC Profiling and Cost Centers}
+
+Intuitively, \Ao{}'s genetic algorithm generates too many bangs in Pat
+and Chris' program
+because it conducts a purely random search for locations to insert bangs.
+To focus the search on bangs that are likely to impact performance, \At{} makes use of the information provided by GHC's profiling system.
+This system allows users to better understand which locations
+in a program consume the most resources. The system adds annotations
+to the program and generates a report detailing the amount of time,
+memory allocations, or heap usage that is attributable to each location.
+To generate these profiles, users simply run their program on
+representative input after re-compiling it with options to request profiling.
+Users can choose to generate either a time and allocation or a heap
+profile, as well as the method by which the profiling system adds
+annotations. Users can manually specify
+annotations or invoke the profiler with  the \texttt{-prof -fprof-auto} option, which
+automatically adds an annotation around every binding in the program
+that is not marked \texttt{INLINE}. In the generated profile, each
+annotation gives rise to a \textit{cost center} that indicates how
+much time or memory were attributable to the given program point as a
+percentage of the whole program's resource utilization.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Genes and Chromosomes}
+
+Cost center profiling provides guidance for the otherwise random
+search that \Ao{} performs using a genetic algorithm. In the
+algorithm, any program source location where a bang may be added is
+represented as a \textit{gene} that can be turned \textit{on},
+corresponding to the presence of a bang, or \textit{off},
+corresponding to its absence. Since it doesn't make sense to put two
+bangs in one program location, there are a fixed number of possible
+bang locations in a given program. A \textit{chromosome} comprises all
+of the genes within a file. We represent a chromosome as a
+fixed-length bit vector, in which each bit indicates the presence or
+absence of a bang at the corresponding location. Since a program is a
+collection of source files, it is represented as a collection of bit
+vectors, or chromosomes.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 3 
+%----------------------------------------------------------------------------------------
+
+\section{\Ao{}'s Genetic Algorithm}
+
+\Ao{}'s genetic algorithm evaluates and manipulates randomly generated
+chromosomes. It repeatedly generates new chromosomes before measuring
+their performance using a fitness function. We call a chromosome that
+either significantly slows down program performance or causes non
+termination an \textit{\unfit{}} chromosome. If the fitness function
+determines that a chromosome is \unfit{}, the chromosome is
+immediately discarded. If the fitness function determines that a
+chromosome behaved well, the chromosome is deemed \textit{\fit{}} and
+kept for future rounds of generation.
+
+For each round of chromosome generation, \Ao{} introduces randomness
+by performing either a mutation or a crossover. A mutation flips a
+gene in the chromosome whenever a randomly chosen floating point
+number exceeds the \textit{mutateProb} threshold. A crossover combines
+two chromosomes by randomly picking half of the genes from each parent
+chromosome. For either of these random operations, \Ao{} uses a unique
+number generator each time to guarantee randomness.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 4 
+%----------------------------------------------------------------------------------------
+
+\section{Optimization Coverage}
+
+\Ao{} uses program source files as the unit of granularity for
+the set of program locations to consider when inferring bangs. By
+default, \Ao{} optimizes all source code files in the program's
+directory. In other words, \Ao{} by default represents all files in the directory using a list of chromosomes in which each chromosome corresponds to one file. However, Pat and Chris can specify a different set of files by
+manually adding or removing file paths in the \Ao{} configuration.
+We call the set of files considered in a given run of \Ao{}
+its \textit{optimization coverage}.
+\Ao{} does not infer bangs for external libraries
+that are imported by the program, but Pat and Chris can manually add local
+copies of the source code for such libraries to include them in the optimization process.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 5 
+%----------------------------------------------------------------------------------------
+
+\section{Representative Input}
+
+To run \Ao{}, Pat and Chris need to provide input on which to run their
+program. The input should be short enough for \Ao{} to finish
+execution in a reasonable amount of time while still be long enough
+for it to measure noticeable time improvements if there are
+any. The input should also be representative of the data that Pat and Chris
+intend to supply to the finished program so the system optimizes the
+program for that kind of data. It is this ability to optimize for
+relevant input and not all input that gives bangs, whether added by
+Autobahn or by the user, the ability to outperform GHC's optimizer.

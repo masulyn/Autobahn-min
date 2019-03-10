@@ -1,0 +1,272 @@
+\chapter{\At{}} 
+
+\label{Chapter3} % \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Why Too Many Bangs Are Generated}
+
+The first step towards reducing the number of inferred bangs is to identify
+categories of bangs and to hypothesize why each such category exists.
+To that end, we identify three categories of bangs:
+\begin{enumerate}
+  \item{a \textit{\dangerous{}} bang is one that can significantly
+degrade program performance, including causing non-termination}
+  \item{a \textit{\useless{}} bang neither improves nor degrades
+performance but is undesirable because programmers must waste
+valuable time reasoning about its safety}
+  \item{a \textit{\useful{}} bang improves program performance}
+\end{enumerate}
+
+An \unfit{} chromosome performs poorly as a whole, but it can contain
+a mixture of \dangerous, \useless{}, and \useful{} bangs (By
+definition, it must contain at least one \dangerous{} bang).
+When interatively measuring performances of candidate chromosomes,
+\Ao{} handles \unfit{} chromosomes by discarding them entirely.
+It does not attempt to identify the \dangerous{} bangs within the chromosome. 
+Individuallly removing such bangs from consideration, rather than simply discarding 
+the chromosome they belong in, would
+be useful because otherwise they can reappear in later generations as
+the result of a random mutation.
+
+Fit chromosomes face a similar issue. \Ao{} handles \fit{} chromosomes
+by preserving the entire chromosome, without separating the \useful{}
+bangs from the \useless{} ones. This lack of discrimination is
+problematic for two reasons. First, we might lose \useful{} bangs in
+future generations because we cannot guarantee that they will be
+preserved by the mutation and crossover operations of the genetic
+algorithm. Second, \useless{} bangs can survive if they are grouped
+with \useful{} ones. The accumulation of such \useless{} bangs
+can dramatically increase the number of inferred bangs, leaving the
+user with a substantial reasoning task. As program source code
+increases in size, the number of \useless{} bang positions also grows,
+increasing the likelihood the genetic algorithm will infer and
+preserve \useless{} bangs that happen to live on a chromosome
+with \useful{} ones.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{The Solution}
+
+\subsection{Identifying Bang Categories}
+
+Precisely identifying which bangs are \useless{} or \useful{} is undecidable, but
+we can use GHC profiling to make an educated guess. 
+Cost centers not only break down a chromosome into
+smaller portions by source code bindings, but their associated costs
+also imply how likely a bang placement will affect program
+performance. 
+Intuitively, a bang that appears in a cost center that uses many resources, which we
+call a \textit{\hotspot}, is more likely to be \useful{} because a bang-induced
+change in performance at the \hotspot{} will likely significantly affect overall
+runtime as well. On the other hand, a bang in a cost center using few resources, 
+which we call a \textit{\coldspot}, is likely to be \useless{} because executing
+code at a \coldspot{} occupies an insignificant portion of the overall program
+runtime to begin with. Leveraging that intuition, \At{} preserves bangs that appear
+in \hotspots{} while eliminating those in \coldspots.
+
+We introduce the \hotspotcost{} parameter to determine
+which cost centers to consider hot:  a cost center consuming more
+than \hotspotcost{} resources is considered hot, while
+one consuming fewer is cold.
+Currently, we set \hotspotcost{}
+to 6\% of the overall program runtime, although that threshold can
+be adjusted through user specification. 
+As the threshold increases, \At{} preserves fewer bangs
+at the risk of greater degradations in program performance.
+
+\subsection{\At{}'s Phases}
+
+\At{} uses GHC profiling information to reduce the
+number of generated bangs in two different ways, corresponding to two
+different phases in the optimization pipeline, which is shown in \figref{fig:pipeline}. 
+The first phase, which we call the \Preopt{} phase, eliminates
+any chromosome corresponding to a program source code file that
+contains only \coldspots{}. \At{} invokes \Ao{} only on chromosomes
+corresponding to files that contain at least one \hotspot{}. The \preopt{}
+phase is beneficial for two reasons. Firstly, removing
+chromosomes that are unlikely to contain \useful{} bangs reduces the
+size of the search space with little chance of inadvertently
+eliminating good sets of annotations. The smaller search space is
+likely to make \Ao{} more effective in improving performance as the 
+optimizer will have a chance to explore more possible combinations
+of annotations, therefore producing higher quality bang candidates. 
+Secondly, the optimizer will not be able to
+infer bangs for any of the genes in the eliminated chromosomes.  
+Since such bangs are very likely to have been \useless{} as they
+are only located in \coldspots{}, this step is very likely to 
+reduce the number of inferred \useless{} bangs.
+
+The second phase, which we call the \Postopt{} phase, uses profiling
+information to categorize \useless{} or \useful{} bangs that occur within \hotspots{} on
+chromosomes that \Ao{} determines to be fit. In a world with infinite resources,
+we would test all combinations of such bangs and select the best one
+because the effect of combining bangs is hard to predict.
+Unfortunately, the exponential search space is too large to explore
+exhaustively. Instead, we individually turn off one such bang at a
+time, measure the resulting performance, and keep only those that
+significantly impact performance.  The number of such bangs is
+sufficiently small that we can test each in turn because the number of
+bangs in \hotspots{} in a program is relatively small.
+
+In the rest of this section, we explain \At{}'s optimization pipeline
+in more detail.
+
+\begin{figure}
+\tikzset{%
+  >={Latex[width=4mm,length=2mm]},
+            base/.style = {rectangle, rounded corners, draw=black,
+                           minimum width=4cm, minimum height=1cm,
+                           text centered, font=\sffamily},
+  activityStarts/.style = {base, fill=blue!30},
+       startstop/.style = {base, text width=6cm, fill=red!30},
+    activityRuns/.style = {base, fill=green!30},
+         process/.style = {base, text width=6cm, fill=orange!15,
+                           font=\ttfamily},
+}
+
+\begin{tikzpicture}[node distance=3cm,
+    every node/.style={fill=white, font=\sffamily}, align=center]
+  \node (preo)             [activityStarts]              {\Preopt{}};
+  \node (user)     [process, left of=preo, xshift=-5cm]          {Original Program, Representative Input, Autobahn Configuration};
+  \node (autobahn)      [activityStarts, below of=preo, yshift=-1cm]
+                                                      {\Ao{}};
+  \node (end)      [startstop, left of=autobahn, xshift=-5cm, yshift=1cm]
+                                                       {If program is unsuitable for optimization: Alert user and end process};
+
+  \node (posto) [activityStarts, below of=autobahn, yshift=-0.6cm]
+                                                    {\Postopt{}};
+  \node (endmin)      [startstop, below of=end, yshift=0.2cm]
+                                                       {If negligible optimization improvement: Alert user and end process};
+   \node (result)     [process, left of=posto, xshift=-5cm, yshift=-1cm]          {Optimized and minimized program};
+
+  \draw[->]             (preo) -- node[text width=6cm]
+                    {Remove \coldspots{}, suggest external libraries, check if program is unsuitable for optimization}(autobahn);
+  \draw[->]     (user) -- (preo);
+  \draw[->]      (autobahn) -- node[text width=5cm]
+                    {Find winning chromosome using genetic algorithms}(posto);
+   \draw[->]      (preo) -- (end);
+   \draw[->]      (posto) -- (endmin);
+  \draw[->]      (posto) -- node[text width=4.3cm, xshift=1cm, yshift=-0.8cm] {Individually test each bang in winning chromosome}
+                                   (result);
+  \end{tikzpicture}
+\scaption{\At{} optimization pipeline.}
+\label{fig:pipeline}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%   SECTION 3 
+%----------------------------------------------------------------------------------------
+
+\section{\Preopt{} Profiling}
+
+Just as manually reasoning about bang placement can be difficult,
+so too reasoning about which files to optimize can be challenging.
+\At{} makes this process easier by leveraging information
+in GHC profiles.
+To that end, the \preopt{} phase begins by generating a GHC time
+and allocation profile for the unoptimized program by running it on
+user-provided representative input.
+\At{} then sets the optimization coverage
+for \Ao{} to be source files that contain at least one \hotspot{}.
+In addition,
+\At{} identifies library files that contain \hotspots{} and
+suggests to users that they add local copies so the library source
+files may be optimized as well.
+\Ao{} then optimizes the program as usual, except using a more
+targeted set of files/chromosomes.
+Note that this phase can both expand the search space, if a user
+chooses to add the identified
+library files that contain hotspots, as well as reduce it, by
+identifying program source files with no \hotspots{}.
+
+\Preopt{} profiling offers three important benefits.
+First, it can greatly reduce the number of bangs \Ao{} suggests by
+limiting the search space to those program files that have a chance of
+significantly impacting performance. This focusing reduces the
+possibility of generating \useless{} or \dangerous{} bangs by
+eliminating them from consideration and
+increases the chances of generating \useful{} ones by allowing more of
+the relevant search space to be explored within a given time budget.
+Second, if a \hotspot{} is located in an external library file,
+the \preopt{} phase can identify the relevant files so they can be
+included in the optimization process.
+Third, it identifies programs that are potentially unsuitable for
+\Ao{} optimization. If a program contains a large number of cost
+centers that all contribute minimally to program runtime, there may
+not be any way to substantially improve program performance by adding
+bang annotations. If the \preopt{} phase concludes that
+a program only contains \coldspots{}, it will alert the user and
+abort, saving the time and effort of running the remaining phases,
+which are unlikely to identify significant performance improvements.
+
+It is worth noting that although the \preopt{} phase can reduce the
+size of the search space, it does not reduce \Ao{}'s runtime.
+\Ao{} will always search until exhausting its time budget.
+The reduced search space does allow \Ao{} to explore the space
+more thoroughly, statistically speaking, potentially allowing it to
+find better results within the fixed time budget.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 4 
+%----------------------------------------------------------------------------------------
+
+\section{\Postopt{} Bang Elimination}
+
+After \Ao{} explores the search space and suggests a winning set of
+chromosomes, \At{} uses GHC profiling information to eliminate any
+bangs on those chromosomes that don't significantly contribute to
+program performance. To that end,
+the \postopt{} phase decides that any gene that is off in the winning
+chromosomes should not have a bang in the final recommendation.
+It removes these genes from further consideration.
+The \postopt{} phase then maps each remaining gene, which must be
+turned on, to its corresponding cost center.  It turns off all genes
+that do not fall within \hotspots{}, deciding not to recommend bangs
+for the corresponding locations on the theory that such bangs are
+likely to be \useless{}.  It then removes these genes from further
+consideration.
+
+The remaining genes are the interesting ones in that they both
+contain a bang and fall within a \hotspot{}. These genes require
+further testing because they may still be \useless{}, failing to
+improve program performance even though they fall within a \hotspot{}.
+\cut{If they are \useless{}, they should be discarded. }
+There is usually a sufficiently small number of remaining genes that
+are both turned on and within a \hotspot{} that it is possible to
+measure their impact one by one. Specifically,
+the \postopt{} phase tests each such gene in turn, turning
+it off while keeping all the remaining bangs on.  It
+then runs the resulting program and compares its performance to that
+of the winning chromosomes as determined by \Ao{}.
+If the absence of the bang slows down the program by the value of the \absim{}
+threshold parameter, the \postopt{} phase deems the bang useful and
+decides to keep it.
+Otherwise, the bang is deemed \useless{} and is
+discarded. The \absim{} threshold is adjustable; we set it to
+6\%. The \postopt{} phase repeats this process for every bang
+that is both in the winning chromosomes and in a \hotspot{}.
+The minimization result is the combination of all the surviving
+bangs.
+
+It is possible that there are no surviving bangs at the end of testing, and that occurs when
+there are no \hotspot{} bangs remaining after all the \coldspot{} bangs are eliminated.
+Another possibility is that the combination of \hotspot{} bangs prior to testing slows down
+the program runtime to equal to or more than the original runtime, in which case the \preopt{}
+phase will remove all bangs and return the original program.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 5 
+%----------------------------------------------------------------------------------------
+
+\section{Representative Input}
+
+Just as with \Ao{}, the quality of the representative input impacts the quality of
+\At{}'s performance because different inputs may
+generate wildly different results in GHC profiles. Therefore, users
+must carefully choose input that well represents typical types of data the program
+might receive.

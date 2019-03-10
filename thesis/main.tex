@@ -1,0 +1,299 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 2.5 (27/8/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+english, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{mathpazo} % Use the Palatino font by default
+
+\usepackage{tikz} % For generating shapes in graphs
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{arrows.meta}
+
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{example.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=2.5cm, % Inner margin
+	outer=3.8cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%   KEYWORDS
+%----------------------------------------------------------------------------------------
+\newcommand{\cut}[1]{}
+\newcommand{\acut}[1]{}
+
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\tblref}[1]{Table~\ref{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\listingref}[1]{Listing~\ref{#1}}
+
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\scaption}[1]{\caption{#1}}
+\newcommand{\hotspot}[0]{hot spot}
+\newcommand{\hotspots}[0]{hot spots}
+\newcommand{\coldspot}[0]{cold spot}
+\newcommand{\coldspots}[0]{cold spots}
+\newcommand{\hotspotcost}[0]{\textit{hotSpotThreshold}}
+\newcommand{\unfit}[0]{unfit}
+\newcommand{\dangerous}[0]{dangerous}
+\newcommand{\useful}[0]{useful}
+\newcommand{\useless}[0]{useless}
+\newcommand{\Ao}[0]{\textsc{Autobahn 1.0}}
+\newcommand{\At}[0]{\textsc{Autobahn 2.0}}
+\newcommand{\fit}[0]{fit}
+\newcommand{\preopt}[0]{pre-search}
+\newcommand{\postopt}[0]{post-search}
+\newcommand{\Preopt}[0]{Pre-search}
+\newcommand{\Postopt}[0]{Post-search}
+\newcommand{\absim}[0]{\textit{absenceImpact}}
+\newcommand{\overallThreshold}[0]{\textit{overallThreshold}}
+\newcommand{\profm}[0]{profiling metric}
+\newcommand{\nonterm}[0]{non-terminating}
+\newcommand{\unimp}[0]{unimproved}
+\newcommand{\preoptElim}[0]{45}
+\newcommand{\preoptFewerBangs}[0]{87.79\%}
+\newcommand{\preoptPerformance}[0]{0.69}
+\newcommand{\AoPerformance}[0]{0.75}
+\newcommand{\postBangs}[0]{93.8\%}
+\newcommand{\postRatioWorse}[0]{33\%}
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{\At:\break Minimizing Bangs while Maintaining Performance} % \ttitle
+\supervisor{Kathleen \textsc{Fisher}} % \supname
+\examiner{Kathleen Fisher, Sam Guyer} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Bachelor of Science} % \degreename
+\author{Marilyn \textsc{Sun}} % \authorname
+\addresses{} % \addressname
+
+\subject{Computer Science} % \subjectname
+\keywords{} % \keywordnames
+\university{\href{https://www.tufts.edu/}{Tufts University}} % \univname
+\department{\href{https://engineering.tufts.edu/cs/}{Tufts Department of Computer Science}} % \deptname
+\group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\vspace*{.06\textheight}
+{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+
+\HRule \\[0.4cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[1.5cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\href{http://www.johnsmith.com}{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\vfill
+
+%\large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+%\textit{in the}\\[0.4cm]
+ 
+\vfill
+
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+\vspace*{0.2\textheight}
+
+\noindent\enquote{\itshape Insert quote here.}\bigbreak
+
+\hfill Name 
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname}
+While lazy evaluation has many advantages, it can result in serious
+performance costs. To alleviate this problem, Haskell allows users to
+force eager evaluation at certain program points by inserting
+strictness annotations, known and written as bangs (!).
+Unfortunately, manual bang placement
+is labor intensive and difficult to reason about. The \Ao{}
+optimizer uses a genetic algorithm to automatically infer bang annotations
+that improve runtime performance. However, \Ao{} often generates
+large numbers of superfluous bangs,
+which is problematic because users must inspect each such bang to
+determine whether it introduces non-termination or other semantic
+differences.
+This paper introduces \At, which uses GHC
+profiling information to reduce the number of superfluous bangs.
+Specifically,
+\At{} adds a \textit{\preopt{} phase} before \Ao's genetic algorithm
+to focus the search space and a \textit{\postopt{} phase} to individually test
+and remove bangs that have minimal impact.
+\cut{When evaluated on the NoFib
+benchmark, the \preopt{} phase on average eliminated 45~locations for
+potential bang placement per 100~LOC and reduced the number of bangs
+eventually generated by 12.21\%. Overall, }
+When evaluated on the NoFib benchmark suite,
+\At{} reduced the number of inferred bangs by 90.2\% on average,
+\cut{\At{} reduces the number of
+bangs generated from 11~bangs/100~LOC to 1 bang/100~LOC, }
+while only degrading program performance by 15.7\% compared with the
+performance produced by \Ao{}.
+In a case study on a garbage collection simulator,
+\At{} eliminated 81.8\% of the recommended bangs,  with the
+same 15.7\% optimization degradation when compared with \Ao{}.
+\acut{
+ Finally, it eliminated 91.3\% bangs with almost no runtime slowdown on
+the \texttt{Aeson} parser library.}
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\dedicatory{For/Dedicated to/To my\ldots} 
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2} 
+\include{Chapters/Chapter3}
+\include{Chapters/Chapter4} 
+\include{Chapters/Chapter5} 
+\include{Chapters/Chapter6}
+\include{Chapters/Chapter7}
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+%\include{Appendices/AppendixA}
+%\include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  

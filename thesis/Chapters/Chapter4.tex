@@ -1,0 +1,203 @@
+\chapter{Implementation} 
+
+\label{Chapter4} % \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Program Architecture}
+
+\At{} wraps \Ao{} with the  \preopt{} and \postopt{} phases as shown
+in \figref{fig:pipeline}.
+Prior to running the genetic algorithm, the \preopt{} phase invokes
+GHC's profiler on the unoptimized version of the user's program with
+the \texttt{-prof -fprof-auto} option to auto-generate cost centers
+around every non-inlined program binding.  It uses the supplied
+representative data as input to generate the time and
+allocation profile.  This baseline profile serves as the single point of
+reference for the rest of \At{} to refer to for \hotspot{}
+information throughout the entire optimization pipeline.
+Depending on the where the \hotspots{} fall according to the profiler,
+the program's optimization coverage will either be
+automatically reduced or manually expanded by the user.
+
+Then \At{} reuses the existing implementation
+of \Ao{}~\cite{autobahn-wang} to identify a winning set of
+chromosomes.
+\Ao{} uses the \textit{haskell-src-exts}~\cite{langexts} parser to parse
+source files and to identify genes.
+It then applies a genetic algorithm,
+implemented using the \texttt{GA} Haskell library~\cite{genetic}
+with a fitness function based on measured runtime performance, 
+to search for the best performing chromosomes.
+
+The \postopt{} phase eliminates bangs from the best-performing
+chromosomes returned from \Ao{}.  It does so by first turning off all
+bangs that lie within a \coldspot{} before re-running the program
+once for each gene that both lies in a \hotspot{} and is turned on in
+the winning chromosomes. If a bang's absence negatively impacts performance
+by at least the \absim{} threshold, it is kept in future rounds of testing and
+will remain in the final combination of bangs for the optimized
+program. If a bang does not meet the \absim{} threshold, it is removed
+for future rounds of testing and will not appear in the final
+combination. Similar to \Ao{}, the \postopt{} phase uses
+the \textit{haskell-src-exts} library to parse the relevant source
+files, set all the bangs appropriately, and then pretty-print the
+modified source code to then be compiled by GHC and run on the
+representative input.
+
+Note that this process does not require re-running the original
+profile.  Instead, we reuse the profiling information calculated
+during the \preopt{} phase.  Bangs in \hotspots{} are tested in order
+of decreasing costs. While we recognize that the order in which we
+test the bangs may affect the performance, it is too time consuming to
+test the bangs in all possible orders.  For simplicity, we chose to
+test each bang once in order of decreasing costs.
+
+Finally, the \postopt{} phase returns the final combination of bangs
+that have survived each round of testing. If \Ao{} failed to find
+chromosomes that improved program runtime by at least the
+\overallThreshold{} parameter using genetic algorithms, then
+the \postopt{} phase will return the unoptimized program.
+If \At{} failed to find minimized bang placements that preserve 
+program runtime, the \postopt{} phase will also 
+return the unoptimized program. We base this choice on the
+theory that the relatively insignificant performance improvement
+indicates users are better off keeping the original program rather
+than having to reason about the safety of the inferred bangs.
+Currently, we set the both the \overallThreshold{} and \absim{}
+value to 6\%, but users may change it. 
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Running \At{}}
+
+Users run \At{} the same way as they would run \Ao{}. They
+provide a copy of their program source code, representative input,
+and an optional configuration file. The \preopt{}
+and \postopt{} phases typically require a negligible amount of time
+to run compared with the time required to run \Ao{}.
+
+{\renewcommand{\arraystretch}{1.5}
+\begin{table}
+\begin{tabular}{p{3cm}p{2cm}p{8cm}}
+\hline
+Term    &   Type    &   Description \\
+\hline
+\textit{diversityRate}  &   float   &   probability with which each gene 
+                                        in seed is mutated to form initial 
+                                        population\\
+\textit{numGenerations} &   int     &   number of generations to run algorithm\\
+\textit{populationSize} &   int     &   number of chromosomes in each population\\
+\textit{archiveSize}    &   int     &   number of chromosomes to promote to
+                                        next generation unchanged\\
+\textit{mutateRate}     &   float   &   percentage of the new population 
+                                        generated by mutation\\
+\textit{mutateProb}     &   float   &   probability with which each gene in
+                                        a chromosome selected for mutation is
+                                        changed\\ 
+\textit{crossRate}      &   float   &   percentage of the new population 
+                                        generated by crossover\\
+\textit{\absim{}}       &   float   &   threshold for evaluating whether the absence
+                                        of a bang has a runtime impact significiant
+                                        enough to preserve the bang \\
+\textit{\hotspotcost{}} &   float   &   threshold for evaluating which cost center
+                                        qualifies as a \hotspot{} based on its cost\\
+\textit{profMetric}     &   string  &   metric to parse GHC profiles and 
+                                        evaluate \hotspots{} with. (can be either
+                                        "MEM" for memory allocations or "RT" for
+                                        runtime)\\
+\hline
+\end{tabular}
+\scaption{\At{} parameters}
+\label{tab:A2params}
+\end{table}}
+
+\subsection{Choosing Configuration Parameters}
+
+As shown in \figref{tab:A2params}, \At{} requires a few additional
+configuration parameters than what \Ao{} already requires.
+Choosing parameters that maximize performance optimization
+and minimize bangs is difficult and the ideal threshold
+will often vary from program to program. The \hotspotcost{} decides
+whether a cost center is costly enough to be considered a \hotspot{}.
+Higher \hotspotcost{} thresholds will result in fewer \hotspots{} and therefore
+fewer bangs, at the risk of lower performance improvement due to too
+many cost centers being eliminated. The \absim{} determines whether
+a bang's contribution to performance impact is large enough to be preserved.
+Higher \absim{} thresholds will similarly result in fewer preserved bangs
+and therefore less manual inspection time, at the risk of lower performance
+improvement due to too many bangs being eliminated. The \textit{profMetric} specifies
+which metric to evaluate cost centers on, either using run time or memory
+allocations. In our experiments, we found that depending on the program,
+one \profm{} could be ideal over the other or not make a measurable
+difference at all.
+
+
+\subsection{\At{} Output}
+
+If \At{} completes successfully, users can find the resulting source
+code with the minimized bang annotations in the same project
+directory as they would find the usual \Ao{} \texttt{survivor}
+and \texttt{results} directories. If \preopt{} profiling detected that
+the program is unsuitable for optimization, or if \Ao{} failed to
+significantly optimize the program, then \At{} warns the user and
+halts the optimization process. If external libraries could be added to
+the optimization coverage to potentially improve the results,
+the \preopt{} phase alerts the user and then continues to optimize as
+normal.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Source Locations}
+
+\Ao{} uses a bit vector to represent the genes in a
+chromosome, with each bit corresponding to a possible bang location in
+a source file.  In \At{}, we modified this representation so that each
+bit also indicates the cost center associated with the possible bang
+location.   Cost centers are uniquely identified by the corresponding source
+locations in source files.  Thus, we mapped each bit to its corresponding
+source line. To turn the bangs in a \hotspot{} on or off, we can
+traverse the bit-location vector and manipulate the bits that are
+tagged with source lines that fall within the range of
+that \hotspot{}'s source location.
+
+%----------------------------------------------------------------------------------------
+%   SECTION 4
+%----------------------------------------------------------------------------------------
+
+\section{Removing Illegal Genes}
+
+Both \Ao{} and \At{} use the \textit{haskell-src-exts} parser to add
+and remove bangs.
+Unfortunately, the version of \textit{haskell-src-exts} parser that we use
+incorrectly identifies the left-hand side of bindings within instance
+declarations as potential locations to place bangs. For that reason,
+\Ao{} did not optimize files that contain instance declarations.
+To eliminate this restriction, we instead removed any randomly
+generated illegal bangs prior to each round of fitness evaluation in
+the genetic algorithm. The rest of the genetic search runs
+identically as before.
+
+To keep track of whether a bang is legal, we used a
+validity-indicating boolean vector to represent whether each gene in
+the source code is legal. Prior to inserting bangs into a
+program, \At{} would check the validity of a gene against the boolean
+vector to make sure that the bang is located in a legal location.
+
+Generically traversing the parser-generated AST using boilerplate code
+fails to identify illegal genes, so we needed to manually traverse the AST
+to construct the validity vector. As we traversed the AST, we kept
+track of whether a left-hand side binding is within an instance
+declaration. If so, then that binding is an illegal bang location and
+is marked as \texttt{false} in the validity vector. All other
+legal bang locations are marked as  \texttt{true}.
+
+With this approach, \At{} successfully avoids inserting bangs into
+illegal locations.  As a result, \At{} can now optimize files that
+include instance declarations, which was not previously possible.

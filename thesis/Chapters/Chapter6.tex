@@ -1,0 +1,53 @@
+\chapter{Related Work and Future Work} 
+
+\label{Chapter6} % \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{\Ao{} and Other Methods of Managing Laziness}
+
+The current strictness analyzer in GHC uses backward abstract
+interpretation to identify locations that can be eagerly
+evaluated~\cite{Sergey14}. The analysis is sound but necessarily
+approximate because it is static and the underlying property is
+undecidable. The analysis only marks locations as strict if it can
+guarantee termination on all possible inputs, not just realistic ones,
+since it is part of the compiler.  Like \Ao{}, \At{} leverages the
+advantages of being dynamic and not attempting to guarantee
+termination on all inputs.  Instead, \Ao{} allows users to decide if
+the annotations are safe on the intended inputs.
+
+Other approaches for reducing laziness include Strict
+Haskell~\cite{strict-haskell}, which allows users to make entire modules strict rather than
+lazy by default using the \texttt{-XStrict} and \texttt{-XStrictData} language
+pragmas. Chang and Felleisen~\cite{Chang14} take the opposite
+approach: they start with a program written in a strict
+language and inserts laziness annotations using dynamic
+profiling. It would be interesting to see if Chang and Felleisen's
+method could be applied to introduce laziness to Strict Haskell
+programs.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{\At{} Improvements}
+
+For future developments, it would be worth exploring the additional
+use of heap profiles to locate hot spots instead of solely using time
+and allocation profiles. We have occasionally seen programs in our
+experiments that may be more accurately profiled by heap usage instead
+of time and allocation profiles. Although it may be difficult to
+predict which programs' \hotspots{} are more prominently associated
+with heap usage, \At{} could run both profiling systems for a program
+and compare the profiles before selecting the more suitable one to
+use. Another potential improvement is implementing thresholds
+that automatically adjust themselves based on profiling results. Our
+experiments show that the ideal values for \hotspotcost{} and \absim{}
+thresholds vary by program to program. Adopting more flexible
+thresholds that automatically adjust themselves after inspecting the
+profile in the \preopt{} phase might yield better results than using
+set values or asking users to provide them.
+

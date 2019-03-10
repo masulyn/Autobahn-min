@@ -1,0 +1,24 @@
+\chapter{Conclusion} 
+
+\label{Chapter7} % \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Conclusion}
+
+Laziness is a double-edged sword: While it provides many benefits,
+excessive laziness can cause poor performance. Strictness annotations
+allow programmers to force eager evaluation, but its use is limited to
+experienced programmers with high levels of expertise. \Ao{} uses a
+genetic algorithm to automatically infer annotations to improve
+program performance, but it often suggests too many bangs for users to
+inspect. We have built \At{}, which uses GHC profiling feedback to
+focus the search space and eliminates \useless{} bangs in a
+post-processing phase.  Experiments show
+that \At{} removes 90.2\% of bangs that \Ao{} recommended with only a
+15.7\% optimization degradation on the NoFib benchmark,
+and 81.8\% of the bangs with the same 15.7\% optimization degradation
+on the \texttt{gcSimulator} case study.
+

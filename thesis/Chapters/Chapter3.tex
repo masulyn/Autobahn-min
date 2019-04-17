@@ -84,7 +84,7 @@ at the risk of greater degradations in program performance.
 \At{} uses GHC profiling information to reduce the
 number of generated bangs in two different ways, corresponding to two
 different phases in the optimization pipeline, which is shown in \figref{fig:pipeline}. 
-The first phase, which we call the \Preopt{} phase, eliminates
+The first phase, which we call the \preopt{} phase, eliminates
 any chromosome corresponding to a program source code file that
 contains only \coldspots{}. \At{} invokes \Ao{} only on chromosomes
 corresponding to files that contain at least one \hotspot{}. The \preopt{}
@@ -101,7 +101,7 @@ Since such bangs are very likely to have been \useless{} as they
 are only located in \coldspots{}, this step is very likely to 
 reduce the number of inferred \useless{} bangs.
 
-The second phase, which we call the \Postopt{} phase, uses profiling
+The second phase, which we call the \postopt{} phase, uses profiling
 information to categorize \useless{} or \useful{} bangs that occur within \hotspots{} on
 chromosomes that \Ao{} determines to be fit. In a world with infinite resources,
 we would test all combinations of such bangs and select the best one

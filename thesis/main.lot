@@ -7,7 +7,7 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces \textsc {Autobahn 2.0}{} parameters\relax }}{12}{table.caption.34}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Statistics for the NoFib benchmarks\relax }}{16}{table.caption.44}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Statistics for the NoFib benchmarks, sorted in increasing order of number of genes\relax }}{16}{table.caption.44}
 \contentsline {table}{\numberline {5.2}{\ignorespaces Performance results for \texttt {gcSimulator}.\relax }}{28}{table.caption.71}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -33,7 +33,7 @@
 \contentsline {chapter}{\numberline {5}Evaluation}{15}{chapter.39}
 \contentsline {section}{\numberline {5.1}Experimental Setup}{15}{section.40}
 \contentsline {subsection}{\numberline {5.1.1}Runtime Performance Ratio}{15}{subsection.41}
-\contentsline {subsection}{\numberline {5.1.2}Successes and Fails}{15}{subsection.42}
+\contentsline {subsection}{\numberline {5.1.2}Successes and Failures}{15}{subsection.42}
 \contentsline {subsection}{\numberline {5.1.3}Approach}{15}{subsection.43}
 \contentsline {section}{\numberline {5.2}Pre-search{} Search Space Reduction}{17}{section.45}
 \contentsline {section}{\numberline {5.3}Pre-search{} File Elimination}{17}{section.48}

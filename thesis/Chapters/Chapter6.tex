@@ -35,15 +35,10 @@ programs.
 
 \section{\At{} Improvements}
 
-For future developments, it would be worth exploring the additional
-use of heap profiles to locate hot spots instead of solely using time
-and allocation profiles. We have occasionally seen programs in our
-experiments that may be more accurately profiled by heap usage instead
-of time and allocation profiles. Although it may be difficult to
-predict which programs' \hotspots{} are more prominently associated
-with heap usage, \At{} could run both profiling systems for a program
-and compare the profiles before selecting the more suitable one to
-use. Another potential improvement is implementing thresholds
+For future developments, it would be worth exploring methods to 
+automatically predict which profiling metric would produce better
+results so the user does not need to decide.
+Similarly, we could implement thresholds
 that automatically adjust themselves based on profiling results. Our
 experiments show that the ideal values for \hotspotcost{} and \absim{}
 thresholds vary by program to program. Adopting more flexible

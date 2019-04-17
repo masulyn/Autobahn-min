@@ -1,0 +1,599 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{strict-haskell}{misc}{}
+  \field{howpublished}{\url{https://ghc.haskell.org/trac/ghc/wiki/StrictPragma}}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{bang}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+  \field{howpublished}{\url{https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/bang-patterns.html}}
+    \field{title}{{Bang Patterns}}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Blackburn06}{inproceedings}{}
+    \name{author}{20}{}{%
+      {{hash=BSM}{%
+         family={Blackburn},
+         familyi={B\bibinitperiod},
+         given={Stephen\bibnamedelima M.},
+         giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=GR}{%
+         family={Garner},
+         familyi={G\bibinitperiod},
+         given={Robin},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=HC}{%
+         family={Hoffmann},
+         familyi={H\bibinitperiod},
+         given={Chris},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=KAM}{%
+         family={Khang},
+         familyi={K\bibinitperiod},
+         given={Asjad\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=MKS}{%
+         family={McKinley},
+         familyi={M\bibinitperiod},
+         given={Kathryn\bibnamedelima S.},
+         giveni={K\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Bentzur},
+         familyi={B\bibinitperiod},
+         given={Rotem},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=DA}{%
+         family={Diwan},
+         familyi={D\bibinitperiod},
+         given={Amer},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FD}{%
+         family={Feinberg},
+         familyi={F\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FD}{%
+         family={Frampton},
+         familyi={F\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=GSZ}{%
+         family={Guyer},
+         familyi={G\bibinitperiod},
+         given={Samuel\bibnamedelima Z.},
+         giveni={S\bibinitperiod\bibinitdelim Z\bibinitperiod},
+      }}%
+      {{hash=HM}{%
+         family={Hirzel},
+         familyi={H\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=HA}{%
+         family={Hosking},
+         familyi={H\bibinitperiod},
+         given={Antony},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=JM}{%
+         family={Jump},
+         familyi={J\bibinitperiod},
+         given={Maria},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LH}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Han},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=MJEB}{%
+         family={Moss},
+         familyi={M\bibinitperiod},
+         given={J.\bibnamedelima Eliot\bibnamedelima B.},
+         giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim
+  B\bibinitperiod},
+      }}%
+      {{hash=PA}{%
+         family={Phansalkar},
+         familyi={P\bibinitperiod},
+         given={Aashish},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Stefanovi\'{c}},
+         familyi={S\bibinitperiod},
+         given={Darko},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=VT}{%
+         family={VanDrunen},
+         familyi={V\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=vDD}{%
+         prefix={von},
+         prefixi={v\bibinitperiod},
+         family={Dincklage},
+         familyi={D\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=WB}{%
+         family={Wiedermann},
+         familyi={W\bibinitperiod},
+         given={Ben},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{DaCapo, Java, SPEC, benchmark, methodology}
+    \strng{namehash}{BSM+1}
+    \strng{fullhash}{BSMGRHCKAMMKSBRDAFDFDGSZHMHAJMLHMJEBPASDVTDDvWB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \verb{doi}
+    \verb 10.1145/1167473.1167488
+    \endverb
+    \field{isbn}{1-59593-348-4}
+    \field{pages}{169\bibrangedash 190}
+    \field{series}{OOPSLA '06}
+    \field{title}{{The DaCapo Benchmarks}: {Java} Benchmarking Development and
+  Analysis}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/1167473.1167488
+    \endverb
+    \list{location}{1}{%
+      {Portland, Oregon, USA}%
+    }
+    \field{year}{2006}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{langexts}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=BN}{%
+         family={Broberg},
+         familyi={B\bibinitperiod},
+         given={Niklas},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BN1}
+    \strng{fullhash}{BN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+  \field{howpublished}{\url{https://hackage.haskell.org/package/haskell-src-exts-1.17.1}}
+    \field{title}{The haskell-src-exts package}
+    \field{year}{2015}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Chang14}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CS}{%
+         family={Chang},
+         familyi={C\bibinitperiod},
+         given={Stephen},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=FM}{%
+         family={Felleisen},
+         familyi={F\bibinitperiod},
+         given={Matthias},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \keyw{code refactoring, laziness, profiling}
+    \strng{namehash}{CSFM1}
+    \strng{fullhash}{CSFM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{series}{POPL '14}
+    \field{title}{Profiling for Laziness}
+    \field{year}{2014}
+  \endentry
+
+  \entry{Ennals03}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=ER}{%
+         family={Ennals},
+         familyi={E\bibinitperiod},
+         given={Robert},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=PS}{%
+         family={{Peyton Jones}},
+         familyi={P\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{haskell, lazy evaluation, online profiling}
+    \strng{namehash}{ERPS1}
+    \strng{fullhash}{ERPS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{series}{ICFP '03}
+    \field{title}{Optimistic Evaluation: An Adaptive Evaluation Strategy for
+  Non-strict Programs}
+    \list{location}{1}{%
+      {Uppsala, Sweden}%
+    }
+    \field{year}{2003}
+  \endentry
+
+  \entry{genetic}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=HK}{%
+         family={Hoste},
+         familyi={H\bibinitperiod},
+         given={Kenneth},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HK1}
+    \strng{fullhash}{HK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{howpublished}{\url{https://hackage.haskell.org/package/GA}}
+    \field{title}{{The GA Package}}
+    \field{year}{2011}
+    \warn{\item Invalid format of field 'date' \item Invalid format of field
+  'date'}
+  \endentry
+
+  \entry{Hughes89}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HJ}{%
+         family={Hughes},
+         familyi={H\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Oxford University Press}%
+    }
+    \strng{namehash}{HJ1}
+    \strng{fullhash}{HJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{number}{2}
+    \field{title}{Why Functional Programming Matters}
+    \field{volume}{32}
+    \field{journaltitle}{Comput. J.}
+    \field{month}{04}
+    \field{year}{1989}
+  \endentry
+
+  \entry{Mitchell13}{article}{}
+    \name{author}{1}{}{%
+      {{hash=MN}{%
+         family={Mitchell},
+         familyi={M\bibinitperiod},
+         given={Neil},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \strng{namehash}{MN1}
+    \strng{fullhash}{MN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{number}{9}
+    \field{title}{Leaking Space}
+    \field{volume}{11}
+    \field{journaltitle}{Queue}
+    \field{month}{09}
+    \field{year}{2013}
+  \endentry
+
+  \entry{rwh}{book}{}
+    \name{author}{3}{}{%
+      {{hash=OB}{%
+         family={O'Sullivan},
+         familyi={O\bibinitperiod},
+         given={Bryan},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Stewart},
+         familyi={S\bibinitperiod},
+         given={Don},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Goerzen},
+         familyi={G\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {O'Reilly Media}%
+    }
+    \strng{namehash}{OBSDGJ1}
+    \strng{fullhash}{OBSDGJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{note}{Available at \url{http://book.realworldhaskell.org}}
+    \field{title}{Real World Haskell}
+    \field{year}{2009}
+  \endentry
+
+  \entry{Jones94}{incollection}{}
+    \name{author}{2}{}{%
+      {{hash=PS}{%
+         family={{Peyton Jones}},
+         familyi={P\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PW}{%
+         family={Partain},
+         familyi={P\bibinitperiod},
+         given={Will},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{PSPW1}
+    \strng{fullhash}{PSPW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{booktitle}{Functional Programming, Glasgow 1993}
+    \field{title}{Measuring the effectiveness of a simple strictness analyser}
+    \field{year}{1994}
+  \endentry
+
+  \entry{PeytonJones89}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=PS}{%
+         family={{Peyton Jones}},
+         familyi={P\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Salkild},
+         familyi={S\bibinitperiod},
+         given={Jon},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PSSJ1}
+    \strng{fullhash}{PSSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{series}{FPCA '89}
+    \field{title}{The Spineless Tagless {G}-machine}
+    \list{location}{1}{%
+      {Imperial College, London, United Kingdom}%
+    }
+    \field{year}{1989}
+  \endentry
+
+  \entry{Santos98}{article}{}
+    \name{author}{2}{}{%
+      {{hash=PJS}{%
+         family={Peyton\bibnamedelima Jones},
+         familyi={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=SALM}{%
+         family={Santos},
+         familyi={S\bibinitperiod},
+         given={Andr{\'e} L.\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim
+  M\bibinitperiod},
+      }}%
+    }
+    \keyw{compilers, functional languages, let-floating, linear type system,
+  optimisation, second-order lambda calculus, strict analysis, transformation}
+    \strng{namehash}{PJSSALM1}
+    \strng{fullhash}{PJSSALM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{number}{1-3}
+    \field{title}{A Transformation-based Optimiser for {Haskell}}
+    \field{volume}{32}
+    \field{journaltitle}{Sci. Comput. Program.}
+    \field{month}{09}
+    \field{year}{1998}
+  \endentry
+
+  \entry{Ricci13}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=RNP}{%
+         family={Ricci},
+         familyi={R\bibinitperiod},
+         given={Nathan\bibnamedelima P.},
+         giveni={N\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=GSZ}{%
+         family={Guyer},
+         familyi={G\bibinitperiod},
+         given={Samuel\bibnamedelima Z.},
+         giveni={S\bibinitperiod\bibinitdelim Z\bibinitperiod},
+      }}%
+      {{hash=MJEB}{%
+         family={Moss},
+         familyi={M\bibinitperiod},
+         given={J.\bibnamedelima Eliot\bibnamedelima B.},
+         giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim
+  B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{garbage collection, java, merlin algorithm, traces}
+    \strng{namehash}{RNPGSZMJEB1}
+    \strng{fullhash}{RNPGSZMJEB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{Proceedings of the 2013 International Symposium on Memory
+  Management}
+    \verb{doi}
+    \verb 10.1145/2464157.2466484
+    \endverb
+    \field{isbn}{978-1-4503-2100-6}
+    \field{pages}{109\bibrangedash 118}
+    \field{series}{ISMM '13}
+    \field{title}{{Elephant Tracks}: {Portable} Production of Complete and
+  Precise {GC} Traces}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2464157.2466484
+    \endverb
+    \list{location}{1}{%
+      {Seattle, Washington, USA}%
+    }
+    \field{year}{2013}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{Sergey14}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=SI}{%
+         family={Sergey},
+         familyi={S\bibinitperiod},
+         given={Ilya},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=VD}{%
+         family={Vytiniotis},
+         familyi={V\bibinitperiod},
+         given={Dimitrios},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=PJS}{%
+         family={Peyton\bibnamedelima Jones},
+         familyi={P\bibinitperiod\bibinitdelim J\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{cardinality analysis, compilers, functional programming languages,
+  haskell, lazy evaluation, operational semantics, program optimisation, static
+  analysis, thunks, types and effects}
+    \strng{namehash}{SIVDPJS1}
+    \strng{fullhash}{SIVDPJS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{series}{POPL '14}
+    \field{title}{Modular, Higher-order Cardinality Analysis in Theory and
+  Practice}
+    \list{location}{1}{%
+      {San Diego, California, USA}%
+    }
+    \field{year}{2014}
+  \endentry
+
+  \entry{autobahn-wang}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=WYR}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Yisu\bibnamedelima Remy},
+         giveni={Y\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=ND}{%
+         family={Nunez},
+         familyi={N\bibinitperiod},
+         given={Diogenes},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=FK}{%
+         family={Fisher},
+         familyi={F\bibinitperiod},
+         given={Kathleen},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \keyw{Haskell, genetic algorithms, laziness, strictness annotations}
+    \strng{namehash}{WYRNDFK1}
+    \strng{fullhash}{WYRNDFK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{series}{Haskell '16}
+    \field{title}{Autobahn: Using Genetic Algorithms to Infer Strictness
+  Annotations}
+    \list{location}{1}{%
+      {Nara, Japan}%
+    }
+    \field{year}{2016}
+  \endentry
+\endsortlist
+\endinput

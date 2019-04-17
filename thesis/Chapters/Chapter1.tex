@@ -83,7 +83,7 @@ the use of infinite data structures~\cite{Hughes89}.
 
 While lazy evaluation reaps many benefits, it can also cause serious
 performance problems in both time and space when large amounts of
-memory are allocated to thunks~\cite{Jones94,Santos98,Ennals03}. This is
+memory are allocated to thunks~\cite{Jones94,Santos98,Ennals03}. This problem is
 also why Pat and Chris' program runs much slower than anticipated.
 Reducing the number of thunks created at runtime is an important
 optimization in the GHC compiler, which uses a backward static
@@ -154,7 +154,7 @@ preserving performance improvements.  In our experiments, we chose to
 aggressively reduce the number bangs, accepting some performance
 degradation over the level of optimization provided by \Ao{}.
 
-The contribution of this paper are the following:
+The contributions of this thesis are the following:
 \begin{itemize}
   \item We describe how to use profiling information to automatically reduce the number
     of bangs inferred by \Ao{} while maintaining roughly the same

@@ -36,15 +36,15 @@
 \contentsline {subsection}{\numberline {5.1.2}Successes and Failures}{15}{subsection.42}
 \contentsline {subsection}{\numberline {5.1.3}Approach}{15}{subsection.43}
 \contentsline {section}{\numberline {5.2}Pre-search{} Search Space Reduction}{17}{section.45}
-\contentsline {section}{\numberline {5.3}Pre-search{} File Elimination}{17}{section.48}
-\contentsline {section}{\numberline {5.4}Pre-search{} File Addition}{19}{section.49}
-\contentsline {section}{\numberline {5.5}Post-search{} Bang Reduction}{20}{section.51}
+\contentsline {section}{\numberline {5.3}Pre-search{} File Elimination}{17}{section.46}
+\contentsline {section}{\numberline {5.4}Pre-search{} File Addition}{18}{section.49}
+\contentsline {section}{\numberline {5.5}Post-search{} Bang Reduction}{19}{section.51}
 \contentsline {section}{\numberline {5.6}\textsc {Autobahn 2.0}{}: Combining pre-search{} and post-search{}}{20}{section.57}
-\contentsline {subsection}{\numberline {5.6.1}Runtime vs. memory allocations as profiling metric{}}{23}{subsection.63}
-\contentsline {section}{\numberline {5.7}Case Study: \textsc {Autobahn 2.0}{} On \texttt {gcSimulator}}{25}{section.70}
-\contentsline {chapter}{\numberline {6}Related Work and Future Work}{29}{chapter.72}
-\contentsline {section}{\numberline {6.1}\textsc {Autobahn 1.0}{} and Other Methods of Managing Laziness}{29}{section.73}
-\contentsline {section}{\numberline {6.2}\textsc {Autobahn 2.0}{} Improvements}{29}{section.74}
-\contentsline {chapter}{\numberline {7}Conclusion}{31}{chapter.75}
-\contentsline {section}{\numberline {7.1}Conclusion}{31}{section.76}
-\contentsline {chapter}{Bibliography}{33}{chapter*.77}
+\contentsline {subsection}{\numberline {5.6.1}Runtime vs. memory allocations as profiling metric{}}{24}{subsection.63}
+\contentsline {section}{\numberline {5.7}Case Study: \textsc {Autobahn 2.0}{} On \texttt {gcSimulator}}{24}{section.69}
+\contentsline {chapter}{\numberline {6}Related Work and Future Work}{29}{chapter.71}
+\contentsline {section}{\numberline {6.1}\textsc {Autobahn 1.0}{} and Other Methods of Managing Laziness}{29}{section.72}
+\contentsline {section}{\numberline {6.2}\textsc {Autobahn 2.0}{} Improvements}{29}{section.73}
+\contentsline {chapter}{\numberline {7}Conclusion}{31}{chapter.74}
+\contentsline {section}{\numberline {7.1}Conclusion}{31}{section.75}
+\contentsline {chapter}{Bibliography}{33}{chapter*.76}

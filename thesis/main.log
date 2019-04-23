@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  17 APR 2019 11:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  23 APR 2019 14:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1947,7 +1947,7 @@ LaTeX Info: Redefining \pageref on input line 6432.
 )
 Package scrhack Info: hyperref hack deactivated because of
 (scrhack)             detection of hyperref version, that doesn't
-(scrhack)             need that hack, on input line 136.
+(scrhack)             need that hack, on input line 138.
 
 
 Package hyperref Message: Driver (autodetected): hpdftex.
@@ -1964,17 +1964,17 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip74
 )
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 136.
-Package hyperref Info: Option `hypertexnames' set `false' on input line 136.
-Package hyperref Info: Option `colorlinks' set `true' on input line 136.
-Package hyperref Info: Option `unicode' set `true' on input line 136.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 138.
+Package hyperref Info: Option `hypertexnames' set `false' on input line 138.
+Package hyperref Info: Option `colorlinks' set `true' on input line 138.
+Package hyperref Info: Option `unicode' set `true' on input line 138.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2017/03/14 v6.85a Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 136.
+Package hyperref Info: Option `breaklinks' set `true' on input line 138.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -1989,23 +1989,23 @@ Package csquotes Info: ... found 'babel' package.
 (./Chapters/Chapter6.aux) (./Chapters/Chapter7.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 136.
-LaTeX Font Info:    ... okay on input line 136.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 136.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 138.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
@@ -2161,14 +2161,14 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package scrlayer Info: Setting magic \footheight to \baselineskip while
-(scrlayer)             \begin{document} on input line 136.
-Package scrbase Info: activating english \abbrevname on input line 136.
-Package scrbase Info: activating english \byname on input line 136.
-Package scrbase Info: activating english \acknowledgementname on input line 136
+(scrlayer)             \begin{document} on input line 138.
+Package scrbase Info: activating english \abbrevname on input line 138.
+Package scrbase Info: activating english \byname on input line 138.
+Package scrbase Info: activating english \acknowledgementname on input line 138
 .
-Package scrbase Info: activating english \authorshipname on input line 136.
-Package scrbase Info: activating english \constantsname on input line 136.
-Package scrbase Info: activating english \symbolsname on input line 136.
+Package scrbase Info: activating english \authorshipname on input line 138.
+Package scrbase Info: activating english \constantsname on input line 138.
+Package scrbase Info: activating english \symbolsname on input line 138.
 \big@size=\dimen294
 ABD: EveryShipout initializing macros
 Package biblatex Info: Input encoding 'utf8' detected.
@@ -2217,10 +2217,10 @@ Package biblatex Warning: Biber reported the following issues
 (biblatex)                - Can't use 'location' + 'address'.
 
 )
-Package biblatex Info: Reference section=0 on input line 136.
-Package biblatex Info: Reference segment=0 on input line 136.
+Package biblatex Info: Reference section=0 on input line 138.
+Package biblatex Info: Reference segment=0 on input line 138.
 \AtBeginShipoutBox=\box85
-Package hyperref Info: Link coloring ON on input line 136.
+Package hyperref Info: Link coloring ON on input line 138.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -2229,40 +2229,40 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count388
 )
-LaTeX Info: Redefining \ref on input line 136.
-LaTeX Info: Redefining \pageref on input line 136.
-LaTeX Info: Redefining \nameref on input line 136.
+LaTeX Info: Redefining \ref on input line 138.
+LaTeX Info: Redefining \pageref on input line 138.
+LaTeX Info: Redefining \nameref on input line 138.
 
 (./main.out) (./main.out)
 \@outlinefile=\write6
 \openout6 = `main.out'.
 
 \c__siunitx_mathsf_int=\count389
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 136.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 138.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 136
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 138
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 136
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 138
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 136
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 138
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 136
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 138
 .
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1zplm.fd
@@ -2272,9 +2272,9 @@ File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 
 1: section
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 153.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 155.
 LaTeX Font Info:    Font shape `T1/ppl/bx/sc' in size <20.74> not available
-(Font)              Font shape `T1/ppl/b/sc' tried instead on input line 153.
+(Font)              Font shape `T1/ppl/b/sc' tried instead on input line 155.
 [1
 
 
@@ -2284,10 +2284,13 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/sc' in size <20.74> not available
 --------------------
  Abstract
 --------------------
+
+Package hyperref Warning: Suppressing empty link on input line 199.
+
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 197.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 199.
 LaTeX Font Info:    Font shape `T1/ppl/bx/sc' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/sc' tried instead on input line 197.
+(Font)              Font shape `T1/ppl/b/sc' tried instead on input line 199.
 1: section
 [3
 
@@ -2302,7 +2305,7 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/sc' in size <10.95> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 248.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 251.
  (./main.toc
 1: section
 [7]
@@ -2315,11 +2318,6 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 
  [8]
 (./main.lof
-Overfull \hbox (1.58742pt too wide) in paragraph at lines 17--17
- [][] [][][]\T1/ppl/m/n/10.95 Frequency of fail-ures at-tributable to \T1/ppl/m
-/sc/10.95 Au-to-bahn 1.0 \T1/ppl/m/n/10.95 vs the post-search 
- []
-
 1: section
 [9
 
@@ -2460,6 +2458,14 @@ Chapter 5.
 
 
 ] [16]
+Overfull \hbox (4.30414pt too wide) in paragraph at lines 225--246
+\T1/cmtt/m/n/10.95 callback001\T1/ppl/m/n/10.95 , \T1/cmtt/m/n/10.95 callback00
+2\T1/ppl/m/n/10.95 , \T1/cmtt/m/n/10.95 mutstore2\T1/ppl/m/n/10.95 , \T1/cmtt/m
+/n/10.95 sorting\T1/ppl/m/n/10.95 , and \T1/cmtt/m/n/10.95 threads007\T1/ppl/m/
+n/10.95 . As ex-pected, when
+ []
+
+[17]
 Package epstopdf Info: Source file: <Figures/pre-aut-bangs.eps>
 (epstopdf)                    date: 2018-06-08 19:45:38
 (epstopdf)                    size: 35665 bytes
@@ -2469,15 +2475,15 @@ Package epstopdf Info: Source file: <Figures/pre-aut-bangs.eps>
 (epstopdf)                    size: 9552 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pre-aut-bangs-eps-
 converted-to.pdf Figures/pre-aut-bangs.eps>
-(epstopdf)             \includegraphics on input line 219.
+(epstopdf)             \includegraphics on input line 248.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pre-aut-bangs-eps-converted-to.pdf, id=542, 542.025pt x 176.66pt>
+<Figures/pre-aut-bangs-eps-converted-to.pdf, id=541, 542.025pt x 176.66pt>
 File: Figures/pre-aut-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pre-aut-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pre-aut-bangs-eps-converted-to.pdf used on inp
-ut line 219.
+ut line 248.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/pre-aut.eps>
 (epstopdf)                    date: 2018-06-08 19:46:44
@@ -2487,32 +2493,24 @@ Package epstopdf Info: Source file: <Figures/pre-aut.eps>
 (epstopdf)                    size: 8240 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pre-aut-eps-conver
 ted-to.pdf Figures/pre-aut.eps>
-(epstopdf)             \includegraphics on input line 229.
+(epstopdf)             \includegraphics on input line 258.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pre-aut-eps-converted-to.pdf, id=543, 542.025pt x 176.66pt>
+<Figures/pre-aut-eps-converted-to.pdf, id=542, 542.025pt x 176.66pt>
 File: Figures/pre-aut-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pre-aut-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pre-aut-eps-converted-to.pdf used on input lin
-e 229.
+e 258.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
-
-Overfull \hbox (4.30414pt too wide) in paragraph at lines 246--267
-\T1/cmtt/m/n/10.95 callback001\T1/ppl/m/n/10.95 , \T1/cmtt/m/n/10.95 callback00
-2\T1/ppl/m/n/10.95 , \T1/cmtt/m/n/10.95 mutstore2\T1/ppl/m/n/10.95 , \T1/cmtt/m
-/n/10.95 sorting\T1/ppl/m/n/10.95 , and \T1/cmtt/m/n/10.95 threads007\T1/ppl/m/
-n/10.95 . As ex-pected, when
- []
-
-[17] [18 <./Figures/pre-aut-bangs-eps-converted-to.pdf> <./Figures/pre-aut-eps-
-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 309--321
+ [18 <./Figures/pre-aut-bangs-eps-converted-to.pdf> <./Figures/pre-aut-eps-conv
+erted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 308--320
 
  []
 
 
-Overfull \hbox (4.40552pt too wide) in paragraph at lines 326--327
+Overfull \hbox (4.40552pt too wide) in paragraph at lines 325--326
 []|\T1/ppl/m/n/10.95 No.Bangs| 
  []
 
@@ -2526,15 +2524,15 @@ f>
 (epstopdf)                    size: 8760 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/aut-post-bangs-eps
 -converted-to.pdf Figures/aut-post-bangs.eps>
-(epstopdf)             \includegraphics on input line 402.
+(epstopdf)             \includegraphics on input line 393.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/aut-post-bangs-eps-converted-to.pdf, id=581, 542.025pt x 176.66pt>
+<Figures/aut-post-bangs-eps-converted-to.pdf, id=575, 542.025pt x 176.66pt>
 File: Figures/aut-post-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/aut-post-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/aut-post-bangs-eps-converted-to.pdf used on in
-put line 402.
+put line 393.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/aut-post.eps>
 (epstopdf)                    date: 2018-06-08 19:51:13
@@ -2544,15 +2542,15 @@ Package epstopdf Info: Source file: <Figures/aut-post.eps>
 (epstopdf)                    size: 8491 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/aut-post-eps-conve
 rted-to.pdf Figures/aut-post.eps>
-(epstopdf)             \includegraphics on input line 411.
+(epstopdf)             \includegraphics on input line 402.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/aut-post-eps-converted-to.pdf, id=582, 542.025pt x 176.66pt>
+<Figures/aut-post-eps-converted-to.pdf, id=576, 542.025pt x 176.66pt>
 File: Figures/aut-post-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/aut-post-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/aut-post-eps-converted-to.pdf used on input li
-ne 411.
+ne 402.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/ap-partial-bangs.eps>
 (epstopdf)                    date: 2018-06-08 19:56:19
@@ -2563,15 +2561,15 @@ pdf>
 (epstopdf)                    size: 9587 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/ap-partial-bangs-e
 ps-converted-to.pdf Figures/ap-partial-bangs.eps>
-(epstopdf)             \includegraphics on input line 422.
+(epstopdf)             \includegraphics on input line 413.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/ap-partial-bangs-eps-converted-to.pdf, id=583, 542.025pt x 176.66pt>
+<Figures/ap-partial-bangs-eps-converted-to.pdf, id=577, 542.025pt x 176.66pt>
 File: Figures/ap-partial-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/ap-partial-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/ap-partial-bangs-eps-converted-to.pdf used on 
-input line 422.
+input line 413.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/ap-partial.eps>
 (epstopdf)                    date: 2018-06-08 19:55:19
@@ -2581,15 +2579,15 @@ Package epstopdf Info: Source file: <Figures/ap-partial.eps>
 (epstopdf)                    size: 8937 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/ap-partial-eps-con
 verted-to.pdf Figures/ap-partial.eps>
-(epstopdf)             \includegraphics on input line 432.
+(epstopdf)             \includegraphics on input line 423.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/ap-partial-eps-converted-to.pdf, id=584, 542.025pt x 176.66pt>
+<Figures/ap-partial-eps-converted-to.pdf, id=578, 542.025pt x 176.66pt>
 File: Figures/ap-partial-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/ap-partial-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/ap-partial-eps-converted-to.pdf used on input 
-line 432.
+line 423.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/aut-post-fail.eps>
 (epstopdf)                    date: 2018-06-08 20:42:44
@@ -2600,20 +2598,19 @@ Package epstopdf Info: Source file: <Figures/aut-post-fail.eps>
 (epstopdf)                    size: 8053 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/aut-post-fail-eps-
 converted-to.pdf Figures/aut-post-fail.eps>
-(epstopdf)             \includegraphics on input line 441.
+(epstopdf)             \includegraphics on input line 432.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/aut-post-fail-eps-converted-to.pdf, id=585, 542.025pt x 176.66pt>
+<Figures/aut-post-fail-eps-converted-to.pdf, id=579, 542.025pt x 176.66pt>
 File: Figures/aut-post-fail-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/aut-post-fail-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/aut-post-fail-eps-converted-to.pdf used on inp
-ut line 441.
+ut line 432.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
- [20] [21 <./Figures/aut-post-bangs-eps-converted-to.pdf> <./Figures/aut-post-e
-ps-converted-to.pdf> <./Figures/ap-partial-bangs-eps-converted-to.pdf>] [22 <./
-Figures/ap-partial-eps-converted-to.pdf> <./Figures/aut-post-fail-eps-converted
--to.pdf>]
+ [20 <./Figures/aut-post-bangs-eps-converted-to.pdf>] [21 <./Figures/aut-post-e
+ps-converted-to.pdf> <./Figures/ap-partial-bangs-eps-converted-to.pdf> <./Figur
+es/ap-partial-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <Figures/pap0-bangs.eps>
 (epstopdf)                    date: 2019-03-06 20:24:17
 (epstopdf)                    size: 35655 bytes
@@ -2622,15 +2619,14 @@ Package epstopdf Info: Source file: <Figures/pap0-bangs.eps>
 (epstopdf)                    size: 9387 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pap0-bangs-eps-con
 verted-to.pdf Figures/pap0-bangs.eps>
-(epstopdf)             \includegraphics on input line 501.
+(epstopdf)             \includegraphics on input line 492.
 Package epstopdf Info: Output file is already uptodate.
-
-<Figures/pap0-bangs-eps-converted-to.pdf, id=633, 542.025pt x 176.66pt>
+ <Figures/pap0-bangs-eps-converted-to.pdf, id=617, 542.025pt x 176.66pt>
 File: Figures/pap0-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pap0-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pap0-bangs-eps-converted-to.pdf used on input 
-line 501.
+line 492.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/pap0.eps>
 (epstopdf)                    date: 2019-03-06 20:13:48
@@ -2640,15 +2636,15 @@ Package epstopdf Info: Source file: <Figures/pap0.eps>
 (epstopdf)                    size: 8702 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pap0-eps-converted
 -to.pdf Figures/pap0.eps>
-(epstopdf)             \includegraphics on input line 512.
+(epstopdf)             \includegraphics on input line 503.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pap0-eps-converted-to.pdf, id=634, 542.025pt x 176.66pt>
+<Figures/pap0-eps-converted-to.pdf, id=618, 542.025pt x 176.66pt>
 File: Figures/pap0-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pap0-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pap0-eps-converted-to.pdf used on input line 5
-12.
+03.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/pap1-bangs.eps>
 (epstopdf)                    date: 2019-03-06 20:14:07
@@ -2658,15 +2654,15 @@ Package epstopdf Info: Source file: <Figures/pap1-bangs.eps>
 (epstopdf)                    size: 9706 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pap1-bangs-eps-con
 verted-to.pdf Figures/pap1-bangs.eps>
-(epstopdf)             \includegraphics on input line 520.
+(epstopdf)             \includegraphics on input line 511.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pap1-bangs-eps-converted-to.pdf, id=635, 542.025pt x 176.66pt>
+<Figures/pap1-bangs-eps-converted-to.pdf, id=619, 542.025pt x 176.66pt>
 File: Figures/pap1-bangs-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pap1-bangs-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pap1-bangs-eps-converted-to.pdf used on input 
-line 520.
+line 511.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/pap1.eps>
 (epstopdf)                    date: 2019-03-06 20:13:57
@@ -2676,15 +2672,15 @@ Package epstopdf Info: Source file: <Figures/pap1.eps>
 (epstopdf)                    size: 8820 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pap1-eps-converted
 -to.pdf Figures/pap1.eps>
-(epstopdf)             \includegraphics on input line 531.
+(epstopdf)             \includegraphics on input line 522.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pap1-eps-converted-to.pdf, id=636, 542.025pt x 176.66pt>
+<Figures/pap1-eps-converted-to.pdf, id=620, 542.025pt x 176.66pt>
 File: Figures/pap1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pap1-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pap1-eps-converted-to.pdf used on input line 5
-31.
+22.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/pap-fail.eps>
 (epstopdf)                    date: 2019-04-16 22:13:46
@@ -2694,19 +2690,19 @@ Package epstopdf Info: Source file: <Figures/pap-fail.eps>
 (epstopdf)                    size: 8439 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/pap-fail-eps-conve
 rted-to.pdf Figures/pap-fail.eps>
-(epstopdf)             \includegraphics on input line 540.
+(epstopdf)             \includegraphics on input line 531.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/pap-fail-eps-converted-to.pdf, id=637, 542.025pt x 176.66pt>
+<Figures/pap-fail-eps-converted-to.pdf, id=621, 542.025pt x 176.66pt>
 File: Figures/pap-fail-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/pap-fail-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/pap-fail-eps-converted-to.pdf used on input li
-ne 540.
+ne 531.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
- [23 <./Figures/pap0-bangs-eps-converted-to.pdf>] [24 <./Figures/pap0-eps-conve
-rted-to.pdf> <./Figures/pap1-bangs-eps-converted-to.pdf> <./Figures/pap1-eps-co
-nverted-to.pdf>]
+ [22 <./Figures/aut-post-fail-eps-converted-to.pdf> <./Figures/pap0-bangs-eps-c
+onverted-to.pdf>] [23 <./Figures/pap0-eps-converted-to.pdf> <./Figures/pap1-ban
+gs-eps-converted-to.pdf> <./Figures/pap1-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <Figures/HA-bpapA.eps>
 (epstopdf)                    date: 2019-04-16 17:11:37
 (epstopdf)                    size: 33564 bytes
@@ -2715,15 +2711,15 @@ Package epstopdf Info: Source file: <Figures/HA-bpapA.eps>
 (epstopdf)                    size: 8989 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/HA-bpapA-eps-conve
 rted-to.pdf Figures/HA-bpapA.eps>
-(epstopdf)             \includegraphics on input line 559.
+(epstopdf)             \includegraphics on input line 565.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/HA-bpapA-eps-converted-to.pdf, id=672, 542.025pt x 176.66pt>
+<Figures/HA-bpapA-eps-converted-to.pdf, id=660, 542.025pt x 176.66pt>
 File: Figures/HA-bpapA-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/HA-bpapA-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/HA-bpapA-eps-converted-to.pdf used on input li
-ne 559.
+ne 565.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/HA-papA.eps>
 (epstopdf)                    date: 2019-04-16 17:08:39
@@ -2733,15 +2729,15 @@ Package epstopdf Info: Source file: <Figures/HA-papA.eps>
 (epstopdf)                    size: 8266 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/HA-papA-eps-conver
 ted-to.pdf Figures/HA-papA.eps>
-(epstopdf)             \includegraphics on input line 570.
+(epstopdf)             \includegraphics on input line 576.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/HA-papA-eps-converted-to.pdf, id=673, 542.025pt x 176.66pt>
+<Figures/HA-papA-eps-converted-to.pdf, id=661, 542.025pt x 176.66pt>
 File: Figures/HA-papA-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/HA-papA-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/HA-papA-eps-converted-to.pdf used on input lin
-e 570.
+e 576.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/HA-bpapb.eps>
 (epstopdf)                    date: 2019-04-16 17:10:40
@@ -2751,15 +2747,15 @@ Package epstopdf Info: Source file: <Figures/HA-bpapb.eps>
 (epstopdf)                    size: 8957 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/HA-bpapb-eps-conve
 rted-to.pdf Figures/HA-bpapb.eps>
-(epstopdf)             \includegraphics on input line 578.
+(epstopdf)             \includegraphics on input line 584.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/HA-bpapb-eps-converted-to.pdf, id=674, 542.025pt x 176.66pt>
+<Figures/HA-bpapb-eps-converted-to.pdf, id=662, 542.025pt x 176.66pt>
 File: Figures/HA-bpapb-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/HA-bpapb-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/HA-bpapb-eps-converted-to.pdf used on input li
-ne 578.
+ne 584.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/HA-papB.eps>
 (epstopdf)                    date: 2019-04-16 17:01:35
@@ -2769,75 +2765,56 @@ Package epstopdf Info: Source file: <Figures/HA-papB.eps>
 (epstopdf)                    size: 8321 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/HA-papB-eps-conver
 ted-to.pdf Figures/HA-papB.eps>
-(epstopdf)             \includegraphics on input line 589.
+(epstopdf)             \includegraphics on input line 595.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/HA-papB-eps-converted-to.pdf, id=675, 542.025pt x 176.66pt>
+<Figures/HA-papB-eps-converted-to.pdf, id=663, 542.025pt x 176.66pt>
 File: Figures/HA-papB-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/HA-papB-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/HA-papB-eps-converted-to.pdf used on input lin
-e 589.
+e 595.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 Package epstopdf Info: Source file: <Figures/HA-pap-fail.eps>
-(epstopdf)                    date: 2019-04-16 22:15:54
-(epstopdf)                    size: 30497 bytes
+(epstopdf)                    date: 2019-04-17 14:01:42
+(epstopdf)                    size: 34457 bytes
 (epstopdf)             Output file: <Figures/HA-pap-fail-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-04-16 22:36:19
-(epstopdf)                    size: 8242 bytes
+(epstopdf)                    date: 2019-04-17 14:02:37
+(epstopdf)                    size: 8713 bytes
 (epstopdf)             Command: <repstopdf --outfile=Figures/HA-pap-fail-eps-co
 nverted-to.pdf Figures/HA-pap-fail.eps>
-(epstopdf)             \includegraphics on input line 598.
+(epstopdf)             \includegraphics on input line 603.
 Package epstopdf Info: Output file is already uptodate.
 
-<Figures/HA-pap-fail-eps-converted-to.pdf, id=676, 542.025pt x 176.66pt>
+<Figures/HA-pap-fail-eps-converted-to.pdf, id=664, 542.025pt x 176.66pt>
 File: Figures/HA-pap-fail-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Figures/HA-pap-fail-eps-converted-to.pdf>
 Package pdftex.def Info: Figures/HA-pap-fail-eps-converted-to.pdf used on input
- line 598.
-(pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
-Package epstopdf Info: Source file: <Figures/HA-pap-fail-2.eps>
-(epstopdf)                    date: 2019-04-16 22:02:12
-(epstopdf)                    size: 30571 bytes
-(epstopdf)             Output file: <Figures/HA-pap-fail-2-eps-converted-to.pdf
->
-(epstopdf)                    date: 2019-04-16 22:36:19
-(epstopdf)                    size: 8038 bytes
-(epstopdf)             Command: <repstopdf --outfile=Figures/HA-pap-fail-2-eps-
-converted-to.pdf Figures/HA-pap-fail-2.eps>
-(epstopdf)             \includegraphics on input line 606.
-Package epstopdf Info: Output file is already uptodate.
-
-<Figures/HA-pap-fail-2-eps-converted-to.pdf, id=677, 542.025pt x 176.66pt>
-File: Figures/HA-pap-fail-2-eps-converted-to.pdf Graphic file (type pdf)
-
-<use Figures/HA-pap-fail-2-eps-converted-to.pdf>
-Package pdftex.def Info: Figures/HA-pap-fail-2-eps-converted-to.pdf used on inp
-ut line 606.
+ line 603.
 (pdftex.def)             Requested size: 404.02908pt x 131.68867pt.
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 617.
- [25 <./Figures/pap-fail-eps-converted-to.pdf> <./Figures/HA-bpapA-eps-converte
-d-to.pdf>] [26 <./Figures/HA-papA-eps-converted-to.pdf> <./Figures/HA-bpapb-eps
--converted-to.pdf> <./Figures/HA-papB-eps-converted-to.pdf>] [27 <./Figures/HA-
-pap-fail-eps-converted-to.pdf> <./Figures/HA-pap-fail-2-eps-converted-to.pdf>]
-Overfull \hbox (4.40552pt too wide) in paragraph at lines 648--649
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 614.
+ [24 <./Figures/pap-fail-eps-converted-to.pdf>] [25 <./Figures/HA-bpapA-eps-con
+verted-to.pdf> <./Figures/HA-papA-eps-converted-to.pdf> <./Figures/HA-bpapb-eps
+-converted-to.pdf>] [26 <./Figures/HA-papB-eps-converted-to.pdf> <./Figures/HA-
+pap-fail-eps-converted-to.pdf>]
+Overfull \hbox (4.40552pt too wide) in paragraph at lines 643--644
 []|\T1/ppl/m/n/10.95 No.Bangs| 
  []
 
-) [28]
+) [27]
 \openout2 = `Chapters/Chapter6.aux'.
 
- (./Chapters/Chapter6.tex
-Chapter 6.
-)
-1: section
-[29
+ (./Chapters/Chapter6.tex [28
 
 
 
 ]
+Chapter 6.
+)
+1: section
+[29]
 \openout2 = `Chapters/Chapter7.aux'.
 
  (./Chapters/Chapter7.tex [30
@@ -2854,27 +2831,27 @@ Chapter 7.
 ]
 1: section
 [33]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 302.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 302.
  (./main.aux (./Chapters/Chapter1.aux) (./Chapters/Chapter2.aux)
 (./Chapters/Chapter3.aux) (./Chapters/Chapter4.aux) (./Chapters/Chapter5.aux)
 (./Chapters/Chapter6.aux) (./Chapters/Chapter7.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 302.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 302.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: BB363DD6508C80B389862AC96B4227FB;8035.
+(rerunfilecheck)             Checksum: 00E77E7E89174AFFDBCBE4E308711C14;8035.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45525 strings out of 492995
- 958567 string characters out of 6132704
- 1166600 words of memory out of 5000000
- 48275 multiletter control sequences out of 15000+600000
+ 45518 strings out of 492995
+ 958327 string characters out of 6132704
+ 1166334 words of memory out of 5000000
+ 48270 multiletter control sequences out of 15000+600000
  60129 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,20n,79p,10377b,2300s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,20n,80p,10377b,2300s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
@@ -2889,10 +2866,10 @@ mf-dist/fonts/type1/public/cm-super/sftt1440.pfb></usr/local/texlive/2017/texmf
 onts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
 pe1/urw/palatino/uplr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw
 /palatino/uplri8a.pfb>
-Output written on main.pdf (47 pages, 429004 bytes).
+Output written on main.pdf (47 pages, 424841 bytes).
 PDF statistics:
- 850 PDF objects out of 1000 (max. 8388607)
- 744 compressed objects within 8 object streams
- 141 named destinations out of 1000 (max. 500000)
- 479 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 837 PDF objects out of 1000 (max. 8388607)
+ 733 compressed objects within 8 object streams
+ 140 named destinations out of 1000 (max. 500000)
+ 474 words of extra memory for PDF output out of 10000 (max. 10000000)
 
